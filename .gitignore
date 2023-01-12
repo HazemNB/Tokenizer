@@ -1,0 +1,5 @@
+Client/v1/node_modules/
+Client/soft-ui-dashboard-react-main/
+Server/Tokenizer_V1/bin/
+Server/Tokenizer_V1/obj/
+Server/Tokenizer_V1/appsettings.json
