@@ -34,6 +34,7 @@ const SearchProjects = ({ SearchReq, setSearchReq, CreateProjectDialogEnabled, s
             <SoftBox px={2} py={3} sx={{ display: 'grid', flexDirection: 'column', gridTemplateColumns: { sm: "1fr 1fr 1fr", xs: "1fr" }, gridColumnGap: "2em", gridRowGap: "1em" }} className="SearchUsersInputs">
                 <SoftInput placeholder="Project Id" type="number" onChange={(e) => setId(e.target.value)} />
                 <SoftInput placeholder="Name" type="text" onChange={(e) => setName(e.target.value)} />
+
                 <div>
                     <input type="checkbox" onChange={(e) => setIsDeleted(e.target.checked)} />
                     <label>Deleted</label>

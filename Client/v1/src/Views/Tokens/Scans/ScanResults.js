@@ -32,6 +32,8 @@ export const options = {
     },
 };
 const ScanResults = ({ Scans }) => {
+console.log("scans: ", Scans)
+   
 
     //reverse order of Scans.scansThisWeek
     let reversedScans = {};
