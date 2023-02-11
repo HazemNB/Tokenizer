@@ -26,10 +26,12 @@ namespace Tokenizer_V1.Models
         public string AltText { get; set; }
         public byte[]? Image { set; get; }
         
-        public int ProjectId { get; set; }
+        public int? ProjectId { get; set; }
         public Project Project { get; set; }
         public TokenType TokenType {set; get; }
         public ICollection<Token> Tokens { get; set; }
-        
+
+        public int? CompanyId { get; set; }
+        public Company Company { get; set; }
     }
 }

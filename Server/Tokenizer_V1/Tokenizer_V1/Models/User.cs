@@ -12,7 +12,14 @@ namespace Tokenizer_V1.Models
         public string UserType { set; get; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        
+        public int? CompanyId { set; get; }
+        public Company Company { get; set; }
         public ICollection<UserProject> Projects { get; set; }
+        public ICollection<TokenOwner> Tokens { get; set; }
+        public ICollection<TokenTransaction> Transactions { get; set; }
+        public ICollection<Token> OwnedTokens { get; set; }
+        public ICollection<TokenTransaction> FirstTransactions { get; set; }
+        public ICollection<TokenTransaction> SecondTransactions { get; set; }
+        
     }
 }

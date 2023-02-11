@@ -83,6 +83,7 @@ namespace Tokenizer_V1
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IProjectsService, ProjectsService>();
             services.AddScoped<ITokensService, TokensService>();
+            services.AddScoped<ICompanyService, CompanyService>();
 
         }
 
