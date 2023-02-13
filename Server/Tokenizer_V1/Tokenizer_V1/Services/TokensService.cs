@@ -1023,5 +1023,160 @@ namespace Tokenizer_V1.Services
 
             return response;
         }
+
+
+        // Companies
+
+        //create company template
+
+        public async Task<DefaultResponse<Template>> CreateCompanyTemplate(CreateTemplateReq req)
+        {
+            var response = new DefaultResponse<Template>
+            {
+                Status = new Status(false, "Template not created")
+            };
+
+            try
+            {
+                var template = new Template
+                {
+                    Name = req.Name,
+                    QrCodeColor = req.QrCodeColor,
+                    QrCodeBackgroundColor = req.QrCodeBackgroundColor,
+                    TextColor = req.TextColor,
+                    BackgroundColor = req.BackgroundColor,
+                    CurvedTextBottom = req.CurvedTextBottom,
+                    CurvedTextTop = req.CurvedTextTop,
+                    CurvedTextTopOffset = req.CurvedTextTopOffset,
+                    CurvedTextBottomOffset = req.CurvedTextBottomOffset,
+                    QrCodeUrl = req.QrCodeUrl,
+                    TokenTypeId = req.TokenTypeId,
+                    TokenTypeOffset = req.TokenTypeOffset,
+                    UseImage = req.UseImage,
+                    AltText = req.AltText,
+                    CompanyId = req.CompanyId,
+                };
+
+
+                byte[] imageData = null;
+
+                if (req.Image != null)
+                {
+
+                    using (var binaryReader = new BinaryReader(req.Image.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)req.Image.Length);
+                    }
+                }
+
+                template.Image = imageData;
+
+                await _context.Templates.AddAsync(template);
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Template created successfully");
+                    response.Data = template;
+                }
+                else
+                {
+
+                    response.Status = new Status(false, "Template not created");
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = new Status(false, ex.Message);
+            }
+
+            return response;
+        }
+
+        // Create Company Tokens
+
+        public async Task<DefaultResponse<string>> CreateCompanyTokens(CreateTokensReq req)
+        {
+            var response = new DefaultResponse<string>
+            {
+                Status = new Status(false, "Tokens not created")
+            };
+
+            try
+            {
+
+                var template = await _context.Templates
+                    .Include(p => p.Company)
+                    .Include(p => p.TokenType)
+                    .FirstOrDefaultAsync(p => p.Id == req.TemplateId);
+
+                if (template == null)
+                {
+                    response.Status = new Status(false, "Template not found");
+                    return response;
+                }
+
+                if (template.Company == null)
+                {
+                    response.Status = new Status(false, "Company not found");
+                    return response;
+                }
+
+                if (template.TokenType == null)
+                {
+                    response.Status = new Status(false, "Token type not found");
+                    return response;
+                }
+
+                var tokens = new List<Token>();
+                var lastNumber = _context.Tokens.Where(p => p.TokenTypeId == template.TokenTypeId)
+                    .OrderByDescending(p => p.Number).FirstOrDefault()?.Number ?? 0;
+                for (int i = 0; i < req.Quantity; i++)
+                {
+                    var token = new Token
+                    {
+                        CompanyId = template.Company.Id,
+                        TemplateId = template.Id,
+                        TokenTypeId = template.TokenType.Id,
+                        TokenType = template.TokenType,
+                        Company = template.Company,
+                        Template = template,
+                        CreatedAt = DateTime.Now,
+                        Number = lastNumber + 1,
+                        Url = string.IsNullOrWhiteSpace(req.OtherUrl) ? template.QrCodeUrl : req.OtherUrl,
+
+                        Amount = req.Amount,
+                        Claimed = false,
+                        Redeemed = false,
+                        LastUpdated = DateTime.Now,
+                        IsActive = true,
+                        CompanyToken = true,
+
+                    };
+                    lastNumber++;
+                    tokens.Add(token);
+                }
+
+                await _context.Tokens.AddRangeAsync(tokens);
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Tokens created successfully");
+                    response.Data = "Tokens created successfully";
+                }
+                else
+                {
+                    response.Status = new Status(false, "Tokens not created");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
     }
 }

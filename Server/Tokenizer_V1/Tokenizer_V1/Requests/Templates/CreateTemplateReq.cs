@@ -26,7 +26,9 @@ namespace Tokenizer_V1.Requests.Templates
         public bool UseImage { get; set; }
         public string AltText { get; set; }
         public IFormFile Image { set; get; }
-        public int ProjectId { get; set; }
-        
+        public int? ProjectId { get; set; }
+
+        public int? CompanyId { get; set; }
+
     }
 }

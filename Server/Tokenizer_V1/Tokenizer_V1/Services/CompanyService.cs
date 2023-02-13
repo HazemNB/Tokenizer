@@ -247,6 +247,38 @@ namespace Tokenizer_V1.Services
                     companies = companies.Where(x => x.Name.Contains(req.Name));
                 }
 
+                //email
+                //phone
+                //website
+                //address
+                //zip
+
+                if (!string.IsNullOrEmpty(req.Email))
+                {
+                    companies = companies.Where(x => x.Email.Contains(req.Email));
+                }
+
+                if (!string.IsNullOrEmpty(req.Phone))
+                {
+                    companies = companies.Where(x => x.Phone.Contains(req.Phone));
+                }
+
+                if (!string.IsNullOrEmpty(req.Website))
+                {
+                    companies = companies.Where(x => x.Website.Contains(req.Website));
+                }
+
+                if (!string.IsNullOrEmpty(req.Address))
+                {
+                    companies = companies.Where(x => x.Address.Contains(req.Address));
+                }
+
+                if (!string.IsNullOrEmpty(req.Zip))
+                {
+                    companies = companies.Where(x => x.Zip.Contains(req.Zip));
+                }
+                
+
                 if (!string.IsNullOrEmpty(req.Description))
                 {
                     companies = companies.Where(x => x.Description.Contains(req.Description));
@@ -283,5 +315,157 @@ namespace Tokenizer_V1.Services
 
             return response;
         }
+
+        // add user to company (AddManyToManyReq)
+
+
+        public async Task<DefaultResponse<Company>> AddUserToCompany(ManyToManyReq req)
+        {
+            var response = new DefaultResponse<Company>
+            {
+                Status = new Status(false, "Adding User to Company")
+            };
+
+            try
+            {
+                var company = await _context.Companies.FindAsync(req.Id2);
+
+                if (company == null)
+                {
+                    response.Status = new Status(false, "Company Not Found");
+                    return response;
+                }
+
+                var user = await _context.Users.FindAsync(req.Id2);
+
+                if (user == null)
+                {
+                    response.Status = new Status(false, "User Not Found");
+                    return response;
+                }
+
+                user.CompanyId = company.Id;
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "User Added to Company");
+                    response.Data = company;
+                }
+                else
+                {
+                    response.Status = new Status(false, "User Not Added to Company");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+        // remove user from company (RemoveManyToManyReq)
+
+        public async Task<DefaultResponse<Company>> RemoveUserFromCompany(ManyToManyReq req)
+        {
+            var response = new DefaultResponse<Company>
+            {
+                Status = new Status(false, "Removing User from Company")
+            };
+
+            try
+            {
+                var company = await _context.Companies.FindAsync(req.Id2);
+
+                if (company == null)
+                {
+                    response.Status = new Status(false, "Company Not Found");
+                    return response;
+                }
+
+                var user = await _context.Users.FindAsync(req.Id2);
+
+                if (user == null)
+                {
+                    response.Status = new Status(false, "User Not Found");
+                    return response;
+                }
+
+
+                if (user.CompanyId != company.Id)
+                {
+                    response.Status = new Status(false, "User Not Found in Company");
+                    return response;
+                }
+
+                user.CompanyId = null;
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 1)
+                {
+                    response.Status = new Status(true, "User Removed from Company");
+                }
+                else
+                {
+                    response.Status = new Status(false, "User Removal Failed");
+                }
+                response.Data = company;
+            }
+            catch(Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+            return response;
+        }
+
+        //Edit company user type (IdReq)
+        //user.id = idreq.id, user.usertype = idreq.name
+
+        public async Task<DefaultResponse<User>> EditCompanyUserType(IdReq req)
+        {
+            var response = new DefaultResponse<User>
+            {
+                Status = new Status(false, "Editing Company User Type")
+            };
+
+            try
+            {
+                var user = await _context.Users.FindAsync(req.Id);
+
+                if (user == null)
+                {
+                    response.Status = new Status(false, "User Not Found");
+                    return response;
+                }
+                //TODO: 
+                //make sure sender is user's company admin
+                user.UserType = req.Name;
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "User Type Edited");
+                    response.Data = user;
+                }
+                else
+                {
+                    response.Status = new Status(false, "User Type Not Edited");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+
+
+
     }
 }

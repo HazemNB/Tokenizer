@@ -9,5 +9,7 @@ namespace Tokenizer_V1.Requests.Tokens
         public int Quantity { get; set; }
         public int TemplateId { get; set; }
         public string OtherUrl { set; get; }
+
+        public decimal? Amount { set; get; }
     }
 }
