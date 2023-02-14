@@ -209,7 +209,10 @@ const index = () => {
                        <LoaderSmall/>
                    )
                }
-               
+               {/* <butt onclick(setTest(!test)</butt>
+               {
+                testState ? <>details</> : <>edit</>
+               } */}
        </DashboardLayout>
   )
 }
