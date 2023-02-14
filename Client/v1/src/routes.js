@@ -17,7 +17,7 @@ import Cube from "examples/Icons/Cube";
 
 import CreateUser from "Views/Users/CreateUser";
 import ManageUsers from "Views/Users/ManageUsers";
-import CreateCompanies from "Views/Companies/Create"
+import CreateCompanies from "Views/Companies/CreateCompanies"
 import ManageCompanies from "Views/Companies/ManageCompanies"
 import { FcConferenceCall, FcApprove, FcAddDatabase, FcGenealogy } from "react-icons/fc";
 import Login from "Views/Auth/Login";
