@@ -1,4 +1,5 @@
 ﻿using Clinic_V2._0.Paging;
+using System.Dynamic;
 using System.Threading.Tasks;
 using Tokenizer_V1.Models;
 using Tokenizer_V1.Requests;
@@ -13,6 +14,6 @@ namespace Tokenizer_V1.Services.Interfaces
         Task<DefaultResponse<Company>> DeleteCompany(IdReq req);
         Task<DefaultResponse<Company>> CreateCompany(CreateCompanyReq req);
         Task<DefaultResponse<Company>> EditCompany(CreateCompanyReq req);
-        Task<DefaultResponse<Company>> GetCompany(IdReq req);
+        Task<DefaultResponse<ExpandoObject>> GetCompany(IdReq req);
     }
 }

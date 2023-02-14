@@ -1,5 +1,8 @@
 ﻿using Clinic_V2._0.Paging;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -197,16 +200,16 @@ namespace Tokenizer_V1.Services
 
         // get company
 
-        public async Task<DefaultResponse<Company>> GetCompany(IdReq req)
+        public async Task<DefaultResponse<ExpandoObject>> GetCompany(IdReq req)
         {
-            var response = new DefaultResponse<Company>
+            var response = new DefaultResponse<ExpandoObject>
             {
                 Status = new Status(false, "Getting Company")
             };
 
             try
             {
-                var company = await _context.Companies.FindAsync(req.Id);
+                var company = await _context.Companies.AsNoTracking().FirstOrDefaultAsync(x => x.Id == req.Id);
 
                 if (company == null)
                 {
@@ -215,7 +218,22 @@ namespace Tokenizer_V1.Services
                 }
 
                 response.Status = new Status(true, "Company Found");
-                response.Data = company;
+                dynamic res = new ExpandoObject();
+                res.Company = company;
+
+                var TemplatesAndTokensCount = new Dictionary<Template, int>();
+
+                var templates = await _context.Templates.AsNoTracking().Where(x => x.CompanyId == req.Id).ToListAsync();
+
+                foreach (var template in templates)
+                {
+                    var tokensCount = await _context.Tokens.AsNoTracking().Where(x => x.TemplateId == template.Id).CountAsync();
+                    TemplatesAndTokensCount.Add(template, tokensCount);
+                }
+                res.TemplatesAndTokensCount = TemplatesAndTokensCount;
+                var Users = await _context.Users.AsNoTracking().Where(x => x.CompanyId == req.Id).ToListAsync();
+                res.Users = Users;
+                response.Data = res;
             }
             catch (Exception e)
             {
@@ -277,7 +295,7 @@ namespace Tokenizer_V1.Services
                 {
                     companies = companies.Where(x => x.Zip.Contains(req.Zip));
                 }
-                
+
 
                 if (!string.IsNullOrEmpty(req.Description))
                 {
@@ -301,7 +319,7 @@ namespace Tokenizer_V1.Services
 
                 var pagedCompanies = new PagedList
                     <Company>(companies, req.pagingParams.PageNumber, req.pagingParams.PageSize);
-                
+
                 if (pagedCompanies != null)
                 {
                     response.Status = new Status(true, "Companies Found");
@@ -414,7 +432,7 @@ namespace Tokenizer_V1.Services
                 }
                 response.Data = company;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 response.Status = new Status(false, e.Message);
             }
@@ -463,8 +481,6 @@ namespace Tokenizer_V1.Services
 
             return response;
         }
-
-
 
 
     }

@@ -15,6 +15,7 @@ namespace Tokenizer_V1.Models
         public Company Company { set; get; }
         public decimal? Amount { set; get; }
         public DateTime CreatedAt { set; get; }
+        public string TransactionType { set; get; }
         // Item ?
     }
 }
