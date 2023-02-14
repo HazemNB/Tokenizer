@@ -5,3 +5,7 @@ Server/Tokenizer_V1/obj/
 Server/Tokenizer_V1/appsettings.json
 Client/Play It Forward/node_modules/
 node_modules/
+bin/
+.vs/
+Debug/
+obj/
