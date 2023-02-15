@@ -5,17 +5,13 @@ import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import SoftButton from 'components/SoftButton';
 import React from 'react'
 
-const CompanyInnerPageDetails = () => {
+const Details = () => {
     let test = true;
   return (
-    <DashboardLayout>
+  
         <div className='CreateUsersDiv'>
         <Card id="CreateUserCard" style={{ padding: "10px 20px" }}>
-        <SoftBox pt={3} px={2}>
-            <SoftTypography variant="h6" fontWeight="medium">
-              Companies Details
-            </SoftTypography>
-          </SoftBox>
+     
           <SoftBox>
             <SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
 
@@ -237,8 +233,8 @@ const CompanyInnerPageDetails = () => {
           </SoftBox>
             </Card>
         </div>
-    </DashboardLayout>
+   
   )
 }
 
-export default CompanyInnerPageDetails
+export default Details

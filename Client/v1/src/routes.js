@@ -25,7 +25,7 @@ import PrivateRoute from "ProjectComponents/Auth/PrivateRoute";
 import AdminRoute from "ProjectComponents/Auth/AdminRoute";
 import ManageProjects from "Views/Projects/ManageProjects";
 import ProjectDetails from "Views/Projects/ProjectDetails";
-import CompaniesDetails from "Views/Companies/CompanyDetails"
+import CompaniesDetails from "Views/Companies/CompaniesDetails/CompaniesDetails";
 import MyProjects from "Views/Projects/MyProjects";
 import TokenTypes from "Views/Tokens/TokenTypes";
 import ExportTokens from "Views/Tokens/ExportTokens";
@@ -83,10 +83,21 @@ const routes = [
     admin: true,
 
   },
+  // {
+  //   type: "collapse",
+  //   name: "Company Details",
+  //   key: "CompanyDetails",
+  //   route: "/Companies/Details",
+  //   icon: <FcGenealogy/>,
+  //   component: <PrivateRoute><CompaniesDetails/></PrivateRoute>,
+  //   noCollapse: true,
+  //   hidden: true,
+    
+  // },
   {
     type: "collapse",
-    name: "Company Details",
-    key: "CompanyDetails",
+    name: "Companies Details",
+    key: "CompaniesDetails",
     route: "/Companies/Details",
     icon: <FcGenealogy/>,
     component: <PrivateRoute><CompaniesDetails/></PrivateRoute>,
