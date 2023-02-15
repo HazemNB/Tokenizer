@@ -172,7 +172,6 @@ const Index = () => {
             });
         }
     }
-    // let test = true
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -188,12 +187,6 @@ const Index = () => {
                 <CreateProjectDialog Enabled={CreateProjectDialogEnabled} setEnabled={setCreateProjectDialogEnabled} setIsLoaded={setIsLoaded} />
                 <AddUserToProject Enabled={AddUserEnabled} setEnabled={setAddUserEnabled} Project={SelectedProject} setIsLoaded={setIsLoaded} />
             </Card> 
-            {/* <button onClick={() => {setTest(!test)}}>
-                
-            </button>
-            {
-                test ? <>details</> : <>edit</>
-            } */}
         </DashboardLayout>
     )
 }

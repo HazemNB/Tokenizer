@@ -18,7 +18,7 @@ namespace Tokenizer_V1.Controllers
 
         [HttpPost]
         [Route("CreateCompany")]
-        public async Task<IActionResult> CreateProject([FromForm] CreateCompanyReq request)
+        public async Task<IActionResult> CreateProject([FromBody] CreateCompanyReq request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

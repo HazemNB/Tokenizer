@@ -14,9 +14,7 @@ import { Icon } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import SearchCompaniesReq from '../../../Requests/Companies/SearchCompaniesReq';
 import SearchCompanies from './SearchCompanies';
-import { useNavigate } from 'react-router-dom';
 const index = () => {
-    let navigate = useNavigate();
     const [SearchReq, setSearchReq] = useState(new SearchCompaniesReq());
     const [ResponseData, setResponseData] = useState(null);
     const [IsLoaded, setIsLoaded] = useState(false);
@@ -113,14 +111,7 @@ const index = () => {
                         <SoftButton
                             variant="contained" color="dark" size="small"
                             onClick={() => {
-                                navigate(
-                                    '/Companies/Details',
-                                    {
-                                        state: {
-                                          company: company
-                                        }
-                                      }
-                                )
+                                ToggleUserDetails(company.id);
                             }}
                             >
                             <Icon> {
@@ -209,10 +200,7 @@ const index = () => {
                        <LoaderSmall/>
                    )
                }
-               {/* <butt onclick(setTest(!test)</butt>
-               {
-                testState ? <>details</> : <>edit</>
-               } */}
+               
        </DashboardLayout>
   )
 }

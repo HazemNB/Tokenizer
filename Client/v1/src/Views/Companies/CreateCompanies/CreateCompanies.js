@@ -26,7 +26,7 @@ const CreateCompanies = () => {
   const createCompany = async () => {
     Swal.fire({
       icon: 'info',
-      title: 'Creating Company',
+      title: 'Creating User',
       text: 'Please wait...',
       // allowOutsideClick: false,
       allowEscapeKey: false,
@@ -202,9 +202,28 @@ const CreateCompanies = () => {
 
 
     let req = new CreateCompaniesReq();
- 
+
+    // let imgInput = document.getElementById("LogoInput");
+    // //check if image is larger than 3mb
+    // if (imgInput?.files?.length > 0) {
+    //   if (imgInput.files[0].size > 3145728) {
+    //     Swal.fire({
+    //       title: 'Image too large',
+    //       text: "Please select an image smaller than 3mb",
+    //       icon: 'error',
+    //       confirmButtonText: 'Ok',
+    //       didOpen: () => {
+    //         Swal.hideLoading()
+    //       }
+    //     }).then(() => {
+    //       setEnabled(true);
+    //     })
+    //     return;
+    //   }
+    // }
+    // req.Logo = imgInput?.files?.length > 0 ? imgInput.files[0] : null;
     req.Id = 1;
-    req.Name=Name;
+    req.Name = Name;
     req.Email = Email;
     req.Description = Description;
     req.Phone = Phone;
@@ -217,33 +236,13 @@ const CreateCompanies = () => {
     req.UserLimit = UserLimit;
     req.TokenLimit = TokenLimit;
     req.TemplateLimit = TemplateLimit;
-
-    let imgInput = document.getElementById("LogoInput");
-        //check if image is larger than 3mb
-        if(imgInput?.files?.length > 0){
-            if(imgInput.files[0].size > 3145728){
-                Swal.fire({
-                    title: 'Image too large',
-                    text: "Please select an image smaller than 3mb",
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    didOpen: () => {
-                        Swal.hideLoading()
-                    }
-                }).then(() => {
-                    setEnabled(true);
-                })
-                return;
-            }
-        }
-        req.Logo = imgInput?.files?.length > 0 ? imgInput.files[0] : null;
     let res = await CompaniesApi.CreateCompany(req);
     console.log(res)
     if (res.status.success) {
       Swal.fire({
         icon: 'success',
-        title: res.status.message,
-        text: '',
+        title: 'User Created',
+        text: res.status.message,
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
