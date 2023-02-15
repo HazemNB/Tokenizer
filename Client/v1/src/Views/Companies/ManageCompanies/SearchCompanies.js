@@ -14,22 +14,23 @@ const SearchCompanies = ({ SearchReq, setSearchReq }) => {
      const [Zip, setZip] = useState();
      const [Country, setCountry] = useState();
      const [Phone, setPhone] = useState();
-     const [Website, setWebsite] = useState();
-     const [IsActive, setIsActive] = useState();
-     const [IsDeleted, setIsDeleted] = useState();
-      const searchCompanies= async () => {
-         let req = Object.assign({}, SearchReq);
+    const [Website, setWebsite] = useState();
+    const [IsActive, setIsActive] = useState();
+    const [IsDeleted, setIsDeleted] = useState();
+    const searchCompanies = async () => {
+        let req = Object.assign({}, SearchReq);
         req.id = Id;
-       req.name = Name;
-       req.description=Description;
-       req.city=City;
-       req.zip=Zip;
-       req.country=Country;
-       req.phone=Phone;
-       req.website=Website;
-        req.isActive = IsActive;
-        req.isDeleted = IsDeleted;
-         setSearchReq(req);
+        req.name = Name;
+        req.email = Email;
+        req.description = Description;
+        req.city = City;
+        req.zip = Zip;
+        req.country = Country;
+        req.phone = Phone;
+        req.website = Website;
+        // req.isActive = IsActive;
+        // req.isDeleted = IsDeleted;
+        setSearchReq(req);
     }
 
 
