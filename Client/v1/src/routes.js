@@ -25,7 +25,7 @@ import PrivateRoute from "ProjectComponents/Auth/PrivateRoute";
 import AdminRoute from "ProjectComponents/Auth/AdminRoute";
 import ManageProjects from "Views/Projects/ManageProjects";
 import ProjectDetails from "Views/Projects/ProjectDetails";
-import CompaniesDetails from "Views/Companies/CompaniesDetails/CompaniesDetails";
+import CompaniesDetails from "Views/Companies/CompaniesDetails/index";
 import MyProjects from "Views/Projects/MyProjects";
 import TokenTypes from "Views/Tokens/TokenTypes";
 import ExportTokens from "Views/Tokens/ExportTokens";

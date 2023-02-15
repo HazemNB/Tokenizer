@@ -57,7 +57,7 @@ useEffect(() => {
      
 </div>
 {
-  toggle?<><Edit/></>:<><Details/></>
+  toggle?<><Edit/></>:<><Details company={state.company}/></>
 }
 
 
