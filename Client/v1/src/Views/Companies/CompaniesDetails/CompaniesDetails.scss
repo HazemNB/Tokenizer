@@ -1,0 +1,33 @@
+.card-details{
+ 
+    .card-top{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 20px;
+        .card-btn{
+            background-color: transparent;
+            border: 0;
+            padding: 10px;
+            color: #344767;
+        }
+    }
+}
+.company-datails{
+      padding: 10px  30px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+     ul{
+        list-style: none;
+        li{
+            color: #344767;
+            font-size: 18px;
+            margin-bottom: 15px;
+            span{
+                font-size: 16px;
+                color: rgb(123, 128, 154);
+            }
+        }
+    }
+}
