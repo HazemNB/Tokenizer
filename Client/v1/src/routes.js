@@ -17,7 +17,7 @@ import Cube from "examples/Icons/Cube";
 
 import CreateUser from "Views/Users/CreateUser";
 import ManageUsers from "Views/Users/ManageUsers";
-import CreateCompanies from "Views/Companies/CreateCompanies"
+import CreateCompanies from "Views/Companies/CreateCompanies/CreateCompanies";
 import ManageCompanies from "Views/Companies/ManageCompanies"
 import { FcConferenceCall, FcApprove, FcAddDatabase, FcGenealogy } from "react-icons/fc";
 import Login from "Views/Auth/Login";
@@ -80,18 +80,7 @@ const routes = [
     noCollapse: true,
     admin: true,
 
-  },
-  {
-    type: "collapse",
-    name: "Manage Companies",
-    key: "manageCompanies",
-    route: "/ManageCompanies",
-    icon: <FcAddDatabase />,
-    component: <AdminRoute><ManageCompanies/></AdminRoute>,
-    noCollapse: true,
-    admin: true,
-
-  },
+  }, 
   { type: "divider", title: "Projects", key: "Users" },
   { type: "title", title: "Projects", key: "Projects" },
   

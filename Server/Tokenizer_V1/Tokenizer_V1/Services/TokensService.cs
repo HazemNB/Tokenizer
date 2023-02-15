@@ -1244,21 +1244,96 @@ namespace Tokenizer_V1.Services
                     CompanyId = token.Company.Id,
                     Company = token.Company,
                     TransactionType = req.TransactionType,
-                    Amount = req.Amount,
                     CreatedAt = DateTime.Now,
                 };
 
+                if (token.LastUpdated < DateTime.Now.AddDays(-180))
+                {
+                    response.Status = new Status(false, "Token has expired");
+                    return response;
+                }
                 switch (req.TransactionType)
                 {
                     case TokenTransactionTypes.Claim:
+                        token.Claimed = true;
+                        token.IsPlayedForward = false;
+
+                        token.LastUpdated = DateTime.Now;
+                        token.CurrentOwnerId = req.SecondPartyId;
+
+                        var user = _context.Users.FirstOrDefault(p => p.Id == req.SecondPartyId);
+
+                        if (user == null)
+                        {
+                            response.Status = new Status(false, "User not found");
+                            return response;
+                        }
+
+                        var userTokensCount = _context.Tokens.Count(p => p.CurrentOwnerId == user.Id && p.IsActive == true
+                        && p.LastUpdated >= DateTime.Now.AddDays(-180));
+
+                        if (userTokensCount >= 9)
+                        {
+                            response.Status = new Status(false, "User has reached the maximum number of tokens");
+                            return response;
+                        }
+
+                        transaction.FirstPartyId = req.FirstPartyId;
+                        transaction.SecondPartyId = req.SecondPartyId;
+                        var firstOwner = new TokenOwner
+                        {
+                            TokenId = token.Id,
+                            Token = token,
+                            UserId = (int)req.FirstPartyId,
+                            CreatedAt = DateTime.Now
+                        };
+
+                        _context.TokenOwners.Add(firstOwner);
                         break;
                     case TokenTransactionTypes.Redeem:
+                        token.Redeemed = true;
+                        token.LastUpdated = DateTime.Now;
+                        token.CurrentOwnerId = req.SecondPartyId;
+                        token.Amount = 0;
+                        
+                        transaction.FirstPartyId = req.FirstPartyId;
+                        transaction.SecondPartyId = req.SecondPartyId;
+
+                    
                         break;
                     case TokenTransactionTypes.Transfer:
+                        token.LastUpdated = DateTime.Now;
+                        token.CurrentOwnerId = req.SecondPartyId;
+
+                        transaction.FirstPartyId = req.FirstPartyId;
+                        transaction.SecondPartyId = req.SecondPartyId;
+                        
+                        var NewOwner = new TokenOwner
+                        {
+                            TokenId = token.Id,
+                            Token = token,
+                            UserId = (int)req.FirstPartyId,
+                            CreatedAt = DateTime.Now
+                        };
+
+                        _context.TokenOwners.Add(NewOwner);
+
                         break;
                     case TokenTransactionTypes.Load:
+                        token.Amount += req.Amount;
+                        token.LastUpdated = DateTime.Now;
+                        
+                        transaction.FirstPartyId = req.FirstPartyId;
+
                         break;
                     case TokenTransactionTypes.PlayForward:
+                        token.Claimed = false;
+                        token.Redeemed = false;
+                        token.LastUpdated = DateTime.Now;
+                        token.CurrentOwnerId = null;
+                        token.PlayedForwardCount ??= 0;
+                        token.PlayedForwardCount += 1;
+                        token.IsPlayedForward = true;
                         break;
                     default:
                         response.Status = new Status(false, "Invalid transaction type");
