@@ -1070,6 +1070,24 @@ namespace Tokenizer_V1.Services
 
             try
             {
+
+                //check if company exists and if template count is under limit
+                var company = await _context.Companies
+                    .FirstOrDefaultAsync(p => p.Id == req.CompanyId);
+
+                if (company == null)
+                {
+                    response.Status = new Status(false, "Company not found");
+                    return response;
+                }
+                var companyTemplatesCount = await _context.Templates
+                    .CountAsync(p => p.CompanyId == req.CompanyId);
+                if ( companyTemplatesCount > company.TemplateLimit)
+                {
+                    response.Status = new Status(false, "Template limit reached");
+                    return response;
+                }
+
                 var template = new Template
                 {
                     Name = req.Name,
@@ -1160,7 +1178,15 @@ namespace Tokenizer_V1.Services
                     return response;
                 }
 
-                var tokens = new List<Token>();
+                var companyTokenCount = await _context.Tokens
+                    .CountAsync(p => p.CompanyId == template.Company.Id);
+
+                if (companyTokenCount + req.Quantity > template.Company.TokenLimit)
+                {
+                    response.Status = new Status(false, "Token Limit Reached");
+                }
+
+                    var tokens = new List<Token>();
                 var lastNumber = _context.Tokens.Where(p => p.TokenTypeId == template.TokenTypeId)
                     .OrderByDescending(p => p.Number).FirstOrDefault()?.Number ?? 0;
                 for (int i = 0; i < req.Quantity; i++)
@@ -1295,11 +1321,11 @@ namespace Tokenizer_V1.Services
                         token.LastUpdated = DateTime.Now;
                         token.CurrentOwnerId = req.SecondPartyId;
                         token.Amount = 0;
-                        
+
                         transaction.FirstPartyId = req.FirstPartyId;
                         transaction.SecondPartyId = req.SecondPartyId;
 
-                    
+
                         break;
                     case TokenTransactionTypes.Transfer:
                         token.LastUpdated = DateTime.Now;
@@ -1307,7 +1333,7 @@ namespace Tokenizer_V1.Services
 
                         transaction.FirstPartyId = req.FirstPartyId;
                         transaction.SecondPartyId = req.SecondPartyId;
-                        
+
                         var NewOwner = new TokenOwner
                         {
                             TokenId = token.Id,
@@ -1322,7 +1348,7 @@ namespace Tokenizer_V1.Services
                     case TokenTransactionTypes.Load:
                         token.Amount += req.Amount;
                         token.LastUpdated = DateTime.Now;
-                        
+
                         transaction.FirstPartyId = req.FirstPartyId;
 
                         break;
@@ -1349,6 +1375,92 @@ namespace Tokenizer_V1.Services
 
             return response;
 
+        }
+
+        // search token transactions
+
+        public async Task<DefaultResponse<PagedList<TokenTransaction>>> SearchTokenTransactions(SearchTokenTransactionsReq req)
+        {
+            var response = new DefaultResponse<PagedList<TokenTransaction>>
+            {
+                Status = new Status(false, "Transactions not found")
+            };
+
+            try
+            {
+                var query = _context.TokenTransactions
+                    .Include(p => p.Token)
+                    .Include(p => p.Company)
+                    .Include(p => p.FirstParty)
+                    .Include(p => p.SecondParty)
+                    .AsQueryable();
+
+                if (req.TokenId != null)
+                {
+                    query = query.Where(p => p.TokenId == req.TokenId);
+                }
+
+                if (req.CompanyId != null)
+                {
+                    query = query.Where(p => p.CompanyId == req.CompanyId);
+                }
+
+                if (req.FirstPartyId != null)
+                {
+                    query = query.Where(p => p.FirstPartyId == req.FirstPartyId);
+                }
+
+                if (req.SecondPartyId != null)
+                {
+                    query = query.Where(p => p.SecondPartyId == req.SecondPartyId);
+                }
+
+                if (req.TransactionType != null)
+                {
+                    query = query.Where(p => p.TransactionType == req.TransactionType);
+                }
+
+                if (req.AmountFrom != null)
+                {
+                    query = query.Where(p => p.Amount >= req.AmountFrom);
+                }
+
+                if (req.AmountTo != null)
+                {
+                    query = query.Where(p => p.Amount <= req.AmountTo);
+                }
+
+                if (req.FromDate != null)
+                {
+                    query = query.Where(p => p.CreatedAt >= req.FromDate);
+                }
+
+                if (req.ToDate != null)
+                {
+                    query = query.Where(p => p.CreatedAt <= req.ToDate);
+                }
+                //var pagedTokens = new PagedList<Token>(tokens, req.pagingParams.PageNumber, req.pagingParams.PageSize);
+
+                var pagedTransactions = new PagedList<TokenTransaction>(query, req.pagingParams.PageNumber, req.pagingParams.PageSize);
+
+                if (pagedTransactions == null)
+                {
+                    response.Status = new Status(false, "Transactions not found");
+                    return response;
+                }
+                else
+                {
+                    response.Status = new Status(true, "Transactions found");
+                    response.Data = pagedTransactions;
+                }
+
+            }
+            catch (Exception)
+            {
+                response.Status = new Status(false, "Transactions not found");
+            }
+
+            return response;
         }
 
     }

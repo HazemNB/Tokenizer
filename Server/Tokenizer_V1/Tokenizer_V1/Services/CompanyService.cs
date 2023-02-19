@@ -482,6 +482,259 @@ namespace Tokenizer_V1.Services
             return response;
         }
 
+        // company types
+
+        //create company type (IdReq) (name = idreq.name)
+
+        public async Task<DefaultResponse<CompanyType>> CreateCompanyType(IdReq req)
+        {
+            var response = new DefaultResponse<CompanyType>
+            {
+                Status = new Status(false, "Creating Company Type")
+            };
+
+            try
+            {
+                var companyType = new CompanyType
+                {
+                    Name = req.Name
+                };
+
+                await _context.CompanyTypes.AddAsync(companyType);
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Company Type Created");
+                    response.Data = companyType;
+                }
+                else
+                {
+                    response.Status = new Status(false, "Company Type Not Created");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+        // search company types (IdReq) (name = idreq.name)
+
+        public async Task<DefaultResponse<PagedList<CompanyType>>> SearchCompanyTypes(IdReq req)
+        {
+            var response = new DefaultResponse<PagedList<CompanyType>>
+            {
+                Status = new Status(false, "Searching Company Types")
+            };
+
+            try
+            {
+
+                var companyTypes = _context.CompanyTypes.AsNoTracking().AsQueryable();
+
+                if (!string.IsNullOrEmpty(req.Name))
+                {
+                    companyTypes = companyTypes.Where(x => x.Name.Contains(req.Name));
+                }
+
+                if (companyTypes.Any())
+                {
+                    response.Status = new Status(true, "Company Types Found");
+                    response.Data = new PagedList<CompanyType>(companyTypes, req.PagingParams.PageNumber, req.PagingParams.PageSize);
+                }
+                else
+                {
+                    response.Status = new Status(false, "Company Types Not Found");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+        //edit company type (IdReq) (name = idreq.name)
+
+        public async Task<DefaultResponse<CompanyType>> EditCompanyType(IdReq req)
+        {
+            var response = new DefaultResponse<CompanyType>
+            {
+                Status = new Status(false, "Editing Company Type")
+            };
+
+            try
+            {
+                var companyType = await _context.CompanyTypes.FindAsync(req.Id);
+
+                if (companyType == null)
+                {
+                    response.Status = new Status(false, "Company Type Not Found");
+                    return response;
+                }
+
+                companyType.Name = req.Name;
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Company Type Edited");
+                    response.Data = companyType;
+                }
+                else
+                {
+                    response.Status = new Status(false, "Company Type Not Edited");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+        //delete company type (IdReq)
+
+        public async Task<DefaultResponse<CompanyType>> DeleteCompanyType(IdReq req)
+        {
+            var response = new DefaultResponse<CompanyType>
+            {
+                Status = new Status(false, "Deleting Company Type")
+            };
+
+            try
+            {
+                var companyType = await _context.CompanyTypes.FindAsync(req.Id);
+
+                if (companyType == null)
+                {
+                    response.Status = new Status(false, "Company Type Not Found");
+                    return response;
+                }
+
+                _context.CompanyTypes.Remove(companyType);
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Company Type Deleted");
+                    response.Data = companyType;
+                }
+                else
+                {
+                    response.Status = new Status(false, "Company Type Not Deleted");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+        // Add company type to company (ManyToManyReq)
+
+        public async Task<DefaultResponse<Company>> AddCompanyTypeToCompany(ManyToManyReq req)
+        {
+            var response = new DefaultResponse<Company>
+            {
+                Status = new Status(false, "Adding Company Type to Company")
+            };
+
+            try
+            {
+                var company = await _context.Companies.FindAsync(req.Id1);
+
+                if (company == null)
+                {
+                    response.Status = new Status(false, "Company Not Found");
+                    return response;
+                }
+
+                var companyType = await _context.CompanyTypes.FindAsync(req.Id2);
+
+                if (companyType == null)
+                {
+                    response.Status = new Status(false, "Company Type Not Found");
+                    return response;
+                }
+
+                company.CompanyTypeId = companyType.Id;
+                
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Company Type Added to Company");
+                    response.Data = company;
+                }
+                else
+                {
+                    response.Status = new Status(false, "Company Type Not Added to Company");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+        // Remove company type from company (idReq) (company.id = idreq.id) ... (company.companytype = null; company.companytypeid = null;)
+
+        //public async Task<DefaultResponse<Company>> RemoveCompanyTypeFromCompany(IdReq req)
+        //{
+        //    var response = new DefaultResponse<Company>
+        //    {
+        //        Status = new Status(false, "Removing Company Type from Company")
+        //    };
+
+        //    try
+        //    {
+        //        var company = await _context.Companies.FindAsync(req.Id);
+
+        //        if (company == null)
+        //        {
+        //            response.Status = new Status(false, "Company Not Found");
+        //            return response;
+        //        }
+
+        //        company.CompanyTypeId = null;
+        //        company.CompanyType = null;
+
+        //        var saveRes = await _context.SaveChangesAsync();
+
+        //        if (saveRes > 0)
+        //        {
+        //            response.Status = new Status(true, "Company Type Removed from Company");
+        //            response.Data = company;
+        //        }
+        //        else
+        //        {
+        //            response.Status = new Status(false, "Company Type Not Removed from Company");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        response.Status = new Status(false, e.Message);
+        //    }
+
+        //    return response;
+        //}
+
+        // end company types
+
 
     }
 }
