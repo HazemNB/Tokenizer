@@ -407,7 +407,7 @@ const companyDetails = async()=>{
                 className='CreateCompanyBox'
               >
                 <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-                  Company TypeId
+                  Company Type
                 </SoftTypography>
                 <input type="text" className='CreateUserInput' onChange={(e) => setCompanyTypeId(e.target.value)} />
               </SoftBox>
