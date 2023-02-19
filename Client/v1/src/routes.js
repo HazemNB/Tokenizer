@@ -18,7 +18,8 @@ import Cube from "examples/Icons/Cube";
 import CreateUser from "Views/Users/CreateUser";
 import ManageUsers from "Views/Users/ManageUsers";
 import CreateCompanies from "Views/Companies/CreateCompanies/CreateCompanies";
-import ManageCompanies from "Views/Companies/ManageCompanies"
+import ManageCompanies from "Views/Companies/ManageCompanies";
+import CompanyTypes from "Views/Companies/CompanyTypes"
 import { FcConferenceCall, FcApprove, FcAddDatabase, FcGenealogy } from "react-icons/fc";
 import Login from "Views/Auth/Login";
 import PrivateRoute from "ProjectComponents/Auth/PrivateRoute";
@@ -83,6 +84,17 @@ const routes = [
     admin: true,
 
   },
+  {
+    type: "collapse",
+    name: "Company Types",
+    key: "Company Types",
+    route: "/Companies/CompanyTypes",
+    icon: <FcGenealogy/>,
+    component: <PrivateRoute><CompanyTypes/></PrivateRoute>,
+    noCollapse: true,
+    admin: true,
+    
+  },
   // {
   //   type: "collapse",
   //   name: "Company Details",
@@ -105,6 +117,7 @@ const routes = [
     hidden: true,
     
   },
+  
   { type: "divider", title: "Projects", key: "Users" },
   { type: "title", title: "Projects", key: "Projects" },
   

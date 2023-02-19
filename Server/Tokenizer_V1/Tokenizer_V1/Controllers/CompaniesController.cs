@@ -156,18 +156,6 @@ namespace Tokenizer_V1.Controllers
 
             return Ok(response);
         }
-        
-        [HttpPost]
-        [Route("SearchCompanyTypes")]
-        public async Task<IActionResult> SearchCompanyTypes([FromBody] IdReq request)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var response = await _companyService.SearchCompanyTypes(request);
-
-            return Ok(response);
-        }
 
         [HttpPost]
         [Route("AddCompanyTypeToCompany")]

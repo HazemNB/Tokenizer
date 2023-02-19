@@ -36,7 +36,9 @@ class CompaniesApi{
     GetCompanyUrl = 'Companies/GetCompany'
     DeleteCompanyUrl = 'Companies/DeleteCompany'
     SearchCompaniesUrl = 'Companies/SearchCompanies'
-
+    CreateCompanyTypeUrl = 'Companies/CreateCompanyType';
+    DeleteCompanyTypeUrl ='Companies/DeleteCompanyType'; 
+    SearchCompanyTypeUrl ='Companies/'
     async CreateCompany(req) {
         let formData = new FormData();
         // append the data from each feild in req programmitacally in a loop
@@ -107,7 +109,43 @@ class CompaniesApi{
         const data = await res.json();
         return data;
     }
-
+    
+    async CreateCompanyType(req) {
+        const res = await fetch(this.baseUrl + this.CreateCompanyTypeUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
+    async DeleteCompanyType(req) {
+        const res = await fetch(this.baseUrl + this.DeleteCompanyTypeUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
+    async SearchCompanyType(req) {
+        const res = await fetch(this.baseUrl + this.SearchCompanyTypeUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
 }
 
 export default new CompaniesApi;
