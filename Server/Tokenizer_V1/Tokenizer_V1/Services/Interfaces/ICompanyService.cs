@@ -21,6 +21,8 @@ namespace Tokenizer_V1.Services.Interfaces
         Task<DefaultResponse<CompanyType>> CreateCompanyType(IdReq req);
         Task<DefaultResponse<CompanyType>> EditCompanyType(IdReq req);
         Task<DefaultResponse<CompanyType>> DeleteCompanyType(IdReq req);
+        Task<DefaultResponse<PagedList<CompanyType>>> SearchCompanyTypes(IdReq req);
+
         Task<DefaultResponse<Company>> AddCompanyTypeToCompany(ManyToManyReq req);
 
     }

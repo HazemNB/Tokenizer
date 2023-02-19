@@ -157,6 +157,20 @@ namespace Tokenizer_V1.Controllers
             return Ok(response);
         }
 
+        //search company types
+
+        [HttpPost]
+        [Route("SearchCompanyTypes")]
+        public async Task<IActionResult> SearchCompanyTypes([FromBody] SearchCompanyTypesReq request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _companyService.SearchCompanyTypes(request);
+
+            return Ok(response);
+        }
+
         [HttpPost]
         [Route("AddCompanyTypeToCompany")]
         public async Task<IActionResult> AddCompanyTypeToCompany([FromBody] ManyToManyReq request)
