@@ -15,8 +15,8 @@ const Edit = () => {
  </ul>
     <ul>
     <li>  <span>{state.company.name}</span></li> 
-    <li> Cit: <span>{state.company.city}</span></li> 
-    <li>Zip:  <span>{state.company.zip}</span></li>
+    <li> City : <span>{state.company.city}</span></li> 
+    <li>Zip :  <span>{state.company.zip}</span></li>
     <li>Countr: <span>{state.company.country}</span></li>
     </ul>
     <ul>
