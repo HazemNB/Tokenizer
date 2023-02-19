@@ -15,5 +15,13 @@ namespace Tokenizer_V1.Services.Interfaces
         Task<DefaultResponse<Company>> CreateCompany(CreateCompanyReq req);
         Task<DefaultResponse<Company>> EditCompany(CreateCompanyReq req);
         Task<DefaultResponse<ExpandoObject>> GetCompany(IdReq req);
+        Task<DefaultResponse<Company>> AddUserToCompany(ManyToManyReq req);
+        Task<DefaultResponse<Company>> RemoveUserFromCompany(ManyToManyReq req);
+        Task<DefaultResponse<User>> EditCompanyUserType(IdReq req);
+        Task<DefaultResponse<CompanyType>> CreateCompanyType(IdReq req);
+        Task<DefaultResponse<CompanyType>> EditCompanyType(IdReq req);
+        Task<DefaultResponse<CompanyType>> DeleteCompanyType(IdReq req);
+        Task<DefaultResponse<Company>> AddCompanyTypeToCompany(ManyToManyReq req);
+
     }
 }

@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Clinic_V2._0.Paging;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Tokenizer_V1.Models;
 using Tokenizer_V1.Requests;
 using Tokenizer_V1.Requests.Templates;
 using Tokenizer_V1.Requests.Tokens;
+using Tokenizer_V1.Responses;
 using Tokenizer_V1.Services.Interfaces;
 
 namespace Tokenizer_V1.Controllers
@@ -227,6 +230,57 @@ namespace Tokenizer_V1.Controllers
             var response = await _tokenService.GetBatchScans(req);
             return Ok(response);
         }
+
+
+        //Task<DefaultResponse<Template>> CreateCompanyTemplate(CreateTemplateReq req);
+        //Task<DefaultResponse<string>> CreateCompanyTokens(CreateTokensReq req);
+        //Task<DefaultResponse<string>> CreateTokenTransaction(CreateTokenTransactionRequest req);
+        //Task<DefaultResponse<PagedList<TokenTransaction>>> SearchTokenTransactions(SearchTokenTransactionsReq req);
+
+        [HttpPost]
+        [Route("CreateCompanyTemplate")]
+        public async Task<IActionResult> CreateCompanyTemplate([FromBody] CreateTemplateReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.CreateCompanyTemplate(req);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("CreateCompanyTokens")]
+        public async Task<IActionResult> CreateCompanyTokens([FromBody] CreateTokensReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.CreateCompanyTokens(req);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("CreateTokenTransaction")]
+        public async Task<IActionResult> CreateTokenTransaction([FromBody] CreateTokenTransactionRequest req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.CreateTokenTransaction(req);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("SearchTokenTransactions")]
+        public async Task<IActionResult> SearchTokenTransactions([FromBody] SearchTokenTransactionsReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.SearchTokenTransactions(req);
+            return Ok(response);
+        }
+
 
     }
 }
