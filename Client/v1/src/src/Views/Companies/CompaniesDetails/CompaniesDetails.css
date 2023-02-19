@@ -18,6 +18,7 @@
   padding-right: 30px;
 }
 .company-datails ul {
+  text-align: center;
   list-style: none;
 }
 .company-datails ul li {
@@ -28,4 +29,9 @@
 .company-datails ul li span {
   font-size: 16px;
   color: rgb(123, 128, 154);
+}
+.company-datails .company-datails-img {
+  border-radius: 10px;
+  max-width: 260px;
+  max-height: 195px;
 }/*# sourceMappingURL=CompaniesDetails.css.map */
