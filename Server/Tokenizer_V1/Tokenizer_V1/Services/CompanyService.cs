@@ -522,6 +522,43 @@ namespace Tokenizer_V1.Services
             return response;
         }
 
+        // search company types (IdReq) (name = idreq.name)
+
+        public async Task<DefaultResponse<PagedList<CompanyType>>> SearchCompanyTypes(IdReq req)
+        {
+            var response = new DefaultResponse<PagedList<CompanyType>>
+            {
+                Status = new Status(false, "Searching Company Types")
+            };
+
+            try
+            {
+
+                var companyTypes = _context.CompanyTypes.AsNoTracking().AsQueryable();
+
+                if (!string.IsNullOrEmpty(req.Name))
+                {
+                    companyTypes = companyTypes.Where(x => x.Name.Contains(req.Name));
+                }
+
+                if (companyTypes.Any())
+                {
+                    response.Status = new Status(true, "Company Types Found");
+                    response.Data = new PagedList<CompanyType>(companyTypes, req.PagingParams.PageNumber, req.PagingParams.PageSize);
+                }
+                else
+                {
+                    response.Status = new Status(false, "Company Types Not Found");
+                }
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
         //edit company type (IdReq) (name = idreq.name)
 
         public async Task<DefaultResponse<CompanyType>> EditCompanyType(IdReq req)
