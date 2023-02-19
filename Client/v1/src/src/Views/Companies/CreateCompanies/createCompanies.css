@@ -1,0 +1,36 @@
+.CreateCompanyBox {
+  padding: 0 0.7em;
+}
+.CreateCompanyBox input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  width: 22em;
+  height: 120%;
+}
+@media (max-width: 768px) {
+  .CreateCompanyBox input {
+    width: 28em;
+  }
+}
+@media (min-width: 769px) and (max-width: 991px) {
+  .CreateCompanyBox input {
+    width: 43em;
+  }
+}
+
+textarea {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 22em;
+}
+@media (max-width: 768px) {
+  textarea {
+    width: 28em;
+  }
+}
+@media (min-width: 769px) and (max-width: 991px) {
+  textarea {
+    width: 43em;
+  }
+}/*# sourceMappingURL=CreateCompanies.css.map */
