@@ -156,10 +156,12 @@ namespace Tokenizer_V1.Controllers
 
             return Ok(response);
         }
-        
+
+        //search company types
+
         [HttpPost]
         [Route("SearchCompanyTypes")]
-        public async Task<IActionResult> SearchCompanyTypes([FromBody] IdReq request)
+        public async Task<IActionResult> SearchCompanyTypes([FromBody] SearchCompanyTypesReq request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -52,7 +52,7 @@ const SearchCompanies = ({ SearchReq, setSearchReq }) => {
                  <SoftInput placeholder="Website" type="text" onChange={(e) => setWebsite(e.target.value)} />
                 <div>
                     <input type="checkbox" onChange={(e) => setIsActive(e.target.checked)} />
-                    <label>Active</label>
+                    <label>Active?</label>
                 </div>
                 <div>
                     <input type="checkbox" onChange={(e) => setIsDeleted(e.target.checked)} />
