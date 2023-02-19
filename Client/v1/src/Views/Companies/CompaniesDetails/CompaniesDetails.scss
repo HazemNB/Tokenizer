@@ -1,5 +1,5 @@
 .card-details{
- 
+ background-color:#fff;
     .card-top{
         display: flex;
         justify-content: space-between;
@@ -19,6 +19,7 @@
     justify-content: space-between;
     padding-right: 30px;
      ul{
+        text-align: center;
         list-style: none;
         li{
             color: #344767;
@@ -29,5 +30,10 @@
                 color: rgb(123, 128, 154);
             }
         }
+    }
+    .company-datails-img{
+        border-radius: 10px;
+        max-width: 260px;
+       max-height: 195px;
     }
 }
