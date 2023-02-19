@@ -65,8 +65,8 @@ useEffect(() => {
 
 
        </Card>
-    {IsLoaded ? <DetailsBody   setIsLoaded = {setIsLoaded} /> : <LoaderSmall />}
-        </DashboardLayout>
+       {IsLoaded ? <DetailsBody   setIsLoaded = {setIsLoaded} /> : <LoaderSmall />}
+       </DashboardLayout>
     </div>
   
 </>

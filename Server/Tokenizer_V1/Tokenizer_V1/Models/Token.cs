@@ -31,6 +31,7 @@ namespace Tokenizer_V1.Models
         public bool? Claimed { set; get; }
         public bool? IsActive { set; get; }
         public int? PlayedForwardCount { set; get; }
+        public bool? IsPlayedForward { set; get; }
         //transactions
         public ICollection<TokenTransaction> Transactions { set; get; }
         //items

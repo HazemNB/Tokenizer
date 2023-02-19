@@ -56,8 +56,8 @@ const Details = ({company}) => {
     req.tokenLimit = TokenLimit;
     req.templateLimit = TemplateLimit;
     let res = await CompaniesApi.GetCompany(req);
-
- 
+    console.log(res)
+console.group(res)
     if (res.status.success) {
       Swal.fire({
         icon: 'success',

@@ -1,11 +1,9 @@
-import LoaderSmall from 'ProjectComponents/LoaderSmall';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom';
- 
 
 const Edit = () => {
     const { state } = useLocation();
-   
+  
   return (
  <>
  
@@ -29,9 +27,7 @@ const Edit = () => {
  
     </ul>
   </div>
-
- 
- </>
+  </>
   )
 }
 

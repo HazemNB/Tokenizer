@@ -3,7 +3,7 @@ import React from 'react'
 const DetailsBody = ({Company}) => {
   return (
     <div>
-      <h1 style={{textAlign:"center",marginTop:"10px"}}>Details Body</h1>
+      <h1 style={{textAlign:"center"}}>Details Body</h1>
     </div>
   )
 }
