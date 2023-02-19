@@ -8,7 +8,7 @@ import CompaniesApi from '../../../API/CompaniesApi';
 import "./CompaniesDetails.scss"
 import Details from './Details';
 import Edit from './Edit';
-import DetailsBody from 'Views/Companies/CompaniesDetails/DetailsBody';
+import DetailsBody from './DetailsBody';
 import LoaderSmall from 'ProjectComponents/LoaderSmall';
 const CompaniesDetails = () => {
   const { state } = useLocation();
