@@ -68,7 +68,18 @@ const CompaniesDetails = () => {
               <button onClick={() => { setToggle(!toggle) }} title="Go To Details" className='card-btn'>  <Icon> {
                 "edit"
               } </Icon></button>
+    <>
+      <div>
+        <DashboardLayout>
+          <DashboardNavbar />
+          <Card className="card-details">
+            <div className='card-top'>
+              <h4 style={{ color: "#344767" }}>Company Details</h4>
+              <button onClick={() => { setToggle(!toggle) }} title="Go To Details" className='card-btn'>  <Icon> {
+                "edit"
+              } </Icon></button>
 
+              {/* <butt onclick(setTest(!test)</butt>
               {/* <butt onclick(setTest(!test)</butt>
                {onClick={()=>{setToggle(!toggle)}}
                 testState ? <>details</> : <>edit</>
@@ -76,13 +87,16 @@ const CompaniesDetails = () => {
 
             </div>
             {
-              toggle ? <><Details /> </> : <><Edit company={state.company} /></>
+              toggle ? <Edit /> :
+                <>
+                  <Details company={state.company} />
+                </>
             }
-
-
           </Card>
-          {IsLoaded ? <DetailsBody setIsLoaded={setIsLoaded} /> : <LoaderSmall />}
+
+          <DetailsBody SearchReq={SearchReq} setSearchReq={setSearchReq} setIsLoaded={setIsLoaded} />
         </DashboardLayout>
+
       </div>
 
     </>
