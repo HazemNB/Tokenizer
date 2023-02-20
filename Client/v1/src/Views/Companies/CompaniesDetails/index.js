@@ -50,24 +50,9 @@ const CompaniesDetails = () => {
   if (!IsLoaded && !CompanyData) {
     return <LoaderSmall />;
   }
-
-  if (IsLoaded) {
-    console.log("hii");
-  }
-
-  IsLoaded ? (console.log("hii")) : (null)
+ 
   return (
-    <>
-      <div>
-        <DashboardLayout>
-          <DashboardNavbar />
-          <Card className="card-details">
-            <div className='card-top'>
-              <h4 style={{ color: "#344767" }}>Company Details</h4>
-              <button onClick={() => { setToggle(!toggle) }} title="Go To Details" className='card-btn'>  <Icon> {
-                "edit"
-              } </Icon></button>
-    <>
+    
       <div>
         <DashboardLayout>
           <DashboardNavbar />
@@ -97,8 +82,7 @@ const CompaniesDetails = () => {
         </DashboardLayout>
 
       </div>
-
-    </>
+ 
   )
 }
 
