@@ -80,7 +80,7 @@ const index = () => {
                 {
                     ID: (
                         <SoftTypography variant="button" color="text" fontWeight="medium">
-                            ({company.id})
+                        {company.id} ({company.userType})
                         </SoftTypography>
                     ),
                     Name: (

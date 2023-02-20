@@ -38,7 +38,8 @@ class CompaniesApi{
     SearchCompaniesUrl = 'Companies/SearchCompanies'
     CreateCompanyTypeUrl = 'Companies/CreateCompanyType';
     DeleteCompanyTypeUrl ='Companies/DeleteCompanyType'; 
-    SearchCompanyTypeUrl ='Companies/'
+    SearchCompanyTypeUrl ='Companies/SearchCompanyTypes';
+    AddUserToCompanyUrl = 'Companies/AddUserToCompany'
     async CreateCompany(req) {
         let formData = new FormData();
         // append the data from each feild in req programmitacally in a loop
@@ -83,7 +84,18 @@ class CompaniesApi{
         const data = await res.json();
         return data;
     }
-
+    async AddUserToCompany(req) {
+        const res = await fetch(this.baseUrl + this.AddUserToCompanyUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
     async DeleteCompany(req) {
         const res = await fetch(this.baseUrl + this.DeleteCompanyUrl, {
             method: 'POST',
