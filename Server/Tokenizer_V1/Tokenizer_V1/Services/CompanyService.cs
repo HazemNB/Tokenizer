@@ -582,6 +582,14 @@ namespace Tokenizer_V1.Services
                     return response;
                 }
 
+                var companyCount = await _context.Companies.CountAsync(c => c.CompanyTypeId == companyType.Id);
+
+                if (companyCount > 0)
+                {
+                    response.Status = new Status(false, "Company Type is in use");
+                    return response;
+                }
+
                 _context.CompanyTypes.Remove(companyType);
 
                 var saveRes = await _context.SaveChangesAsync();

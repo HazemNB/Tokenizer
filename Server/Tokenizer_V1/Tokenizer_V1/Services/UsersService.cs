@@ -43,7 +43,22 @@ namespace Tokenizer_V1.Services
                     response.Status.Message = "You are not authorized to create an admin user";
                     return response;
                 }
-                
+
+                if (req.UserType == UserTypes.Manager && CurrentUser.Data.UserType != UserTypes.SuperAdmin
+                    && CurrentUser.Data.UserType != UserTypes.Admin)
+                {
+                    response.Status.Message = "You are not authorized to create a manager user";
+                    return response;
+                }
+
+                if (req.UserType == UserTypes.CompanyAdmin && CurrentUser.Data.UserType != UserTypes.SuperAdmin
+                    && CurrentUser.Data.UserType != UserTypes.Admin
+                    && CurrentUser.Data.UserType != UserTypes.CompanyAdmin)
+                {
+                    response.Status.Message = "You are not authorized to create a company admin user";
+                    return response;
+                }
+
 
                 FirebaseAdmin.Auth.UserRecord userRecord = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateUserAsync(new FirebaseAdmin.Auth.UserRecordArgs
                 {
@@ -53,6 +68,8 @@ namespace Tokenizer_V1.Services
                     DisplayName = req.Name,
                     Disabled = false
                 });
+
+                // add security
 
                 var user = new User
                 {

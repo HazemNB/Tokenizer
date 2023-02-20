@@ -191,6 +191,9 @@ const index = () => {
               </SoftTypography>
               <select name="userType" id="userType" className='CreateUserInput' onChange={(e) => setType(e.target.value)}>
                 <option value="User">User</option>
+                <option value="CompanyUser">Company User</option>
+                <option value="CompanyAdmin">Company Admin</option>
+                <option value="Manager">Manager</option>
                 <option value="Admin">Admin</option>
                 <option value="SuperAdmin">Super Admin</option>
               </select>

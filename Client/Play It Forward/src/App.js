@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, createContext } from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -47,6 +47,12 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 
 // Images
 import brand from "assets/images/logo-ct.png";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import UsersApi from "./API/UsersApi";
+import "./App.scss";
+import Loader from "ProjectComponents/Loader";
+export const UserContext = createContext();
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -54,6 +60,21 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+
+  const auth = getAuth();
+  const [user, loading, error] = useAuthState(auth);
+  const [UserData, setUserData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      let res = await UsersApi.GetCurrentUser();
+      console.log(res.data);
+      setUserData(res.data);
+    }
+    if (!UserData && user && !loading) {
+      fetchData();
+    }
+  }, [user, loading, UserData]);
 
   // Cache for the rtl
   useMemo(() => {
@@ -135,6 +156,36 @@ export default function App() {
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={themeRTL}>
+        <UserContext.Provider value={UserData}>
+
+          <CssBaseline />
+          {layout === "dashboard" && (
+            <>
+              <Sidenav
+                color={sidenavColor}
+                brand={brand}
+                brandName="Soft UI Dashboard"
+                routes={routes}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+              <Configurator />
+              {configsButton}
+            </>
+          )}
+          {layout === "vr" && <Configurator />}
+          <Routes>
+            {getRoutes(routes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </UserContext.Provider>
+
+      </ThemeProvider>
+    </CacheProvider>
+  ) : (
+    <ThemeProvider theme={theme}>
+      <UserContext.Provider value={UserData}>
+
         <CssBaseline />
         {layout === "dashboard" && (
           <>
@@ -155,30 +206,8 @@ export default function App() {
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={brand}
-            brandName="Soft UI Dashboard"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
+      </UserContext.Provider>
+
     </ThemeProvider>
   );
 }

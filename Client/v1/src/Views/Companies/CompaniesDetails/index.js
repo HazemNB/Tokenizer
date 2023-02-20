@@ -6,70 +6,70 @@ import { useLocation } from 'react-router-dom';
 import IdReq from '../../../Requests/IdReq';
 import CompaniesApi from '../../../API/CompaniesApi';
 import "./CompaniesDetails.scss"
+import Edit from './EditCompany';
 import Details from './Details';
-import Edit from './Edit';
 import DetailsBody from './DetailsBody';
 import LoaderSmall from 'ProjectComponents/LoaderSmall';
 const CompaniesDetails = () => {
   const { state } = useLocation();
   const [Company, setCompany] = useState(null);
   const [IsLoaded, setIsLoaded] = useState(false);
-  const[toggle,setToggle] = useState(true);
- 
+  const [toggle, setToggle] = useState(true);
+
   const GetCompanyDetails = async () => {
     let req = new IdReq(state.company.id);
     let res = await CompaniesApi.GetCompany(req);
 
     if (res.status.success) {
-        setCompany(res.data);
-     }
-    else {
-        Swal.fire({
-            icon: 'error',
-            text: res.status.message,
-        });
+      setCompany(res.data);
     }
-}
+    else {
+      Swal.fire({
+        icon: 'error',
+        text: res.status.message,
+      });
+    }
+  }
 
-useEffect(() => {
-  if (Company) {
+  useEffect(() => {
+    if (Company) {
       setIsLoaded(true);
-  }
-}, [Company]);
-useEffect(() => {
-  if (!IsLoaded) {
+    }
+  }, [Company]);
+  useEffect(() => {
+    if (!IsLoaded) {
       GetCompanyDetails();
-  }
-}, [IsLoaded]);
+    }
+  }, [IsLoaded]);
   return (
-<>
-<div>
-       <DashboardLayout>
-       <DashboardNavbar />
-       <Card className="card-details">
-       <div className='card-top'>
-<h4 style={{color:"#344767"}}>Company Details</h4>
-<button  onClick={()=>{setToggle(!toggle)}} title="Go To Details" className='card-btn'>  <Icon> {
-                           "edit"
-                            } </Icon></button>
+    <>
+      <div>
+        <DashboardLayout>
+          <DashboardNavbar />
+          <Card className="card-details">
+            <div className='card-top'>
+              <h4 style={{ color: "#344767" }}>Company Details</h4>
+              <button onClick={() => { setToggle(!toggle) }} title="Go To Details" className='card-btn'>  <Icon> {
+                "edit"
+              } </Icon></button>
 
-     {/* <butt onclick(setTest(!test)</butt>
+              {/* <butt onclick(setTest(!test)</butt>
                {onClick={()=>{setToggle(!toggle)}}
                 testState ? <>details</> : <>edit</>
                } */}
-     
-</div>
-{
-  toggle?<><Edit/> </>:<><Details company={state.company}/></>
-}
+
+            </div>
+            {
+              toggle ? <><Details /> </> : <><Edit company={state.company} /></>
+            }
 
 
-       </Card>
-       {IsLoaded ? <DetailsBody   setIsLoaded = {setIsLoaded} /> : <LoaderSmall />}
-       </DashboardLayout>
-    </div>
-  
-</>
+          </Card>
+          {IsLoaded ? <DetailsBody setIsLoaded={setIsLoaded} /> : <LoaderSmall />}
+        </DashboardLayout>
+      </div>
+
+    </>
   )
 }
 

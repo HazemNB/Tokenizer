@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
  
 
 
-const EditCompany = ({company}) => {
+const Details = ({company}) => {
   const { state } = useLocation();
  
   const [Name, setName] = useState();
@@ -316,5 +316,5 @@ console.group(res)
   )
 }
 
-export default EditCompany
+export default Details
 
