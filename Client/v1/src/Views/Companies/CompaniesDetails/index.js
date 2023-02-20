@@ -25,16 +25,12 @@ const CompaniesDetails = () => {
       setCompanyData(res.data);
     }
     else {
-      Swal.fire({
-        icon: 'error',
-        text: res.status.message,
-      });
-      Swal.fire({
-        icon: 'error',
-        text: res.status.message,
-      });
+        Swal.fire({
+            icon: 'error',
+            text: res.status.message,
+        });
     }
-  }
+}
 
   useEffect(() => {
     if (CompanyData) {
@@ -44,45 +40,46 @@ const CompaniesDetails = () => {
   useEffect(() => {
     if (!IsLoaded) {
       GetCompanyDetails();
-    }
-  }, [IsLoaded]);
+  }
+}, [IsLoaded]);
 
   if (!IsLoaded && !CompanyData) {
     return <LoaderSmall />;
   }
  
   return (
-    
-      <div>
-        <DashboardLayout>
-          <DashboardNavbar />
-          <Card className="card-details">
-            <div className='card-top'>
+<>
+<div>
+       <DashboardLayout>
+       <DashboardNavbar />
+       <Card className="card-details">
+       <div className='card-top'>
               <h4 style={{ color: "#344767" }}>Company Details</h4>
               <button onClick={() => { setToggle(!toggle) }} title="Go To Details" className='card-btn'>  <Icon> {
-                "edit"
-              } </Icon></button>
+                           "edit"
+                            } </Icon></button>
 
               {/* <butt onclick(setTest(!test)</butt>
               {/* <butt onclick(setTest(!test)</butt>
                {onClick={()=>{setToggle(!toggle)}}
                 testState ? <>details</> : <>edit</>
                } */}
-
-            </div>
-            {
+     
+</div>
+{
               toggle ? <Edit /> :
                 <>
                   <Details company={state.company} />
                 </>
-            }
-          </Card>
+}
+       </Card>
 
           <DetailsBody SearchReq={SearchReq} setSearchReq={setSearchReq} setIsLoaded={setIsLoaded} />
-        </DashboardLayout>
+       </DashboardLayout>
 
-      </div>
- 
+    </div>
+  
+</>
   )
 }
 
