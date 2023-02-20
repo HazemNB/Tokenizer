@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "App";
 import SoftButton from 'components/SoftButton';
 /* eslint react/prop-types: 0 */
-const PrivateRoute = ({ children }) => {
+const CompanyRoute = ({ children }) => {
     const User = useContext(UserContext)
 
     const auth = getAuth();
@@ -22,6 +22,17 @@ const PrivateRoute = ({ children }) => {
             return(
             <div className='loaderDiv'>
                 <h1>User data not loaded. Please Refresh.</h1>
+                <SoftButton color="secondary" fullWidth onClick={() => {
+                    getAuth().signOut();
+                }}>
+                    Logout
+                </SoftButton>
+            </div>)
+        }
+        if (User.userType != "CompanyAdmin" && User.userType != "CompanyUser" && User.userType != "SuperAdmin") {
+            return(
+            <div className='loaderDiv'>
+                <h1>ACCESS DENIED</h1>
                 <SoftButton color="secondary" fullWidth onClick={() => {
                     getAuth().signOut();
                 }}>
@@ -64,4 +75,4 @@ const PrivateRoute = ({ children }) => {
 
 }
 
-export default PrivateRoute
+export default CompanyRoute

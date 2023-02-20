@@ -6,8 +6,8 @@ import { useLocation } from 'react-router-dom';
 import IdReq from '../../../Requests/IdReq';
 import CompaniesApi from '../../../API/CompaniesApi';
 import "./CompaniesDetails.scss"
+import Edit from './EditCompany';
 import Details from './Details';
-import Edit from './Edit';
 import DetailsBody from './DetailsBody';
 import LoaderSmall from 'ProjectComponents/LoaderSmall';
 import SearchCompaniesReq from '../../../Requests/Companies/SearchCompaniesReq';
@@ -16,7 +16,7 @@ const CompaniesDetails = () => {
   const [CompanyData, setCompanyData] = useState(null);
   const [IsLoaded, setIsLoaded] = useState(false);
   const [toggle, setToggle] = useState(true);
-  const [SearchReq, setSearchReq] = useState(new SearchCompaniesReq());
+
   const GetCompanyDetails = async () => {
     let req = new IdReq(state.company.id);
     let res = await CompaniesApi.GetCompany(req);
@@ -29,7 +29,12 @@ const CompaniesDetails = () => {
         icon: 'error',
         text: res.status.message,
       });
+      Swal.fire({
+        icon: 'error',
+        text: res.status.message,
+      });
     }
+  }
   }
 
   useEffect(() => {
@@ -71,16 +76,13 @@ const CompaniesDetails = () => {
 
             </div>
             {
-              toggle ? <Edit /> :
-                <>
-                  <Details company={state.company} />
-                </>
+              toggle ? <><Details /> </> : <><Edit company={state.company} /></>
             }
+
+
           </Card>
-
-          <DetailsBody SearchReq={SearchReq} setSearchReq={setSearchReq} setIsLoaded={setIsLoaded} />
+          {IsLoaded ? <DetailsBody setIsLoaded={setIsLoaded} /> : <LoaderSmall />}
         </DashboardLayout>
-
       </div>
 
     </>

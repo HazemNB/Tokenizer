@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "App";
 import SoftButton from 'components/SoftButton';
 /* eslint react/prop-types: 0 */
-const AdminRoute = ({ children }) => {
+const CompanyAdminRoute = ({ children }) => {
     const User = useContext(UserContext)
 
     const auth = getAuth();
@@ -29,7 +29,7 @@ const AdminRoute = ({ children }) => {
                 </SoftButton>
             </div>)
         }
-        if (User.userType != "Admin" && User.userType != "SuperAdmin") {
+        if (User.userType != "CompanyAdmin" && User.userType != "SuperAdmin") {
             return(
             <div className='loaderDiv'>
                 <h1>ACCESS DENIED</h1>
@@ -75,4 +75,4 @@ const AdminRoute = ({ children }) => {
 
 }
 
-export default AdminRoute
+export default CompanyAdminRoute
