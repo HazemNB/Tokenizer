@@ -9,7 +9,7 @@ const UserSelector = ({setUser}) => {
 
     const GetUsers = async () => {
         let searchReq = new SearchUsersReq();
-
+        // searchReq.userType = "company"
         searchReq.name = UsersSearch;
         let res = await UsersApi.SearchUsers(searchReq)
         if (res.status.success) {

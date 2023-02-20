@@ -1,4 +1,6 @@
-import { Card, Table } from '@mui/material'
+import { Card } from '@mui/material';
+import Table from "examples/Tables/Table";
+
 import CompaniesApi from '../../../API/CompaniesApi';
 import IdReq from '../../../Requests/IdReq'
 import SoftButton from 'components/SoftButton'
@@ -11,29 +13,30 @@ import Swal from 'sweetalert2'
 import LoaderSmall from 'ProjectComponents/LoaderSmall';
 import { AiFillDelete } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import TokensApi from '../../../API/TokensApi';
-const index = () => {
+import TokensApi from 'API/TokensApi';
+ const index = () => {
     let navigate = useNavigate();
-    const[CreateName,setCreateName] =useState(null);
+    const[CreateName,setCreateName] =useState("");
     const [IsLoaded, setIsLoaded] = useState(false);
     const [TableDataRows, setTableDataRows] = useState([])
 const[Name,setName]=useState("")
-    const[ResponseData,setResponseData]=useState();
+const [ResponseData, setResponseData] = useState(null);
  
-    const searchCompanyTypes = async () => {
-        let req = new IdReq();
-        req.Name = Name;
-        let res = await CompaniesApi.GetCompany(req);
-        if (res.status.success) {
-            setResponseData(res.data);
-        }
-        else {
-            Swal.fire({
-                icon: 'error',
-                text: res.status.message,
-            });
-        }
+const searchCompanyTypes = async () => {
+    let req = new IdReq();
+    req.Name = Name;
+    let res = await CompaniesApi.SearchCompanyType(req);
+    if (res.status.success) {
+        setResponseData(res.data);
     }
+    else {
+        Swal.fire({
+            icon: 'error',
+            text: res.status.message,
+        });
+    }
+}
+
  
 
     useEffect(() => {
@@ -44,10 +47,13 @@ const[Name,setName]=useState("")
             RefreshTable();
         }
     }, [IsLoaded]);
-
     useEffect(() => {
+       
         if(ResponseData){
             setIsLoaded(true);
+           
+        }
+        else{
             RefreshTable();
         }
     }, [ResponseData]);
@@ -58,17 +64,46 @@ const[Name,setName]=useState("")
     ];
     const RefreshTable = () => {
         let rows = [];
-        ResponseData?.forEach((user) => {
-            rows.push(
-                MakeTableRow(user)
+        ResponseData?.list.forEach((ct) => {
+             rows.push(
+                MakeTableRow(ct)
             );
         });
         setTableDataRows(rows);
     }
+    const MakeTableRow = (item) => {
+        return (
+            {
+                ID: (
+                    <SoftTypography variant="button" color="text" fontWeight="medium">
+                        {item.id}  
+                    </SoftTypography>
+                ),
+                Name: (
+                    <SoftTypography variant="button" color="text" fontWeight="medium">
+                        {item.name}
+                    </SoftTypography>
+                ),
+                Delete: (
+                    <SoftButton
+                        variant="contained" color="dark" 
+                        onClick={() => {
+                            DeleteCompanyType(item.id);
+                        }
+                    }>
+
+                        <AiFillDelete />
+
+                    </SoftButton>
+                ),
+
+            }
+        );
+    }
     const CreateNewCompanyType = async()=>{
         Swal.fire({
             icon: 'info',
-            text: "Creating new token type",
+            text: "Creating new Company type",
             didOpen: () => {
                 Swal.showLoading();
             }
@@ -117,35 +152,7 @@ const[Name,setName]=useState("")
             });
         }
     }
-    const MakeTableRow = (item) => {
-        return (
-            {
-                ID: (
-                    <SoftTypography variant="button" color="text" fontWeight="medium">
-                        {item.id}  
-                    </SoftTypography>
-                ),
-                Name: (
-                    <SoftTypography variant="button" color="text" fontWeight="medium">
-                        {item.name}
-                    </SoftTypography>
-                ),
-                Delete: (
-                    <SoftButton
-                        variant="contained" color="dark" 
-                        onClick={() => {
-                            DeleteCompanyType(item.id);
-                        }
-                    }>
-
-                        <AiFillDelete />
-
-                    </SoftButton>
-                ),
-
-            }
-        );
-    }
+   
   return (
     <DashboardLayout>
  <DashboardNavbar />

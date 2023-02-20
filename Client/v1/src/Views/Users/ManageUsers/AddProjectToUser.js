@@ -121,7 +121,8 @@ const AddProjectToUser = ({ User, setEnabled, Enabled, setIsLoaded }) => {
                     {User ? <SoftTypography variant="h5" style={{ marginBottom: '10px' }}>Add Project to User #{User.id} - {User.name}</SoftTypography>
                         : <SoftTypography variant="h5" style={{ marginBottom: '10px' }}>No User selected!!</SoftTypography>
                     }                </div>
-                <div style={{
+ {/* ................... */}
+ <div style={{
                     display: 'grid', gridTemplateColumns: "2fr 1fr", gridColumnGap: "1em",
                     justifyContent: 'center', alignItems: 'center', padding: '10px',
                     borderBottom: '1px solid #e0e0e0', marginBottom: '1em'
@@ -129,6 +130,7 @@ const AddProjectToUser = ({ User, setEnabled, Enabled, setIsLoaded }) => {
                     <ProjectSelector setProject={setProject} />
                     <SoftButton onClick={addUserToProject}>Add Project</SoftButton>
                 </div>
+                {/* ............... */}
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '10px' }}>
                     {
                         User?.projects?.map((project, index) => {

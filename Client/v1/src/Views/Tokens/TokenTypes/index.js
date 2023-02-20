@@ -49,6 +49,8 @@ const Index = () => {
     useEffect(() => {
         if(ResponseData){
             setIsLoaded(true);
+           
+        }else{
             RefreshTable();
         }
     }, [ResponseData]);
