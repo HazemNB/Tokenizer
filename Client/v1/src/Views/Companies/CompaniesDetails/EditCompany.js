@@ -274,7 +274,7 @@ const Details = ({company, setIsLoaded}) => {
             <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
               User Limit
             </SoftTypography>
-            <input type="number" className='CreateUserInput' defaultValue={company.useLimit}  onChange={(e) => setUserLimit(e.target.value)} />
+            <input type="number" className='CreateUserInput' defaultValue={company.userLimit}  onChange={(e) => setUserLimit(e.target.value)} />
     
           </SoftBox>
           <SoftBox
