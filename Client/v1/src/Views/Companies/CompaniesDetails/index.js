@@ -49,7 +49,6 @@ const index = () => {
     return <LoaderSmall />;
   }
 
-
   return (
     <>
       <div>

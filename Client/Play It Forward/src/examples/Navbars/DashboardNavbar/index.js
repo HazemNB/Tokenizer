@@ -147,12 +147,12 @@ function DashboardNavbar({ absolute, light, isMini }) {
         </SoftBox>
         {isMini ? null : (
           <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <SoftBox pr={1}>
+            {/* <SoftBox pr={1}>
               <SoftInput
                 placeholder="Type here..."
                 icon={{ component: "search", direction: "left" }}
               />
-            </SoftBox>
+            </SoftBox> */}
             <SoftBox color={light ? "white" : "inherit"}>
               <Link to="/authentication/sign-in">
                 <IconButton sx={navbarIconButton} size="small">
@@ -163,13 +163,13 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   >
                     account_circle
                   </Icon>
-                  <SoftTypography
+                  {/* <SoftTypography
                     variant="button"
                     fontWeight="medium"
                     color={light ? "white" : "dark"}
                   >
                     Sign in
-                  </SoftTypography>
+                  </SoftTypography> */}
                 </IconButton>
               </Link>
               <IconButton
@@ -182,14 +182,14 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   {miniSidenav ? "menu_open" : "menu"}
                 </Icon>
               </IconButton>
-              <IconButton
+              {/* <IconButton
                 size="small"
                 color="inherit"
                 sx={navbarIconButton}
                 onClick={handleConfiguratorOpen}
               >
                 <Icon>settings</Icon>
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 size="small"
                 color="inherit"

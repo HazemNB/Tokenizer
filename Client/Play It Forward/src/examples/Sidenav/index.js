@@ -43,6 +43,9 @@ import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
 // Soft UI Dashboard React context
 import { useSoftUIController, setMiniSidenav } from "context";
 
+import { getAuth, signOut } from "firebase/auth";
+
+
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const [controller, dispatch] = useSoftUIController();
   const { miniSidenav, transparentSidenav } = controller;
@@ -70,8 +73,9 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
 
+  let newRoutes = routes.filter(x => (x.hidden != true))
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
-  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, route, href }) => {
+  const renderRoutes = newRoutes.map(({ type, name, icon, title, noCollapse, key, route, href }) => {
     let returnValue;
 
     if (type === "collapse") {
@@ -158,18 +162,22 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       <Divider />
       <List>{renderRoutes}</List>
       <SoftBox pt={2} my={2} mx={2} mt="auto">
-        <SidenavCard />
         <SoftBox mt={2}>
-          <SoftButton
-            component="a"
-            href="https://creative-tim.com/product/soft-ui-dashboard-pro-react"
-            target="_blank"
-            rel="noreferrer"
+          <SoftButton  
             variant="gradient"
             color={color}
             fullWidth
+            onClick={() => {
+              const auth = getAuth();
+              signOut(auth).then(() => {
+                // Sign-out successful.
+              }).catch((error) => {
+                // An error happened.
+                console.log(error);
+              });
+            }}
           >
-            upgrade to pro
+            Logout
           </SoftButton>
         </SoftBox>
       </SoftBox>

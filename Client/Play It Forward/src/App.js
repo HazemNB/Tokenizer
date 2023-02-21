@@ -1,20 +1,4 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect, useMemo, createContext } from "react";
-
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
@@ -41,7 +25,10 @@ import createCache from "@emotion/cache";
 
 // Soft UI Dashboard React routes
 import routes from "routes";
-
+import CompanyRoutes from "CompanyRoutes";
+import CompanyAdminRoutes from "CompanyAdminRoutes";
+import UserRoutes from "UserRoutes";
+import PublicRoutes from "PublicRoutes";
 // Soft UI Dashboard React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
@@ -64,6 +51,25 @@ export default function App() {
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
   const [UserData, setUserData] = useState(null);
+  const [RoutesState, setRoutesState] = useState(null);
+  const [IsLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (UserData) {
+      if (UserData.userType === "CompanyAdmin" || UserData.userType === "SuperAdmin") {
+        setRoutesState(CompanyAdminRoutes);
+      }
+      else if (UserData.userType === "CompanyUser") {
+        setRoutesState(CompanyRoutes);
+      }
+      else if (UserData.userType === "User") {
+        setRoutesState(UserRoutes);
+      }
+      else {
+        setRoutesState(PublicRoutes);
+      }
+    }
+  }, [UserData]);
 
   useEffect(() => {
     async function fetchData() {
@@ -73,6 +79,9 @@ export default function App() {
     }
     if (!UserData && user && !loading) {
       fetchData();
+    }
+    else if(!user && !loading){
+      setUserData({});
     }
   }, [user, loading, UserData]);
 
@@ -102,8 +111,6 @@ export default function App() {
     }
   };
 
-  // Change the openConfigurator state
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
   // Setting the dir attribute for the body element
   useEffect(() => {
@@ -127,31 +134,20 @@ export default function App() {
       }
 
       return null;
-    });
+  });
 
-  const configsButton = (
-    <SoftBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      width="3.5rem"
-      height="3.5rem"
-      bgColor="white"
-      shadow="sm"
-      borderRadius="50%"
-      position="fixed"
-      right="2rem"
-      bottom="2rem"
-      zIndex={99}
-      color="dark"
-      sx={{ cursor: "pointer" }}
-      onClick={handleConfiguratorOpen}
-    >
-      <Icon fontSize="default" color="inherit">
-        settings
-      </Icon>
-    </SoftBox>
-  );
+  useEffect(() => {
+    if (RoutesState && UserData) {
+      setIsLoaded(true);
+    }
+    else{
+      setIsLoaded(false);
+    }
+  }, [RoutesState, UserData]);
+
+  if (!IsLoaded) {
+    return <Loader />;
+  }
 
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
@@ -162,20 +158,18 @@ export default function App() {
           {layout === "dashboard" && (
             <>
               <Sidenav
-                color={sidenavColor}
+                color={"dark"}
                 brand={brand}
-                brandName="Soft UI Dashboard"
-                routes={routes}
+                brandName="Play It Forward"
+                routes={RoutesState}
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
               />
-              <Configurator />
-              {configsButton}
             </>
           )}
           {layout === "vr" && <Configurator />}
           <Routes>
-            {getRoutes(routes)}
+            {getRoutes(RoutesState)}
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>
         </UserContext.Provider>
@@ -190,20 +184,18 @@ export default function App() {
         {layout === "dashboard" && (
           <>
             <Sidenav
-              color={sidenavColor}
+              color={"dark"}
               brand={brand}
-              brandName="Soft UI Dashboard"
-              routes={routes}
+              brandName="Play It Forward"
+              routes={RoutesState}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
-            <Configurator />
-            {configsButton}
           </>
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes)}
+          {getRoutes(RoutesState)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </UserContext.Provider>

@@ -75,7 +75,7 @@ function Breadcrumbs({ icon, title, route, light }) {
           {title.replace("-", " ")}
         </SoftTypography>
       </MuiBreadcrumbs>
-      <SoftTypography
+      {/* <SoftTypography
         fontWeight="bold"
         textTransform="capitalize"
         variant="h6"
@@ -83,7 +83,7 @@ function Breadcrumbs({ icon, title, route, light }) {
         noWrap
       >
         {title.replace("-", " ")}
-      </SoftTypography>
+      </SoftTypography> */}
     </SoftBox>
   );
 }
