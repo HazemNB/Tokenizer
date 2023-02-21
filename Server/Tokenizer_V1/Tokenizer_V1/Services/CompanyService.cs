@@ -129,9 +129,9 @@ namespace Tokenizer_V1.Services
                     {
                         imageData = binaryReader.ReadBytes((int)req.Logo.Length);
                     }
+                    company.Logo = imageData;
                 }
 
-                company.Logo = imageData;
 
                 _context.Companies.Update(company);
 
@@ -354,7 +354,7 @@ namespace Tokenizer_V1.Services
                     return response;
                 }
 
-                var user = await _context.Users.FindAsync(req.Id2);
+                var user = await _context.Users.FindAsync(req.Id1);
 
                 if (user == null)
                 {
@@ -403,7 +403,7 @@ namespace Tokenizer_V1.Services
                     return response;
                 }
 
-                var user = await _context.Users.FindAsync(req.Id2);
+                var user = await _context.Users.FindAsync(req.Id1);
 
                 if (user == null)
                 {
@@ -422,7 +422,7 @@ namespace Tokenizer_V1.Services
 
                 var saveRes = await _context.SaveChangesAsync();
 
-                if (saveRes > 1)
+                if (saveRes > 0)
                 {
                     response.Status = new Status(true, "User Removed from Company");
                 }
@@ -674,7 +674,7 @@ namespace Tokenizer_V1.Services
                 }
 
                 company.CompanyTypeId = companyType.Id;
-                
+
 
                 var saveRes = await _context.SaveChangesAsync();
 

@@ -31,7 +31,7 @@ namespace Tokenizer_V1.Controllers
 
         [HttpPost]
         [Route("EditCompany")]
-        public async Task<IActionResult> EditCompany([FromBody] CreateCompanyReq request)
+        public async Task<IActionResult> EditCompany([FromForm] CreateCompanyReq request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
