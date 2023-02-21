@@ -2,14 +2,14 @@ import { Card } from '@mui/material'
 import CompaniesApi from '../../../API/CompaniesApi'
 import SoftButton from 'components/SoftButton'
 import SoftTypography from 'components/SoftTypography'
-import CompanySelector from 'ProjectComponents/CompanySelector'
+import CompanyUserSelector from 'ProjectComponents/CompanyUserSelector'
 import React, { useState } from 'react';
 import ManyToManyReq from '../../../Requests/ManyToManyReq';
 import Swal from 'sweetalert2'
 
 
-const AddUserToCompany = ({ User, setEnabled, Enabled, setIsLoaded }) => {
-    const [Company, setCompany] = useState(null);
+const AddUserToCompany = ({setIsLoaded, Company }) => {
+    const [SelectedUser, setSelectedUser] = useState(null);
     const addUserToCompany = async () => {
 
         Swal.fire({
@@ -35,9 +35,11 @@ const AddUserToCompany = ({ User, setEnabled, Enabled, setIsLoaded }) => {
             });
             return;
         }
+        if(!SelectedUser){
 
+        }
 
-        let req = new ManyToManyReq(Company.id, User.id);
+        let req = new ManyToManyReq(SelectedUser.id, Company.id);
 
         let res = await CompaniesApi.AddUserToCompany(req);
 
@@ -62,7 +64,7 @@ const AddUserToCompany = ({ User, setEnabled, Enabled, setIsLoaded }) => {
         }
     }
     return (
-        <Card sx={{ width: "100%", height: "100%", padding: "1rem", margin: "1em 0" }}>
+        <Card sx={{ width: "100%", height: "10em", padding: "1rem", margin: "1em 0" }}>
             <SoftTypography variant="h5" color="text" fontWeight="medium">
                 Add User To  Company
             </SoftTypography>
@@ -70,8 +72,8 @@ const AddUserToCompany = ({ User, setEnabled, Enabled, setIsLoaded }) => {
                 <SoftTypography variant="h6" color="text" fontWeight="medium">
                     Add New User
                 </SoftTypography>
-                <CompanySelector setCompany={setCompany} />
-                <SoftButton onClick={addUserToCompany}>Add Company</SoftButton>
+                <CompanyUserSelector setUser={setSelectedUser} />
+                <SoftButton onClick={addUserToCompany}>Add to Company</SoftButton>
             </div>
 
         </Card>

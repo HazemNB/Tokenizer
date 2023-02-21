@@ -9,25 +9,26 @@ import CompaniesApi from '../../../API/CompaniesApi';
 import Swal from 'sweetalert2';
 import IdReq from '../../../Requests/IdReq';
 import { useLocation } from 'react-router-dom';
+import CreateCompaniesReq from 'Requests/Companies/CreateComapniesReq';
  
 
 
-const Details = ({company}) => {
+const Details = ({company, setIsLoaded}) => {
   const { state } = useLocation();
  
-  const [Name, setName] = useState();
-  const [Email, setEmail] = useState();
-  const [Phone, setPhone] = useState();
-  const [Description, setDescription] = useState()
-  const [Country, setCountry] = useState();
-  const [City, setCity] = useState();
-  const [Address, setAddress] = useState();
-  const [Zip, setZip] = useState();
-  const [Website, setWebsite] = useState();
-  const [CompanyTypeId, setCompanyTypeId] = useState();
-  const [UserLimit, setUserLimit] = useState();
-  const [TokenLimit, setTokenLimit] = useState();
-  const [TemplateLimit, setTemplateLimit] = useState();
+  const [Name, setName] = useState(company.name);
+  const [Email, setEmail] = useState(company.email);
+  const [Phone, setPhone] = useState(company.phone);
+  const [Description, setDescription] = useState(company.description)
+  const [Country, setCountry] = useState(company.country);
+  const [City, setCity] = useState(company.city);
+  const [Address, setAddress] = useState(company.address);
+  const [Zip, setZip] = useState(company.zip);
+  const [Website, setWebsite] = useState(company.website);
+  const [CompanyTypeId, setCompanyTypeId] = useState(company.companyTypeId);
+  const [UserLimit, setUserLimit] = useState(company.userLimit);
+  const [TokenLimit, setTokenLimit] = useState(company.tokenLimit);
+  const [TemplateLimit, setTemplateLimit] = useState(company.templateLimit);
   const companyDetails = async()=>{
     Swal.fire({
       icon: 'info',
@@ -41,8 +42,9 @@ const Details = ({company}) => {
         Swal.showLoading()
       }
     });
-    let req = new IdReq(state.company.id);
-     req.name = Name;
+    let req = new EditCompaniesReq();
+    req.id = company.id;
+    req.name = Name;
     req.email = Email;
     req.description = Description;
     req.phone = Phone;
@@ -55,9 +57,9 @@ const Details = ({company}) => {
     req.userLimit = UserLimit;
     req.tokenLimit = TokenLimit;
     req.templateLimit = TemplateLimit;
-    let res = await CompaniesApi.GetCompany(req);
+    console.log(req)
+    let res = await CompaniesApi.EditCompany(req);
     console.log(res)
-console.group(res)
     if (res.status.success) {
       Swal.fire({
         icon: 'success',
@@ -71,6 +73,7 @@ console.group(res)
           Swal.hideLoading()
         }
       });
+      setIsLoaded(false);
       }else {
         Swal.fire({
           icon: 'error',
@@ -269,7 +272,7 @@ console.group(res)
           >
     
             <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Use Limit
+              User Limit
             </SoftTypography>
             <input type="number" className='CreateUserInput' defaultValue={company.useLimit}  onChange={(e) => setUserLimit(e.target.value)} />
     

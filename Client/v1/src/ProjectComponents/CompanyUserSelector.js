@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import UsersApi from '../API/UsersApi';
 import SearchUsersReq from '../Requests/Users/SearchUsersReq';
 import SoftTypography from 'components/SoftTypography';
-const CompanySelector = ({setCompany}) => {
+const CompanyUserSelector = ({setUser, User}) => {
     const [UsersSearch, setUserSearch] = useState()
 
     const GetUsers = async () => {
@@ -37,8 +37,9 @@ const CompanySelector = ({setCompany}) => {
                 <AsyncSelect
                     loadOptions={GetUsers}
                     onInputChange={setUserSearch}
-                    onChange={(e) => {setCompany(e.value)}}
-                    placeholder="Search for Company"
+                    onChange={(e) => {setUser(e.value)}}
+                    placeholder="Search for Users"
+
                 />
             </SoftTypography>
 
@@ -46,4 +47,4 @@ const CompanySelector = ({setCompany}) => {
     )
 }
 
-export default CompanySelector
+export default CompanyUserSelector
