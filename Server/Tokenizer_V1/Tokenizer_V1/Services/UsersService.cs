@@ -79,7 +79,9 @@ namespace Tokenizer_V1.Services
                     Phone = req.Phone,
                     UserType = req.UserType,
                     IsActive = true,
-                    IsDeleted = false
+                    IsDeleted = false,
+                    CompanyId = CurrentUser.Data.CompanyId != null ? CurrentUser.Data.CompanyId : null,
+
                 };
 
                 await _context.Users.AddAsync(user);
@@ -115,6 +117,7 @@ namespace Tokenizer_V1.Services
                 var users = _context.Users
                     .Include(p => p.Projects)
                     .ThenInclude(p => p.Project)
+                    .Include(p => p.Company)
                     .OrderByDescending(p => p.Id)
                     .AsNoTracking().AsQueryable();
 
@@ -155,6 +158,11 @@ namespace Tokenizer_V1.Services
                 else
                 {
                     users = users.Where(p => p.IsDeleted == false);
+                }
+
+                if (req.CompanyId.HasValue)
+                {
+                    users = users.Where(p => p.CompanyId == req.CompanyId);
                 }
 
                 var userList = new PagedList<User>(users, req.PagingParams.PageNumber, req.PagingParams.PageSize);

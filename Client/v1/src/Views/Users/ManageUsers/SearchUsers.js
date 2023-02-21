@@ -7,7 +7,7 @@ import SoftButton from "components/SoftButton";
 import Swal from 'sweetalert2';
 import UsersApi from '../../../API/UsersApi';
 import SearchUsersReq from '../../../Requests/Users/SearchUsersReq';
-const SearchUsers = ({ SearchReq, setSearchReq }) => {
+const SearchUsers = ({SearchReq , setSearchReq}) => {
     const [Id, setId] = useState();
     const [Name, setName] = useState();
     const [Email, setEmail] = useState();

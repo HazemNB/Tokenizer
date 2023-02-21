@@ -15,7 +15,7 @@ const CompanyUserSelector = ({setUser, User}) => {
         if (res.status.success) {
             let optionsArr = [];
             res.data.list.forEach((item) => {
-                optionsArr.push({ value: item, label: item.name })
+                optionsArr.push({ value: item, label: item.name + " -- " + item.company?.name })
             })
             return optionsArr;
         }
@@ -39,7 +39,6 @@ const CompanyUserSelector = ({setUser, User}) => {
                     onInputChange={setUserSearch}
                     onChange={(e) => {setUser(e.value)}}
                     placeholder="Search for Users"
-
                 />
             </SoftTypography>
 
