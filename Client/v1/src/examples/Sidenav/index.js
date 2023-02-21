@@ -66,7 +66,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   let newRoutes = routes.filter(x => (x.hidden != true))
   // .filter(x => (x.admin != true || UserData?.userType === "Admin" || UserData?ku.userType === "SuperAdmin"))
-  console.log(newRoutes)
 
   const renderRoutes = newRoutes
   .map(({ type, name, icon, title, noCollapse, key, route, href, admin }) => {
