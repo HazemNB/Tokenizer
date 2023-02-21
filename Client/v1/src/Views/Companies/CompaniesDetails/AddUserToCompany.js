@@ -64,7 +64,7 @@ const AddUserToCompany = ({setIsLoaded, Company }) => {
         }
     }
     return (
-        <Card sx={{ width: "100%", height: "10em", padding: "1rem", margin: "1em 0" }}>
+        <Card sx={{ width: "100%", height: "10em", padding: "1rem", margin: "1em 0" ,overflow:"visible"}} >
             <SoftTypography variant="h5" color="text" fontWeight="medium">
                 Add User To  Company
             </SoftTypography>

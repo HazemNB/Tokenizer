@@ -69,7 +69,7 @@ const index = () => {
         { name: "Email", align: "left" },
         { name: "Phone", align: "left" },
         { name: "Activation", align: "center" },
-        { name: "Projects", align: "center" },
+        // { name: "Projects", align: "center" },
         { name: "Delete", align: "center" },
     ];
 
@@ -127,17 +127,17 @@ const index = () => {
                         {user.isActive ? "Deactivate" : "Activate"}
                     </button>
                 ),
-                Projects: (
-                    <SoftButton
-                        variant="contained" color="primary" size="small"
-                        onClick={() => { 
-                            setSelectedUser(user);
-                            setAddProjectEnabled(true);
-                        }
-                    }>
-                        {user.projects.length} Projects
-                    </SoftButton>
-                ),
+                // Projects: (
+                //     <SoftButton
+                //         variant="contained" color="primary" size="small"
+                //         onClick={() => { 
+                //             setSelectedUser(user);
+                //             setAddProjectEnabled(true);
+                //         }
+                //     }>
+                //         {user.projects.length} Projects
+                //     </SoftButton>
+                // ),
                 Delete: (
                     <SoftButton
                         variant="contained" color="dark" size="small"

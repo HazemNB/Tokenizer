@@ -16,16 +16,16 @@ const Details = ({Company}) => {
           <li>  <span>{Company.description}</span></li>
         </ul>
         <ul>
+        <li>Phone: <span>{Company.phone}</span></li>
           <li> City : <span>{Company.city}</span></li>
           <li>Zip:  <span>{Company.zip}</span></li>
           <li>Country: <span>{Company.country}</span></li>
           <li>Website:  <span>{Company.website}</span></li>
-          <li>Address:  <span>{Company.address}</span></li>
 
         </ul>
         <ul>
-          <li> <span>{Company.phone}</span></li>
-         
+        <li>Address:  <span>{Company.address}</span></li>
+
           <li>User Limit:  <span>{Company.userLimit}</span></li>
           <li>TemplateLimit:  <span>{Company.templateLimit}</span></li>
           <li>Token Limit:  <span>{Company.tokenLimit}</span></li>

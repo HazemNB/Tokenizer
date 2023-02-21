@@ -11,6 +11,7 @@ namespace Tokenizer_V1.Requests.Users
         public string UserType { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDeleted { get; set; }
+        public int? CompanyId { set; get; }
         public PagingParams PagingParams { set; get; }
     }
 }
