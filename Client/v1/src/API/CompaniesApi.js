@@ -39,7 +39,8 @@ class CompaniesApi{
     CreateCompanyTypeUrl = 'Companies/CreateCompanyType';
     DeleteCompanyTypeUrl ='Companies/DeleteCompanyType'; 
     SearchCompanyTypeUrl ='Companies/SearchCompanyTypes';
-    AddUserToCompanyUrl = 'Companies/AddUserToCompany'
+    AddUserToCompanyUrl = 'Companies/AddUserToCompany';
+    RemoveUserFromCompanyUrl='Companies/RemoveUserFromCompany'
     async CreateCompany(req) {
         let formData = new FormData();
         // append the data from each feild in req programmitacally in a loop
@@ -60,13 +61,19 @@ class CompaniesApi{
     }
 
     async EditCompany(req) {
+        let formData = new FormData();
+        // append the data from each feild in req programmitacally in a loop
+
+        for(let key in req){
+            formData.append(key, req[key]);
+        }
+
         const res = await fetch(this.baseUrl + this.EditCompanyUrl, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${this.GetToken()}`,
-                'Content-type': 'application/json'
             },
-            body: JSON.stringify(req)
+            body: formData
         })
         const data = await res.json();
         return data;
@@ -86,6 +93,18 @@ class CompaniesApi{
     }
     async AddUserToCompany(req) {
         const res = await fetch(this.baseUrl + this.AddUserToCompanyUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
+    async RemoveUserFromCompany(req) {
+        const res = await fetch(this.baseUrl + this.RemoveUserFromCompanyUrl, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${this.GetToken()}`,
@@ -158,6 +177,7 @@ class CompaniesApi{
         const data = await res.json();
         return data;
     }
+    
 }
 
 export default new CompaniesApi;

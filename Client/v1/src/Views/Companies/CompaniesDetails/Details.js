@@ -1,32 +1,34 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 
-const Details = () => {
-  const { state } = useLocation();
+const Details = ({Company}) => {
 
   return (
     <>
 
       <div className='company-datails'>
         <ul>
-          {state.company.logo &&
-            <li><img className='company-datails-img' src={"data:image/png;base64, " + state.company.logo}></img></li>
+          {Company.logo &&
+            <li><img className='company-datails-img' src={"data:image/png;base64, " + Company.logo}></img></li>
           }    
-          <li>  <span>{state.company.name}</span></li>
-          <li>  <span>{state.company.email}</span></li>
-          <li>  <span>{state.company.description}</span></li>
+          <li>  <span>{Company.name}</span></li>
+          <li>  <span>{Company.email}</span></li>
+          <li>  <span>{Company.description}</span></li>
         </ul>
         <ul>
-          <li> City : <span>{state.company.city}</span></li>
-          <li>Zip :  <span>{state.company.zip}</span></li>
-          <li>Countr: <span>{state.company.country}</span></li>
-        </ul>
-        <ul>
-          <li> <span>{state.company.phone}</span></li>
-          <li>Address:  <span>{state.company.address}</span></li>
-          <li>Website:  <span>{state.company.website}</span></li>
-          <li>Uer Limit:  <span>{state.company.userLimit}</span></li>
+          <li> City : <span>{Company.city}</span></li>
+          <li>Zip:  <span>{Company.zip}</span></li>
+          <li>Country: <span>{Company.country}</span></li>
+          <li>Website:  <span>{Company.website}</span></li>
+          <li>Address:  <span>{Company.address}</span></li>
 
+        </ul>
+        <ul>
+          <li> <span>{Company.phone}</span></li>
+         
+          <li>User Limit:  <span>{Company.userLimit}</span></li>
+          <li>TemplateLimit:  <span>{Company.templateLimit}</span></li>
+          <li>Token Limit:  <span>{Company.tokenLimit}</span></li>
         </ul>
       </div>
     </>

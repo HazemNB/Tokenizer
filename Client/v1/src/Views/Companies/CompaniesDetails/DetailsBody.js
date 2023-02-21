@@ -11,11 +11,14 @@ import { Icon } from '@mui/material';
 import AddUserToCompany from './AddUserToCompany';
 import Table from "examples/Tables/Table";
 import Swal from 'sweetalert2';
+import ManyToManyReq from '../../../Requests/ManyToManyReq';
 
-const DetailsBody = ({ComapanyData, setIsLoaded}) => {
-  console.log(ComapanyData)
+const DetailsBody = ({CompanyData, setIsLoaded}) => {
+  console.log(CompanyData)
   const [TableDataRows, setTableDataRows] = useState([])
-
+  useEffect(() =>{
+    RefreshTable();
+  } ,[CompanyData])
   let columns = [
     { name: "ID", align: "center" },
     { name: "Name", align: "left" },
@@ -24,8 +27,7 @@ const DetailsBody = ({ComapanyData, setIsLoaded}) => {
   ];
   const RefreshTable = () => {
     let rows = [];
-    ResponseData?.list.forEach((user) => {
-      console.log(ResponseData)
+    CompanyData?.Users.forEach((user) => {
       rows.push(
         MakeTableRow(user)
       );
@@ -56,7 +58,10 @@ const DetailsBody = ({ComapanyData, setIsLoaded}) => {
           <SoftButton
             variant="contained" color="dark" size="small"
             onClick={() => {
-              // ToggleCompanyDelete(company.id);
+              RemoveUserFromCompany(user.id)
+              // Remove User From Company(auesme=user.id){
+              // let req = new ManyToMany(user.id, Company.id);
+              // }
             }
             }>
             <Icon> 
@@ -68,14 +73,55 @@ const DetailsBody = ({ComapanyData, setIsLoaded}) => {
       }
     );
   }
+  const RemoveUserFromCompany = async (UserId) => {
  
+    
+    Swal.fire({
+        icon: 'info',
+        text: 'Removing user from company...',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showConfirmButton: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    let req = new ManyToManyReq(UserId , CompanyData.Company.id);
+
+    let res = await CompaniesApi.RemoveUserFromCompany(req);
+
+    if (res.status.success) {
+        Swal.fire({
+            icon: 'success',
+            text: res.status.message,
+            didOpen: () => {
+                Swal.hideLoading();
+            }
+        });
+        setIsLoaded(false);
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: res.status.message,
+            didOpen: () => {
+                Swal.hideLoading();
+            }
+        });
+    }
+}
+
+
+
   return (
     <>
       {/* add user to company */}
-      <AddUserToCompany setIsLoaded={setIsLoaded} />
+      <AddUserToCompany setIsLoaded={setIsLoaded} Company={CompanyData.Company} />
       {/* <EditTemplates SearchReq={SearchReq} setSearchReq={setSearchReq}/> */}
       <Card style={{ marginTop: "1em" }}>
-        {/* <Table columns={columns} rows={TableDataRows} /> */}
+        <Table columns={columns} rows={TableDataRows} />
       </Card>
     </>
   )

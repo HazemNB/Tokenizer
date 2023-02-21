@@ -11,7 +11,7 @@ import Details from './Details';
 import DetailsBody from './DetailsBody';
 import LoaderSmall from 'ProjectComponents/LoaderSmall';
 import SearchCompaniesReq from '../../../Requests/Companies/SearchCompaniesReq';
-const CompaniesDetails = () => {
+const index = () => {
   const { state } = useLocation();
   const [CompanyData, setCompanyData] = useState(null);
   const [IsLoaded, setIsLoaded] = useState(false);
@@ -32,7 +32,9 @@ const CompaniesDetails = () => {
     }
   }
 
+
   useEffect(() => {
+    console.log(CompanyData)
     if (CompanyData) {
       setIsLoaded(true);
     }
@@ -60,27 +62,23 @@ const CompaniesDetails = () => {
               } </Icon></button>
 
               {/* <butt onclick(setTest(!test)</butt>
-              {/* <butt onclick(setTest(!test)</butt>
-               {onClick={()=>{setToggle(!toggle)}}
-                testState ? <>details</> : <>edit</>
-               } */}
+                 {onClick={()=>{setToggle(!toggle)}}
+                  testState ? <>details</> : <>edit</>
+                 } */}
 
             </div>
             {
-              toggle ? <Edit /> :
-                <>
-                  <Details company={state.company} />
-                </>
+              toggle ? <><Details Company = {CompanyData.Company} /> </> : <><Edit setIsLoaded={setIsLoaded} company={CompanyData.Company} /></>
             }
+
+
           </Card>
-
-          <DetailsBody SearchReq={SearchReq} setSearchReq={setSearchReq} setIsLoaded={setIsLoaded} />
+          {IsLoaded ? <DetailsBody setIsLoaded={setIsLoaded} CompanyData= {CompanyData} /> : <LoaderSmall />}
         </DashboardLayout>
-
       </div>
 
     </>
   )
 }
+export default index;
 
-export default CompaniesDetails

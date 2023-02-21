@@ -9,7 +9,8 @@ import Swal from 'sweetalert2';
 import "./CreateCompanies.scss";
 import CreateCompaniesReq from '../../../Requests/Companies/CreateComapniesReq';
 import CompaniesApi from '../../../API/CompaniesApi';
-const CreateCompanies = () => {
+import CompanyTypeSelector from 'ProjectComponents/CompanyTypeSelector';
+ const CreateCompanies = () => {
   const [Name, setName] = useState();
   const [Email, setEmail] = useState();
   const [Phone, setPhone] = useState();
@@ -19,10 +20,12 @@ const CreateCompanies = () => {
   const [Address, setAddress] = useState();
   const [Zip, setZip] = useState();
   const [Website, setWebsite] = useState();
-  const [CompanyTypeId, setCompanyTypeId] = useState();
+  const [CompanyType, setCompanyType] = useState();
   const [UserLimit, setUserLimit] = useState();
   const [TokenLimit, setTokenLimit] = useState();
   const [TemplateLimit, setTemplateLimit] = useState();
+  const [SelectedUser, setSelectedUser] = useState(null);
+  
   const createCompany = async () => {
     Swal.fire({
       icon: 'info',
@@ -166,7 +169,7 @@ const CreateCompanies = () => {
       return;
     }
     //check if CompantTypeId empty
-    if (!CompanyTypeId) {
+    if (!CompanyType) {
       Swal.fire({
         icon: 'error',
         title: 'CompanyTypeId is required',
@@ -213,7 +216,7 @@ const CreateCompanies = () => {
     req.Address = Address;
     req.Zip = Zip;
     req.Website = Website;
-    req.CompanyTypeId = CompanyTypeId;
+    req.CompanyTypeId = CompanyType.id;
     req.UserLimit = UserLimit;
     req.TokenLimit = TokenLimit;
     req.TemplateLimit = TemplateLimit;
@@ -441,10 +444,18 @@ const CreateCompanies = () => {
                 mb={2}
                 className='CreateCompanyBox'
               >
-                <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
+        
+                {/* <SoftTypography variant="h6" color="text" fontWeight="medium">
+                    Add New User
+                </SoftTypography> */}
+                <CompanyTypeSelector setCompanyType={setCompanyType} />
+                {/* <SoftButton >Add to Company</SoftButton> */}
+          
+      
+                {/* <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
                   Company TypeId
                 </SoftTypography>
-                <input type="text" className='CreateUserInput' onChange={(e) => setCompanyTypeId(e.target.value)} />
+                <input type="text" className='CreateUserInput' onChange={(e) => setCompanyTypeId(e.target.value)} /> */}
               </SoftBox>
             </SoftBox>
             <SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
