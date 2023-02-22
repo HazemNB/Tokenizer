@@ -38,6 +38,12 @@ namespace Tokenizer_V1.Services
             {
                 var CurrentUser = await GetCurrentUser();
 
+                if (CurrentUser.Status.Success == false)
+                {
+                    response.Status.Message = "Access Token expired. Please refresh the page and try again.";
+                    return response;
+                }
+
                 if ((req.UserType == "Admin" || req.UserType == "SuperAdmin") && CurrentUser.Data.UserType != "SuperAdmin")
                 {
                     response.Status.Message = "You are not authorized to create an admin user";
@@ -59,6 +65,19 @@ namespace Tokenizer_V1.Services
                     return response;
                 }
 
+                if (req.UserType == UserTypes.CompanyUser && CurrentUser.Data.UserType != UserTypes.SuperAdmin
+                    && CurrentUser.Data.UserType != UserTypes.Admin
+                    && CurrentUser.Data.UserType != UserTypes.CompanyAdmin)
+                {
+                    response.Status.Message = "You are not authorized to create a company user";
+                    return response;
+                }
+
+                if(req.RequestType == "Company" && CurrentUser.Data.CompanyId == null)
+                {
+                    response.Status.Message = "You must be in a company to make company users.";
+                    return response;
+                }
 
                 FirebaseAdmin.Auth.UserRecord userRecord = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateUserAsync(new FirebaseAdmin.Auth.UserRecordArgs
                 {
@@ -66,10 +85,8 @@ namespace Tokenizer_V1.Services
                     EmailVerified = false,
                     Password = req.Password,
                     DisplayName = req.Name,
-                    Disabled = false
+                    Disabled = false,
                 });
-
-                // add security
 
                 var user = new User
                 {
@@ -80,8 +97,7 @@ namespace Tokenizer_V1.Services
                     UserType = req.UserType,
                     IsActive = true,
                     IsDeleted = false,
-                    CompanyId = CurrentUser.Data.CompanyId != null ? CurrentUser.Data.CompanyId : null,
-
+                    CompanyId = req.RequestType == "Company" ? CurrentUser.Data.CompanyId : null,
                 };
 
                 await _context.Users.AddAsync(user);
@@ -163,6 +179,19 @@ namespace Tokenizer_V1.Services
                 if (req.CompanyId.HasValue)
                 {
                     users = users.Where(p => p.CompanyId == req.CompanyId);
+                }
+
+                if (req.RequestType == "Company")
+                {
+                    var CurrentUser = await GetCurrentUser();
+
+                    if (CurrentUser.Status.Success == false)
+                    {
+                        response.Status.Message = "Access Token expired. Please refresh the page and try again.";
+                        return response;
+                    }
+
+                    users = users.Where(p => p.CompanyId == CurrentUser.Data.CompanyId);
                 }
 
                 var userList = new PagedList<User>(users, req.PagingParams.PageNumber, req.PagingParams.PageSize);
