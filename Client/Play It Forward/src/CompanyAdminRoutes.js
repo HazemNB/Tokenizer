@@ -17,7 +17,7 @@ const CompanyAdminRoutes = [
   {
     type: "collapse",
     name: "My Account",
-    key: "MyAccount",
+    key: "myAccount",
     route: "/dashboard",
     icon: <Shop size="12px" />,
     component: <Dashboard />,
@@ -26,7 +26,7 @@ const CompanyAdminRoutes = [
   {
     type: "collapse",
     name: "Company Profile",
-    key: "CompanyProfile",
+    key: "companyProfile",
     route: "/dashboard",
     icon: <Shop size="12px" />,
     component: <Dashboard />,
@@ -37,7 +37,7 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Create Users",
-      key: "createUser",
+      key: "createUsers",
       route: "/createUsers",
       icon: <Shop size="12px" />,
       component: <CreateUseres />,
@@ -47,7 +47,7 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Manage Users",
-      key: "ManageUser",
+      key: "ManageUsers",
       route: "/ManageUsers",
       icon: <Shop size="12px" />,
       component: <ManageUseres />,
@@ -57,7 +57,7 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Create Templates",
-      key: "dashboard",
+      key: "createTemplate",
       route: "/dashboard",
       icon: <Shop size="12px" />,
       component: <Dashboard />,
@@ -66,7 +66,7 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Create Tokens",
-      key: "dashboard",
+      key: "createToken",
       route: "/dashboard",
       icon: <Shop size="12px" />,
       component: <Dashboard />,
@@ -75,7 +75,7 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Manage Tokens",
-      key: "dashboard",
+      key: "manageTokens",
       route: "/dashboard",
       icon: <Shop size="12px" />,
       component: <Dashboard />,
@@ -86,7 +86,7 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Create Transactions",
-      key: "dashboard",
+      key: "createTransaction",
       route: "/dashboard",
       icon: <Shop size="12px" />,
       component: <Dashboard />,
@@ -95,7 +95,7 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Manage Transactions",
-      key: "dashboard",
+      key: "manageTransactions",
       route: "/dashboard",
       icon: <Shop size="12px" />,
       component: <Dashboard />,
