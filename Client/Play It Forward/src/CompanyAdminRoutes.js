@@ -3,6 +3,7 @@ import Shop from "examples/Icons/Shop";
 import Login from "Views/Auth/Login";
 import  CreateUseres from "Views/CompanyAdmin_Views/users/CreateUseres"
 import ManageUseres from "Views/CompanyAdmin_Views/users/ManageUseres"
+import MyAccount from "Views/Shared/MyAccount"
 const CompanyAdminRoutes = [
   {
     type: "collapse",
@@ -17,10 +18,10 @@ const CompanyAdminRoutes = [
   {
     type: "collapse",
     name: "My Account",
-    key: "myAccount",
-    route: "/dashboard",
+    key: "MyAccount",
+    route: "/MyAccount",
     icon: <Shop size="12px" />,
-    component: <Dashboard />,
+    component: <MyAccount />,
     noCollapse: true,
   },
   {
