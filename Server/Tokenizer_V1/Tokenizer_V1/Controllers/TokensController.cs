@@ -63,6 +63,16 @@ namespace Tokenizer_V1.Controllers
             var response = await _tokenService.DeleteTemplate(req);
             return Ok(response);
         }
+        [HttpPost]
+        [Route("DeleteTemplateAndTokens")]
+        public async Task<IActionResult> DeleteTemplateAndTokens([FromBody] IdReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.DeleteTemplateAndTokens(req);
+            return Ok(response);
+        }
 
         [HttpPost]
         [Route("CreateTokenType")]
@@ -231,20 +241,25 @@ namespace Tokenizer_V1.Controllers
             return Ok(response);
         }
 
-
-        //Task<DefaultResponse<Template>> CreateCompanyTemplate(CreateTemplateReq req);
-        //Task<DefaultResponse<string>> CreateCompanyTokens(CreateTokensReq req);
-        //Task<DefaultResponse<string>> CreateTokenTransaction(CreateTokenTransactionRequest req);
-        //Task<DefaultResponse<PagedList<TokenTransaction>>> SearchTokenTransactions(SearchTokenTransactionsReq req);
-
         [HttpPost]
         [Route("CreateCompanyTemplate")]
-        public async Task<IActionResult> CreateCompanyTemplate([FromBody] CreateTemplateReq req)
+        public async Task<IActionResult> CreateCompanyTemplate([FromForm] CreateTemplateReq req)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var response = await _tokenService.CreateCompanyTemplate(req);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("GetCompanyTemplates")]
+        public async Task<IActionResult> GetCompanyTemplates([FromBody] IdReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.GetCompanyTemplates(req);
             return Ok(response);
         }
 

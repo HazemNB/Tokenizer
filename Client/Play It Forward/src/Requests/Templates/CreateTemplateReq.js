@@ -20,7 +20,6 @@ class CreateTemplateReq{
         this.Image = undefined;
         this.ProjectId = undefined;
         this.CompanyId = undefined;
-
     }
 }
 export default CreateTemplateReq;

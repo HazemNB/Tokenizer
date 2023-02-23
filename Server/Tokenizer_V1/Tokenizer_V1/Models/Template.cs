@@ -6,7 +6,9 @@ namespace Tokenizer_V1.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        
+        public string Description { get; set; }
+        public decimal? Amount { get; set; }
+
         public string QrCodeColor { get; set; }
         public string QrCodeBackgroundColor { get; set; }
         public string BackgroundColor { get; set; }

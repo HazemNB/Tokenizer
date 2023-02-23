@@ -4,6 +4,8 @@ import Login from "Views/Auth/Login";
 import  CreateUseres from "Views/CompanyAdmin_Views/users/CreateUseres"
 import ManageUseres from "Views/CompanyAdmin_Views/users/ManageUseres"
 import MyAccount from "Views/Shared/MyAccount"
+import CreateTemplates from "Views/CompanyAdmin_Views/Templates/CreateTemplates"
+import CreateTokens from "Views/CompanyAdmin_Views/Tokens/CreateTokens"
 const CompanyAdminRoutes = [
   {
     type: "collapse",
@@ -58,19 +60,19 @@ const CompanyAdminRoutes = [
     {
       type: "collapse",
       name: "Create Templates",
-      key: "createTemplate",
-      route: "/dashboard",
+      key: "createTemplates",
+      route: "/createTemplates",
       icon: <Shop size="12px" />,
-      component: <Dashboard />,
+      component: <CreateTemplates />,
       noCollapse: true,
     },
     {
       type: "collapse",
       name: "Create Tokens",
-      key: "createToken",
-      route: "/dashboard",
+      key: "CreateTokens",
+      route: "/CreateTokens",
       icon: <Shop size="12px" />,
-      component: <Dashboard />,
+      component: <CreateTokens />,
       noCollapse: true,
     },
     {

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -208,6 +209,58 @@ namespace Tokenizer_V1.Services
         }
 
         public async Task<DefaultResponse<string>> DeleteTemplate(IdReq req)
+        {
+            var response = new DefaultResponse<string>
+            {
+                Status = new Status(false, "Template not deleted")
+            };
+
+            try
+            {
+                // delete template and its tokens and their scans
+                var template = await _context.Templates.FirstOrDefaultAsync(p => p.Id == req.Id);
+
+                if (template == null)
+                {
+                    response.Status = new Status(false, "Template not found");
+                    return response;
+                }
+
+                var tokens = await _context.Tokens.Where(p => p.TemplateId == req.Id).ToListAsync();
+
+                if (tokens.Count > 0)
+                {
+                    response.Status = new Status(false, "Template has tokens, delete tokens first.");
+                    return response;
+                }
+
+                _context.Templates.Remove(template);
+
+
+
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Template deleted successfully");
+                }
+                else
+                {
+                    response.Status = new Status(false, "Template not deleted");
+                }
+
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+
+        public async Task<DefaultResponse<string>> DeleteTemplateAndTokens(IdReq req)
         {
             var response = new DefaultResponse<string>
             {
@@ -1091,6 +1144,8 @@ namespace Tokenizer_V1.Services
                 var template = new Template
                 {
                     Name = req.Name,
+                    Description = req.Description,
+                    Amount = req.Amount,
                     QrCodeColor = req.QrCodeColor,
                     QrCodeBackgroundColor = req.QrCodeBackgroundColor,
                     TextColor = req.TextColor,
@@ -1142,6 +1197,53 @@ namespace Tokenizer_V1.Services
 
             return response;
         }
+
+        //get company templates and tokens count(IdReq req) companyid=req.id
+
+        public async Task<DefaultResponse<List<ExpandoObject>>> GetCompanyTemplates(IdReq req)
+        {
+            var response = new DefaultResponse<List<ExpandoObject>>
+            {
+                Status = new Status(false, "Templates not found")
+            };
+
+            try
+            {
+                var templates = await _context.Templates
+                    .Include(p => p.TokenType)
+                    .Where(p => p.CompanyId == req.Id)
+                    .ToListAsync();
+
+                if (templates == null)
+                {
+                    response.Status = new Status(false, "Templates not found");
+                    return response;
+                }
+                var TemplatesAndTokensCount = new List<ExpandoObject>();
+
+
+                foreach (var template in templates)
+                {
+                    var tokensCount = await _context.Tokens.AsNoTracking().Where(x => x.TemplateId == template.Id).CountAsync();
+                    dynamic obj = new ExpandoObject();
+                    obj.Template = template;
+                    obj.TokensCount = tokensCount;
+                    TemplatesAndTokensCount.Add(obj);
+                }
+                response.Data = TemplatesAndTokensCount;
+                response.Status = new Status(true, "Templates found successfully");
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+
+            }
+
+            return response;
+        }
+
+
+
 
         // Create Company Tokens
 
@@ -1236,6 +1338,163 @@ namespace Tokenizer_V1.Services
             return response;
         }
 
+        // SearchCompanyTokens
+
+        public async Task<DefaultResponse<ExpandoObject>> SearchCompanyTokens(SearchTokensReq req)
+        {
+            var response = new DefaultResponse<ExpandoObject>
+            {
+                Status = new Status(false, "Tokens not found")
+            };
+
+            try
+            {
+                var tokens = _context.Tokens
+                    .AsNoTracking()
+                    .Include(p => p.Template)
+                    .Include(p => p.TokenType)
+                    .AsQueryable();
+
+                if (req.IdFrom != null)
+                {
+                    tokens = tokens.Where(p => p.Id >= req.IdFrom);
+                }
+                if (req.IdTo != null)
+                {
+                    tokens = tokens.Where(p => p.Id <= req.IdTo);
+                }
+                if (req.ProjectId != null)
+                {
+                    tokens = tokens.Where(p => p.ProjectId == req.ProjectId);
+                }
+                if (req.TemplateId != null)
+                {
+                    tokens = tokens.Where(p => p.TemplateId == req.TemplateId);
+                }
+                if (req.NumberFrom != null)
+                {
+                    tokens = tokens.Where(p => p.Number >= req.NumberFrom);
+                }
+                if (req.NumberTo != null)
+                {
+                    tokens = tokens.Where(p => p.Number <= req.NumberTo);
+                }
+                if (req.CreatedAtFrom != null)
+                {
+                    tokens = tokens.Where(p => p.CreatedAt >= req.CreatedAtFrom);
+                }
+                if (req.CreatedAtTo != null)
+                {
+                    tokens = tokens.Where(p => p.CreatedAt <= req.CreatedAtTo);
+                }
+                if (req.HasImage != null)
+                {
+                    tokens = tokens.Where(p => p.Template.UseImage == req.HasImage);
+                }
+                if (!string.IsNullOrWhiteSpace(req.Url))
+                {
+                    tokens = tokens.Where(p => p.Url.Contains(req.Url));
+                }
+                if (!string.IsNullOrWhiteSpace(req.CurvedTextTop))
+                {
+                    tokens = tokens.Where(p => p.Template.CurvedTextTop == req.CurvedTextTop);
+                }
+                if (!string.IsNullOrWhiteSpace(req.CurvedTextBottom))
+                {
+                    tokens = tokens.Where(p => p.Template.CurvedTextBottom == req.CurvedTextBottom);
+                }
+
+                // NEW
+
+                //companyID
+                if (req.CompanyId != null)
+                {
+                    tokens = tokens.Where(p => p.CompanyId == req.CompanyId);
+                }
+
+                //current owner
+                if (req.CurrentOwnerId != null)
+                {
+                    tokens = tokens.Where(p => p.CurrentOwnerId == req.CurrentOwnerId);
+                }
+
+                //company token
+                if (req.CompanyToken != null)
+                {
+                    tokens = tokens.Where(p => p.CompanyToken == req.CompanyToken);
+                }
+
+                //active
+                if (req.IsActive != null)
+                {
+                    tokens = tokens.Where(p => p.IsActive == req.IsActive);
+                }
+
+                //>amount
+                if (req.Amount != null)
+                {
+                    tokens = tokens.Where(p => p.Amount >= req.Amount);
+                }
+
+                //LastUpdatedAt
+                if (req.LastUpdated != null)
+                {
+                    tokens = tokens.Where(p => p.LastUpdated >= req.LastUpdated);
+                }
+
+                //redeemed
+                if (req.Redeemed != null)
+                {
+                    tokens = tokens.Where(p => p.Redeemed == req.Redeemed);
+                }
+
+                //claimed
+                if (req.Claimed != null)
+                {
+                    tokens = tokens.Where(p => p.Claimed == req.Claimed);
+                }
+
+                //playedforwardcount
+                if (req.PlayedForwardCount != null)
+                {
+                    tokens = tokens.Where(p => p.PlayedForwardCount >= req.PlayedForwardCount);
+                }
+
+
+
+
+                var pagedTokens = new PagedList<Token>(tokens, req.pagingParams.PageNumber, req.pagingParams.PageSize);
+                if (pagedTokens == null)
+                {
+                    response.Status = new Status(false, "Tokens not found");
+                    return response;
+                }
+                response.Status = new Status(true, "Tokens found successfully");
+                dynamic expando = new ExpandoObject();
+                expando.Tokens = pagedTokens;
+
+                dynamic stats = new ExpandoObject();
+
+                stats.Count = await tokens.CountAsync();
+                stats.TotalAmount = await tokens.SumAsync(p => p.Amount);
+                stats.Claimed = await tokens.Where(p => p.Claimed == true).CountAsync();
+                stats.Redeemed = await tokens.Where(p => p.Redeemed == true).CountAsync();
+                stats.PlayedForward = await tokens.Where(p => p.PlayedForwardCount > 0).CountAsync();
+                stats.PlayedForwardCountSum = await tokens.SumAsync(p => p.PlayedForwardCount);
+                stats.Active = await tokens.Where(p => p.IsActive == true).CountAsync();
+                stats.IsPlayedForward = await tokens.Where(p => p.IsPlayedForward == true).CountAsync();
+
+                expando.Stats = stats;
+                response.Data = expando;
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
         // create token transaction 
 
         public async Task<DefaultResponse<string>> CreateTokenTransaction(CreateTokenTransactionRequest req)
@@ -1285,7 +1544,7 @@ namespace Tokenizer_V1.Services
                         token.IsPlayedForward = false;
 
                         token.LastUpdated = DateTime.Now;
-                        token.CurrentOwnerId = req.SecondPartyId;
+                        token.CurrentOwnerId = req.SecondPartyId; //the user
 
                         var user = _context.Users.FirstOrDefault(p => p.Id == req.SecondPartyId);
 
@@ -1298,7 +1557,7 @@ namespace Tokenizer_V1.Services
                         var userTokensCount = _context.Tokens.Count(p => p.CurrentOwnerId == user.Id && p.IsActive == true
                         && p.LastUpdated >= DateTime.Now.AddDays(-180));
 
-                        if (userTokensCount >= 9)
+                        if (userTokensCount >= 9) // user token limit!!
                         {
                             response.Status = new Status(false, "User has reached the maximum number of tokens");
                             return response;
@@ -1319,11 +1578,11 @@ namespace Tokenizer_V1.Services
                     case TokenTransactionTypes.Redeem:
                         token.Redeemed = true;
                         token.LastUpdated = DateTime.Now;
-                        token.CurrentOwnerId = req.SecondPartyId;
+                        token.CurrentOwnerId = null;
                         token.Amount = 0;
 
-                        transaction.FirstPartyId = req.FirstPartyId;
-                        transaction.SecondPartyId = req.SecondPartyId;
+                        transaction.FirstPartyId = req.FirstPartyId; // the user
+                        transaction.SecondPartyId = req.SecondPartyId; // the company
 
 
                         break;
@@ -1331,8 +1590,8 @@ namespace Tokenizer_V1.Services
                         token.LastUpdated = DateTime.Now;
                         token.CurrentOwnerId = req.SecondPartyId;
 
-                        transaction.FirstPartyId = req.FirstPartyId;
-                        transaction.SecondPartyId = req.SecondPartyId;
+                        transaction.FirstPartyId = req.FirstPartyId; // the user
+                        transaction.SecondPartyId = req.SecondPartyId; // the user
 
                         var NewOwner = new TokenOwner
                         {
@@ -1352,6 +1611,23 @@ namespace Tokenizer_V1.Services
                         transaction.FirstPartyId = req.FirstPartyId;
 
                         break;
+
+                    case TokenTransactionTypes.Reload:
+                        token.Amount += req.Amount;
+                        token.LastUpdated = DateTime.Now;
+                        if (token.Redeemed == true)
+                        {
+                            response.Status = new Status(false, "Token is not Redeemed");
+                            return response;
+                        }
+                        token.Redeemed = false;
+                        token.Claimed = false;
+                        token.CurrentOwnerId = null;
+                        token.LastUpdated = DateTime.Now;
+
+                        transaction.FirstPartyId = req.FirstPartyId;
+
+                        break;
                     case TokenTransactionTypes.PlayForward:
                         token.Claimed = false;
                         token.Redeemed = false;
@@ -1360,12 +1636,28 @@ namespace Tokenizer_V1.Services
                         token.PlayedForwardCount ??= 0;
                         token.PlayedForwardCount += 1;
                         token.IsPlayedForward = true;
+
+                        transaction.FirstPartyId = req.FirstPartyId; // the user
+                        
                         break;
                     default:
                         response.Status = new Status(false, "Invalid transaction type");
                         return response;
                 }
 
+                _context.TokenTransactions.Add(transaction);
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Transaction created");
+                    response.Data = transaction.Id.ToString();
+                }
+                else
+                {
+                    response.Status = new Status(false, "Transaction not created");
+                }
 
             }
             catch (Exception e)

@@ -51,6 +51,18 @@ const Templates = ({ Templates, Project, handleEditTemplate }) => {
             })
             window.location.reload()
         }
+        else {
+            Swal.fire({
+                title: 'Error',
+                text: res.message,
+                icon: 'error',
+                confirmButtonText: 'Ok',
+                didOpen: () => {
+                    Swal.hideLoading()
+                }
+            })
+        }
+        
     }
     
 

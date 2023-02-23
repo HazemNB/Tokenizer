@@ -7,7 +7,8 @@ namespace Tokenizer_V1.Requests.Templates
     {
         public int? Id { get; set; }
         public string Name { get; set; }
-
+        public string Description { get; set; }
+        public decimal? Amount { get; set; }
         public string QrCodeColor { get; set; }
         public string QrCodeBackgroundColor { get; set; }
         public string BackgroundColor { get; set; }

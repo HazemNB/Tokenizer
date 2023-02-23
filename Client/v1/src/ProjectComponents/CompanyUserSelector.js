@@ -9,13 +9,13 @@ const CompanyUserSelector = ({setUser, User}) => {
 
     const GetUsers = async () => {
         let searchReq = new SearchUsersReq();
-        searchReq.userType = "company"
+        // searchReq.userType = "company"
         searchReq.name = UsersSearch;
         let res = await UsersApi.SearchUsers(searchReq)
         if (res.status.success) {
             let optionsArr = [];
             res.data.list.forEach((item) => {
-                optionsArr.push({ value: item, label: item.name + " -- " + item.company?.name })
+                optionsArr.push({ value: item, label: `(${item.userType})` + item.name + " -- " + item.company?.name })
             })
             return optionsArr;
         }
