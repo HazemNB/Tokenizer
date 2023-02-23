@@ -18,10 +18,31 @@
       padding: 10px  30px;
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
     padding-right: 30px;
+    @media (max-width:991px) {
+        flex-direction: column; 
+    }
+    .Account-img{
+        ul{
+            list-style: none;
+            text-decoration: none;
+            .prop-text{
+                font-size: 15px;
+                color: #344767;
+                font-weight: 600;
+            }
+            .val-text{
+                font-size: 15px;
+                color: #67748e;
+            }
+        }
+    }
    .Account-img img{
     border-radius: 10px;
-    height: 260px;
+    height: 200px;
+    margin-top: 10px;
+
    }
    .AccountInfo{
     background: rgba(255,255,255,.9);
@@ -51,4 +72,35 @@
     }
    }
     
+}
+.CreateCompanyBox{
+
+    padding: 0 .7em;
+    input{
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 0.5em;
+        width: 22em;
+        height: 120%;
+        @media(max-width:768px){
+            width: 28em;
+        }
+        @media(min-width:769px) and (max-width:991px){
+            width: 43em;
+        }
+    }
+
+    
+}
+textarea{
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  
+    width: 22em;
+    @media(max-width:768px){
+        width: 28em;
+    }
+    @media(min-width:769px) and (max-width:991px){
+        width: 43em;
+    }
 }

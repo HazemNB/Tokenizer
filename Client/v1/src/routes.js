@@ -233,6 +233,16 @@ const routes = [
     noCollapse: true,
     hidden: true,
   },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    route: "/profile",
+    icon: <CustomerSupport size="12px" />,
+    component: <Profile />,
+    noCollapse: true,
+    hidden:true,
+  },
    ];
 
 export default routes;

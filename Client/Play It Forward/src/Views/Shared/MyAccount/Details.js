@@ -4,6 +4,12 @@ const Details = ({user}) => {
   return (
     <div className='account-datails'>
         <div className='Account-img'>
+          <ul>
+          <li><span className='prop-text'>Id</span> : <span className='val-text'>{user.id}</span></li>
+
+<li><span className='prop-text'>Name</span> : <span className='val-text'>{user.name}</span></li>
+
+          </ul>
 <img src={Logo}/>
         </div>
         <div className='AccountInfo'>
