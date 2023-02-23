@@ -7,15 +7,26 @@ import { AppBar } from '@mui/material';
 import { Toolbar } from '@mui/material';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
+import DashboardNavbar from 'examples/Navbars/DashboardNavbar';
 import { QRCode } from 'react-qrcode-logo';
 import SoftInput from 'components/SoftInput';
-import TokenTypeSelector from 'ProjectComponents/TokenTypeSelector';
+import TokenTypeSelector from 'ProjectComponents/Selectors/TokenTypeSelector';
 import ReactCurvedText from 'react-curved-text';
-import BgImage from './template3.png';
+import BgImage from '../template3.png';
 import Slider from '@mui/material/Slider';
-import CreateTemplateReq from '../../../Requests/Tokens/CreateTemplateReq';
-import TokensApi from '../../../API/TokensApi';
-const index = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
+import CreateTemplateReq from '../../../../Requests/Templates/CreateTemplateReq';
+import TokensApi from '../../../../API/TokensApi';
+import "../Templates.scss"
+import { useContext } from 'react';
+import { UserContext } from 'App';
+const index = ({ }) => {
+
+    let User = useContext(UserContext);
+
+    const [Name, setName] = useState("");
+    const [Description, setDescription] = useState("");
+    const [Amount, setAmount] = useState(0);
     const [CodeColor, setCodeColor] = useState("#000000");
     const [CodeBgColor, setCodeBgColor] = useState("#FFFFFF");
     const [BackgroundColor, setBackgroundColor] = useState("#9f7928");
@@ -40,8 +51,7 @@ const index = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
         }
     }, [BackgroundColor]);
 
-    const saveTemplate = async () => {
-        setEnabled(false);
+    const saveTemplate = async () => { 
         Swal.fire({
             title: 'Creating Template',
             text: 'Please wait...',
@@ -56,19 +66,36 @@ const index = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
                 text: "Please select a token type",
                 icon: 'error',
                 confirmButtonText: 'Ok',
+                allowOutsideClick: true,
                 didOpen: () => {
                     Swal.hideLoading()
                 }
-            }).then(() => {
-                setEnabled(true);
-            })
+            }) 
             return;
         }
 
+        if(User.companyId == null){
+            Swal.fire({
+                title: 'Error',
+                text: "You are not listed in any company",
+                icon: 'error',
+                confirmButtonText: 'Ok',
+                allowOutsideClick: true,
+                didOpen: () => {
+                    Swal.hideLoading()
+                }
+            })
+            return; 
+        }
+
         let req = new CreateTemplateReq();
-        req.Name = "";
+        req.Id = 1;
+        req.ProjectId = 1;
+        req.Name = Name;
+        req.Description = Description;
+        req.Amount = Amount;    
+        req.CompanyId = User.companyId;
         req.QrCodeColor = CodeColor;
-        // req.QrCodeBackgroundColor = CodeBgColor;
         req.QrCodeBackgroundColor = hexStringToRGBAString(CodeBgColor, CodeOpacity);
         // req.BackgroundColor = BgChanged ? `linear-gradient(0deg, #e5e5e5 0%,${BackgroundColor} 29%)` : 'radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)';
         // req.BackgroundColor = BgChanged ? `linear-gradient(0deg, ${hexStringToRGBAString("#e5e5e5", Opacity)} 0%,${hexStringToRGBAString(BackgroundColor, Opacity)} 29%)` 
@@ -94,26 +121,23 @@ const index = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
                     text: "Please select an image smaller than 3mb",
                     icon: 'error',
                     confirmButtonText: 'Ok',
+                    allowOutsideClick: true,
                     didOpen: () => {
                         Swal.hideLoading()
                     }
-                }).then(() => {
-                    setEnabled(true);
-                })
+                }) 
                 return;
             }
         }
         req.Image = imgInput?.files?.length > 0 ? imgInput.files[0] : null;
-        req.ProjectId = Project.id;
-        let res = await TokensApi.CreateTemplate(req);
+        let res = await TokensApi.CreateCompanyTemplate(req);
         if(res.status.success){
             Swal.fire({
-                title: 'Success',
-                text: 'Template Created Successfully',
+                title: 'Template Created',
+                text: 'You can now create tokens using this template',
                 icon: 'success',
                 confirmButtonText: 'Ok'
             });
-            setIsLoaded(false);
         }else{
             Swal.fire({
                 title: 'Error',
@@ -128,35 +152,19 @@ const index = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
         let r = parseInt(hex.slice(1, 3), 16);
         let g = parseInt(hex.slice(3, 5), 16);
         let b = parseInt(hex.slice(5, 7), 16);
-        console.log(`rgba(${r},${g},${b},${opacity / 100})`);
+        // console.log(`rgba(${r},${g},${b},${opacity / 100})`);
         return `rgba(${r},${g},${b},${opacity / 100})`;
     }
 
 
  
     return (
-        <Dialog open={Enabled} maxWidth={"md"} fullScreen onClose={() => setEnabled(false)}>
-            <AppBar sx={{ position: 'relative', borderBottom: '1px solid #e0e0e0', marginBottom: "1em" }}>
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        onClick={() => { setEnabled(false) }}
-                        aria-label="close"
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                    <SoftTypography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                        Create New Template for Project #{Project.id} -- {Project.name}
-                    </SoftTypography>
-                    <SoftButton color="success" variant="gradient" onClick={() => { saveTemplate() }}>
-                        save
-                    </SoftButton>
-                </Toolbar>
-            </AppBar>
+        <DashboardLayout>
+      <DashboardNavbar /> 
+   
             <div className='CreateTemplate-Body' style={{overflow:'hidden'}}>
                 <div className='CreateTemplate-Body-Left'>
-                    <div className='CreateTemplate-Body-Top'>
+                    <div className='CreateTemplate-Body-Top-Left'>
                         <SoftTypography variant="h6" component="div">
                             Template Preview
                         </SoftTypography>
@@ -328,12 +336,31 @@ const index = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
                 </div>
 
                 <div className='CreateTemplate-Body-Right'>
-                    <div className='CreateTemplate-Body-Top'>
+                    <div className='CreateTemplate-Body-Top-Right'>
                         <SoftTypography variant="h6" component="div">
                             Template Configuration
                         </SoftTypography>
+                        <SoftButton color="success" variant="gradient" onClick={() => { saveTemplate() }}>
+                        save
+                    </SoftButton>
                     </div>
                     <div className='CreateTemplate-Body-Right-Bottom'>
+
+                        <div className='TemplateConfigurationName'>
+                            <div>
+                                <span>Name: </span>
+                                <SoftInput type="text" onChange={(e) => { setName(e.target.value) }} />
+                            </div>
+                            <div>
+                                <span>Amount: </span>
+                                <SoftInput type="number" onChange={(e) => { setAmount(e.target.value) }} placeholder="$"/>
+                            </div>
+                        </div>
+                        <div className='TemplateConfigurationDescription'>
+                            <span>Description: </span>
+                            <SoftInput type="text" onChange={(e) => { setDescription(e.target.value) }} />
+                        </div>
+
                         <div className='TemplateConfigurationColors'>
                             <span>Colors: </span>
 
@@ -425,7 +452,7 @@ const index = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
                     </div>
                 </div>
             </div>
-        </Dialog>
+        </DashboardLayout>
     )
 }
 

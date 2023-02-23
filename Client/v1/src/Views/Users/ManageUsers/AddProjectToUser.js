@@ -65,7 +65,7 @@ const AddProjectToUser = ({ User, setEnabled, Enabled, setIsLoaded }) => {
 
     const RemoveUserFromProject = async (id) => {
         setEnabled(false);
-        
+
         Swal.fire({
             icon: 'info',
             text: 'Removing user from project...',
@@ -121,8 +121,8 @@ const AddProjectToUser = ({ User, setEnabled, Enabled, setIsLoaded }) => {
                     {User ? <SoftTypography variant="h5" style={{ marginBottom: '10px' }}>Add Project to User #{User.id} - {User.name}</SoftTypography>
                         : <SoftTypography variant="h5" style={{ marginBottom: '10px' }}>No User selected!!</SoftTypography>
                     }                </div>
- {/* ................... */}
- <div style={{
+                {/* ................... */}
+                <div style={{
                     display: 'grid', gridTemplateColumns: "2fr 1fr", gridColumnGap: "1em",
                     justifyContent: 'center', alignItems: 'center', padding: '10px',
                     borderBottom: '1px solid #e0e0e0', marginBottom: '1em'
@@ -135,9 +135,9 @@ const AddProjectToUser = ({ User, setEnabled, Enabled, setIsLoaded }) => {
                     {
                         User?.projects?.map((project, index) => {
                             return (
-                                <div key={index} style={{ display: 'grid', gridTemplateColumns: "2fr 1fr", gridColumnGap:"1em", justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
-                                <SoftTypography variant="h6">#{project.project.id} {project.project.name}</SoftTypography>
-                                <SoftButton variant="outlined" color="error" onClick={() => RemoveUserFromProject(project.id)}>Remove</SoftButton>
+                                <div key={index} style={{ display: 'grid', gridTemplateColumns: "2fr 1fr", gridColumnGap: "1em", justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+                                    <SoftTypography variant="h6">#{project.project.id} {project.project.name}</SoftTypography>
+                                    <SoftButton variant="outlined" color="error" onClick={() => RemoveUserFromProject(project.id)}>Remove</SoftButton>
                                 </div>
                             )
                         })

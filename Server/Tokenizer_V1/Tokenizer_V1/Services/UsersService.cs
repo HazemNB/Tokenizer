@@ -344,7 +344,9 @@ namespace Tokenizer_V1.Services
                 FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance
                     .VerifyIdTokenAsync(accessToken);
                 string uid = decodedToken.Uid;
-                var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(p => p.FirebaseId == uid);
+                var user = await _context.Users
+                    .Include(p => p.Company)
+                    .AsNoTracking().FirstOrDefaultAsync(p => p.FirebaseId == uid);
 
                 if (user != null)
                 {

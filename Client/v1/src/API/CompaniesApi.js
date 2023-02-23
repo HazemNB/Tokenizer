@@ -9,8 +9,8 @@ const firebaseConfig = {
     projectId: "xtokenizer",
     storageBucket: "xtokenizer.appspot.com",
     messagingSenderId: "329102234428",
-    appId: "1:329102234428:web:8112d98450b0d4f8d60439",
-    measurementId: "G-3S7RMCZVE1"
+    appId: "1:329102234428:web:77e87ecb4c08ed90d60439",
+    measurementId: "G-3XJ8VQ4RTR"
   };
   
 const app = getApps().length>0 ? getApps()[0] : initializeApp(firebaseConfig);

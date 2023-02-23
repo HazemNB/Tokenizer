@@ -2,14 +2,15 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp, getApps } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import EnvSettings from "./EnvSettings";
+
 const firebaseConfig = {
     apiKey: "AIzaSyB6P3ehSMdIxeSkGPZoxkTA2x46mU8yH5E",
     authDomain: "xtokenizer.firebaseapp.com",
     projectId: "xtokenizer",
     storageBucket: "xtokenizer.appspot.com",
     messagingSenderId: "329102234428",
-    appId: "1:329102234428:web:77e87ecb4c08ed90d60439",
-    measurementId: "G-3XJ8VQ4RTR"
+    appId: "1:329102234428:web:8112d98450b0d4f8d60439",
+    measurementId: "G-3S7RMCZVE1"
   };
 const app = getApps().length>0 ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -90,6 +91,8 @@ class TokensApi {
     // Templates
 
     CreateTemplateUrl = 'Tokens/CreateTemplate'
+    CreateCompanyTemplateUrl = 'Tokens/CreateCompanyTemplate'
+    GetCompanyTemplatesUrl = 'Tokens/GetCompanyTemplates'
     EditTemplateUrl = 'Tokens/EditTemplate'
     UpdateTemplateImageUrl = 'Tokens/UpdateTemplateImage'
     DeleteTemplateUrl = 'Tokens/DeleteTemplate'
@@ -109,6 +112,38 @@ class TokensApi {
                 Authorization: `Bearer ${this.GetToken()}`,
             },
             body: formData
+        })
+        const data = await res.json();
+        return data;
+    }
+
+    async CreateCompanyTemplate(req) {
+        let formData = new FormData();
+        // append the data from each feild in req programmitacally in a loop
+
+        for(let key in req){
+            formData.append(key, req[key]);
+        }
+
+        const res = await fetch(this.baseUrl + this.CreateCompanyTemplateUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+            },
+            body: formData
+        })
+        const data = await res.json();
+        return data;
+    }
+
+    async GetCompanyTemplates(req) {
+        const res = await fetch(this.baseUrl + this.GetCompanyTemplatesUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
         })
         const data = await res.json();
         return data;
@@ -161,9 +196,11 @@ class TokensApi {
     
 
 
+
     //Tokens
 
     CreateTokensUrl = 'Tokens/CreateTokens'
+    CreateComapnyTokensUrl = 'Tokens/CreateCompanyTokens'
     GetTokenByIdUrl = 'Tokens/GetToken'
     SearchTokensUrl = 'Tokens/SearchTokens'
     UpdateAllTemplateTokensUrl = 'Tokens/UpdateAllTemplateTokens'
@@ -172,6 +209,19 @@ class TokensApi {
     GetBatchTokensUrl = 'Tokens/GetBatchTokens'
     async CreateTokens(req) {
         const res = await fetch(this.baseUrl + this.CreateTokensUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
+
+    async CreateCompanyTokens(req) {
+        const res = await fetch(this.baseUrl + this.CreateComapnyTokensUrl, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${this.GetToken()}`,
