@@ -49,7 +49,7 @@ const Edit = () => {
               alignItems={{ xs: "flex-start" }}
               flexDirection={{ xs: "column" }}
               mb={2}
-              className='CreateCompanyBox'
+              className='CreateAccountBox'
             >
     
               <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
@@ -58,52 +58,25 @@ const Edit = () => {
               <input type="text" className='CreateUserInput'   onChange={(e)=>setName(e.target.value)} />
     
             </SoftBox>
+          
             <SoftBox
               display="flex"
               justifyContent="space-around"
               alignItems={{ xs: "flex-start" }}
               flexDirection={{ xs: "column" }}
               mb={2}
-              className='CreateCompanyBox'
-            >
-    
-              <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-                Phone
-              </SoftTypography>
-              <input type="text" className='CreateUserInput'   onChange={(e)=>setPhone(e.target.value)}  />
-    
-            </SoftBox>
-          </div>
-
-
-          <div className='email-logo'>
-            <SoftBox
-              display="flex"
-              justifyContent="space-around"
-              alignItems={{ xs: "flex-start" }}
-              flexDirection={{ xs: "column" }}
-              mb={2}
-              className='CreateCompanyBox'
+              className='CreateAccountBox'
             >
               <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-                Email
-              </SoftTypography>
-              <input type="text" className='CreateUserInput'    onChange={(e) => setEmail(e.target.value)}  />
-            </SoftBox>
-            <SoftBox
-              display="flex"
-              justifyContent="space-around"
-              alignItems={{ xs: "flex-start" }}
-              flexDirection={{ xs: "column" }}
-              mb={2}
-              className='CreateCompanyBox'
-            >
-              <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-                Logo
+                Profile Picture
               </SoftTypography>
               <input id="LogoInput" type="file" className='CreateUserInput' />
             </SoftBox>
           </div>
+
+
+         
+         
 
           <SoftBox
             display="flex"
@@ -111,10 +84,10 @@ const Edit = () => {
             alignItems={{ xs: "flex-start" }}
             flexDirection={{ xs: "column" }}
             mb={2}
-            className='CreateCompanyBox'
+            className='CreateAccountBox'
           >
             <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Description
+              Bio
             </SoftTypography>
             <textarea rows={7}    onChange={(e) => setDescription(e.target.value)}/>
           </SoftBox>
@@ -122,138 +95,9 @@ const Edit = () => {
        
     
 </SoftBox>
-<SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-    
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Country
-            </SoftTypography>
-            <input type="text" className='CreateUserInput'    onChange={(e) => setCountry(e.target.value)} />
-    
-          </SoftBox>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              City
-            </SoftTypography>
-            <input type="text" className='CreateUserInput'    onChange={(e) => setCity(e.target.value)}  />
-          </SoftBox>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Address
-            </SoftTypography>
-            <input type="text" className='CreateUserInput'    onChange={(e) => setAddress(e.target.value)} />
-          </SoftBox>
-        </SoftBox>
-        <SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-    
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Zip
-            </SoftTypography>
-            <input type="text" className='CreateUserInput'    onChange={(e) => setZip(e.target.value)}  />
-    
-          </SoftBox>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Website
-            </SoftTypography>
-            <input type="text" className='CreateUserInput'    onChange={(e) => setWebsite(e.target.value)} />
-          </SoftBox>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Company TypeId
-            </SoftTypography>
-            <input type="text" className='CreateUserInput'    onChange={(e) => setCompanyTypeId(e.target.value)} />
-          </SoftBox>
-        </SoftBox>
-        <SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-    
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              User Limit
-            </SoftTypography>
-            <input type="number" className='CreateUserInput'   onChange={(e) => setUserLimit(e.target.value)} />
-    
-          </SoftBox>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Token Limit
-            </SoftTypography>
-            <input type="number" className='CreateUserInput'    onChange={(e) => setTokenLimit(e.target.value)} />
-          </SoftBox>
-          <SoftBox
-            display="flex"
-            justifyContent="space-around"
-            alignItems={{ xs: "flex-start" }}
-            flexDirection={{ xs: "column" }}
-            mb={2}
-            className='CreateCompanyBox'
-          >
-            <SoftTypography style={{ margin: " 5px" }} variant="button" fontWeight="medium" textTransform="capitalize">
-              Template Limit
-            </SoftTypography>
-            <input type="number" className='CreateUserInput'    onChange={(e) => setTemplateLimit(e.target.value)}/>
-          </SoftBox>
-    
-        </SoftBox>
+
         <SoftBox display="flex" justifyContent="space-around" alignItems={{ xs: "flex-start", sm: "center" }}
-          flexDirection={{ xs: "column", sm: "row" }} mb={2} className='CreateCompanyBox' >
+          flexDirection={{ xs: "column", sm: "row" }} mb={2} className='CreateAccountBox' >
           <SoftButton variant="gradient" color="info" fullWidth onClick={AccountDetails}>
               Update Details
           </SoftButton>

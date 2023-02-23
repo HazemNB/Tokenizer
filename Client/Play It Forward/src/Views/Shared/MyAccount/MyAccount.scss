@@ -73,14 +73,14 @@
    }
     
 }
-.CreateCompanyBox{
+.CreateAccountBox{
 
     padding: 0 .7em;
     input{
         border-radius: 5px;
         border: 1px solid #ccc;
         padding: 0.5em;
-        width: 22em;
+        width: 35em;
         height: 120%;
         @media(max-width:768px){
             width: 28em;
@@ -88,19 +88,25 @@
         @media(min-width:769px) and (max-width:991px){
             width: 43em;
         }
+        @media(min-width:991px) and(max-width:1300px){
+            width: 30em;
+        }
+       
     }
 
-    
-}
-textarea{
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  
-    width: 22em;
-    @media(max-width:768px){
-        width: 28em;
-    }
-    @media(min-width:769px) and (max-width:991px){
-        width: 43em;
+    textarea{
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      
+        width: 35em;
+        @media(max-width:768px){
+            width: 28em;
+        }
+        @media(min-width:769px) and (max-width:991px){
+            width: 43em;
+        }
+        @media(min-width:991px) and(max-width:1300px){
+            width: 30em;
+        }
     }
 }

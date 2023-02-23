@@ -9,11 +9,13 @@ import TokensApi from '../../../../API/TokensApi';
 import IdReq from '../../../../Requests/IdReq';
 
 import Template from '../../../../ProjectComponents/Tokens/Template'
+import { useNavigate } from 'react-router-dom';
 
 import { useContext } from 'react';
 import { UserContext } from 'App';
 import CreateTokensDialog from './CreateTokensDialog';
 const index = () => {
+    let navigate = useNavigate();
     let User = useContext(UserContext);
     const [TemplatesData, setTemplatesData] = useState(null);
     const [IsLoaded, setIsLoaded] = useState(false);
@@ -147,7 +149,16 @@ const index = () => {
                                         Select
                                     </SoftButton>
                              
-                                    <SoftButton variant="gradient" color="primary" size="small" className="TemplateControlButton" onClick={() => {   }}>
+                                    <SoftButton variant="gradient" color="primary" size="small" className="TemplateControlButton" onClick={() => { 
+                                           navigate(
+                                            '/Tokens/Details',
+                                            {
+                                                state: {
+                                                  td: td
+                                                }
+                                              }
+                                        )
+                                      }}>
                                         Edit
                                     </SoftButton>
                                     <SoftButton variant="gradient" color="error"
