@@ -129,10 +129,8 @@ if(res.status.success){
   return (
     <>
       <DashboardLayout >
-<Toolbar>
-<SoftButton color="success" variant="gradient" onClick={() => { saveTemplate() }}>
-                        save
-                    </SoftButton>
+<Toolbar style={{display:"flex",justifyContent:"flex-end"}}>
+
 </Toolbar>
         <div className='CreateTemplate-Body token' style={{ overflow: 'hidden' }}>
           <div className='CreateTemplate-Body-Left'>
@@ -312,8 +310,11 @@ if(res.status.success){
           </div>
           <div className='CreateTemplate-Body-Right'>
           <div className='CreateTemplate-Body-Top'>
-                        <SoftTypography variant="h6" component="div">
+                        <SoftTypography variant="h6" component="div" style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                             Template Configuration
+                             <SoftButton  className="btn-save" color="success" variant="gradient" onClick={() => { saveTemplate() }} >
+                        save
+                    </SoftButton>
                         </SoftTypography>
                     </div>
                  

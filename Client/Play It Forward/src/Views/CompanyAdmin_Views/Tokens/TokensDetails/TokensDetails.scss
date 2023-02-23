@@ -39,9 +39,7 @@
     grid-template-rows: 1fr;
    
 }
-.CreateTemplate-Body.token{
-    height: 87vh;
-}
+
 .CreateTemplate-Body-Left{
     display: flex;
     flex-direction: column;
@@ -67,7 +65,7 @@
     align-items: center;
     overflow: auto;
     padding-bottom: 3em;
-   
+   height: 500px;
 }
 
 .TemplateConfigurationColors{
@@ -319,3 +317,7 @@
         padding-bottom: 0.5em;
         
     }
+   .btn-save{
+position: relative;
+left: 100px;
+   }

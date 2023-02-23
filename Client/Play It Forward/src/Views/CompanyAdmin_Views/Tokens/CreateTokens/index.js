@@ -143,13 +143,14 @@ const index = () => {
                                 <div className='ProjectTemplate-Info'>
                                     <span className='ProjectTemplate-Description'>{td.Template.description}</span>
                                 </div>
-                                <div className='ProjectTemplateControls'>
+                                <div className='ProjectTemplateControls' style={{display:"flex"}}>
                                     <SoftButton onClick={() => { handleCreateDialogOpen(td.Template) }}
                                         variant="gradient"  color="info" size="small" className="TemplateControlButton">
                                         Select
                                     </SoftButton>
                              
-                                    <SoftButton variant="gradient" color="primary" size="small" className="TemplateControlButton" onClick={() => { 
+                                    <SoftButton variant="gradient" color="primary" size="small" className="TemplateControlButton" 
+                                    onClick={() => { 
                                            navigate(
                                             '/Tokens/Details',
                                             {

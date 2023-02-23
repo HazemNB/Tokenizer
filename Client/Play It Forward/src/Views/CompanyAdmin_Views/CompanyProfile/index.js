@@ -11,12 +11,14 @@ import Details from './Details';
 import Edit from "./Edit"
 
 const index = () => {
-    const user  = useContext(UserContext);
+
 
     const [CompanyData, setCompanyData] = useState(null);
     const [IsLoaded, setIsLoaded] = useState(false);
     const [toggle, setToggle] = useState(true);
-  
+    let User  = useContext(UserContext);
+
+ 
     
   return (
     <DashboardLayout>
@@ -29,7 +31,7 @@ const index = () => {
               } </Icon></button>
             </div>
             {
-              toggle ? <><Details Company = {user.company} /> </> : <><Edit  /></>
+              toggle ? <><Details Company = {User} /> </> : <><Edit  /></>
             }
 
             </Card>

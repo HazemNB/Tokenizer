@@ -2,6 +2,7 @@ import React from 'react'
 import Logo from "./1.jpg"
 
 const Details = ({Company}) => {
+  console.log("Compa" + Company)
   return (
  
  <>
