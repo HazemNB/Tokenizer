@@ -218,6 +218,7 @@ const Details = ({company, setIsLoaded}) => {
             <input type="text" className='CreateUserInput' defaultValue={company.address}   onChange={(e) => setAddress(e.target.value)} />
           </SoftBox>
         </SoftBox>
+        {/* .... */}
         <SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
           <SoftBox
             display="flex"
@@ -261,6 +262,7 @@ const Details = ({company, setIsLoaded}) => {
             <input type="text" className='CreateUserInput' defaultValue={company.companyTypeId}  onChange={(e) => setCompanyTypeId(e.target.value)} />
           </SoftBox>
         </SoftBox>
+        {/* ...... */}
         <SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
           <SoftBox
             display="flex"
