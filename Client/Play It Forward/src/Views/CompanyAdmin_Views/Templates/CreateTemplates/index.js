@@ -346,12 +346,12 @@ const index = ({ }) => {
                     </div>
                     <div className='CreateTemplate-Body-Right-Bottom'>
 
-                        <div className='TemplateConfigurationName'>
-                            <div>
+                        <div className='TemplateConfigurationName' style={{display:"flex"}}>
+                            <div style={{width:"60%"}}>
                                 <span>Name: </span>
                                 <SoftInput type="text" onChange={(e) => { setName(e.target.value) }} />
                             </div>
-                            <div>
+                            <div style={{width:"35%",marginLeft:"5%"}}>
                                 <span>Amount: </span>
                                 <SoftInput type="number" onChange={(e) => { setAmount(e.target.value) }} placeholder="$"/>
                             </div>

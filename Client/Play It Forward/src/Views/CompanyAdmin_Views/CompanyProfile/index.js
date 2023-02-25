@@ -17,7 +17,7 @@ const index = () => {
     const [IsLoaded, setIsLoaded] = useState(false);
     const [toggle, setToggle] = useState(true);
     let User  = useContext(UserContext);
-
+let Company  = User.company;
  
     
   return (
@@ -31,7 +31,7 @@ const index = () => {
               } </Icon></button>
             </div>
             {
-              toggle ? <><Details Company = {User} /> </> : <><Edit  /></>
+              toggle ? <><Details   Company={Company}/> </> : <><Edit Company={Company}/></>
             }
 
             </Card>

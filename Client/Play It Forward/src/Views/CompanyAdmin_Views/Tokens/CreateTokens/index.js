@@ -152,7 +152,7 @@ const index = () => {
                                     <SoftButton variant="gradient" color="primary" size="small" className="TemplateControlButton" 
                                     onClick={() => { 
                                            navigate(
-                                            '/Tokens/Details',
+                                            '/Template/Details',
                                             {
                                                 state: {
                                                   td: td

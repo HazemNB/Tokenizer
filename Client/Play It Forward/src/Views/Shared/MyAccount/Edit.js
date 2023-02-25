@@ -41,7 +41,7 @@ const Edit = () => {
     <div className='CreateUsersDiv'>
 <Card id="CreateUserCard" style={{ padding: "10px 20px" }}>
 <SoftBox>
-<SoftBox py={2} style={{ borderBottom: "1px solid #ccc" }} px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
+<SoftBox py={2}   px={2} display="flex" flexDirection={{ xs: "column", lg: "row" }}>
 <div className='name-phone'>
             <SoftBox
               display="flex"

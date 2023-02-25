@@ -12,8 +12,10 @@ import SoftButton from 'components/SoftButton';
 import Swal from 'sweetalert2';
 import CreateTemplateReq from '../../../../Requests/Templates/CreateTemplateReq';
 import TokensApi from '../../../../API/TokensApi';
+import { useContext } from 'react';
+  import { UserContext } from 'App';
 const index = () => {
-
+ let User = useContext(UserContext);
   const [CodeColor, setCodeColor] = useState("#000000");
     const [CodeBgColor, setCodeBgColor] = useState("#FFFFFF");
     const [BackgroundColor, setBackgroundColor] = useState("#9f7928");
@@ -30,10 +32,14 @@ const index = () => {
     const [UseImage, setUseImage] = useState(false);
     const [AltText, setAltText] = useState("");
     const [ImgSrc, setImgSrc] = useState();
+    const [Name, setName] = useState("");
+    const [Amount, setAmount] = useState(0);
     const [BgChanged, setBgChanged] = useState(false);
     const [Enabled, setEnabled] = useState(false);
     const [Project, setProject] = useState(null);
     const [IsLoaded, setIsLoaded] = useState(false);
+    const [Description, setDescription] = useState("");
+
     useEffect(() => {
       if(BackgroundColor != "#9f7928"){
           setBgChanged(true);
@@ -64,9 +70,26 @@ const index = () => {
     return;
 }
 
+if(User.companyId == null){
+  Swal.fire({
+      title: 'Error',
+      text: "You are not listed in any company",
+      icon: 'error',
+      confirmButtonText: 'Ok',
+      allowOutsideClick: true,
+      didOpen: () => {
+          Swal.hideLoading()
+      }
+  })
+  return; 
+}
 
 let req = new CreateTemplateReq();
-req.Name = "";
+req.Id = 1;
+req.ProjectId = 1;
+req.Name = Name;
+req.Description = Description;
+ req.Amount = Amount;   
 req.QrCodeColor = CodeColor;
 req.QrCodeBackgroundColor = hexStringToRGBAString(CodeBgColor, CodeOpacity);
 req.BackgroundColor = BgChanged ? hexStringToRGBAString(BackgroundColor, Opacity) 
@@ -100,7 +123,7 @@ if(imgInput?.files?.length > 0){
 }
 req.Image = imgInput?.files?.length > 0 ? imgInput.files[0] : null;
 
-let res = await TokensApi.CreateTemplate(req);
+let res = await TokensApi.CreateCompanyTokens(req);
 if(res.status.success){
     Swal.fire({
         title: 'Success',
@@ -319,6 +342,20 @@ if(res.status.success){
                     </div>
                  
                     <div className='CreateTemplate-Body-Right-Bottom'>
+                    <div className='TemplateConfigurationName' style={{display:"flex"}}>
+                            <div style={{width:"60%"}}>
+                                <span>Name: </span>
+                                <SoftInput type="text" onChange={(e) => { setName(e.target.value) }} />
+                            </div>
+                            <div style={{width:"35%",marginLeft:"5%"}}>
+                                <span>Amount: </span>
+                                <SoftInput type="number" onChange={(e) => { setAmount(e.target.value) }} placeholder="$"/>
+                            </div>
+                        </div>
+                        <div className='TemplateConfigurationDescription'>
+                            <span>Description: </span>
+                            <SoftInput type="text" onChange={(e) => { setDescription(e.target.value) }} />
+                        </div>
                     <div className='TemplateConfigurationColors'>
                     <span>Colors: </span>
                     <div className='TemplateConfigurationColor'>

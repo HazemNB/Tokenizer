@@ -3,13 +3,13 @@ class SearchTokensReq{
         this.ProjectId = undefined;
         this.TemplateId = undefined; //
         this.TokenTypeId = undefined; //
-        this.IdFrom = undefined;//
+        this.IdFrom = undefined;//          
         this.IdTo = undefined;//
         this.NumberFrom = undefined;
         this.NumberTo = undefined;
         this.Url = undefined;//
         this.CreatedAtFrom = undefined;// datetime
-        this.CreatedAtTo = undefined;// datetime
+        this.CreatedAtTo = undefined; 
         this.CurvedTextBottom = undefined;
         this.CurvedTextTop = undefined;
         this.HasImage = undefined;
