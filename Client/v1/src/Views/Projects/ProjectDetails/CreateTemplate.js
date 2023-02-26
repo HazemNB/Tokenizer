@@ -330,7 +330,7 @@ const CreateTemplate = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
                         </div>
                     </div>
                 </div>
-
+{/* ................................... */}
                 <div className='CreateTemplate-Body-Right'>
                     <div className='CreateTemplate-Body-Top'>
                         <SoftTypography variant="h6" component="div">

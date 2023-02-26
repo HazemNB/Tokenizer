@@ -5,7 +5,10 @@ import  CreateUseres from "Views/CompanyAdmin_Views/users/CreateUseres"
 import ManageUseres from "Views/CompanyAdmin_Views/users/ManageUseres"
 import MyAccount from "Views/Shared/MyAccount"
 import CreateTemplates from "Views/CompanyAdmin_Views/Templates/CreateTemplates"
-import CreateTokens from "Views/CompanyAdmin_Views/Tokens/CreateTokens"
+import CreateTokens from "Views/CompanyAdmin_Views/Tokens/CreateTokens";
+import CompanyProfile from "Views/CompanyAdmin_Views/CompanyProfile";
+import TokensDetails from "Views/CompanyAdmin_Views/Tokens/TokensDetails";
+import ManageTokens from "Views/CompanyAdmin_Views/Tokens/ManageTokens"
 const CompanyAdminRoutes = [
   {
     type: "collapse",
@@ -30,9 +33,9 @@ const CompanyAdminRoutes = [
     type: "collapse",
     name: "Company Profile",
     key: "companyProfile",
-    route: "/dashboard",
+    route: "/CompanyProfile",
     icon: <Shop size="12px" />,
-    component: <Dashboard />,
+    component: <CompanyProfile />,
     noCollapse: true,
   },
   { type: "divider", title: "useres", key: "useres" },
@@ -56,6 +59,17 @@ const CompanyAdminRoutes = [
       component: <ManageUseres />,
       noCollapse: true,
     },
+    {
+      type: "collapse",
+      name: "Token Details",
+      key: "tokensDetails",
+      route: "/Template/Details",
+      icon: <Shop size="12px" />,
+      component: <TokensDetails />,
+      noCollapse: true,
+      hidden: true,
+    },
+   
     { type: "divider", title: "Tokens", key: "Tokens" },
     {
       type: "collapse",
@@ -79,9 +93,9 @@ const CompanyAdminRoutes = [
       type: "collapse",
       name: "Manage Tokens",
       key: "manageTokens",
-      route: "/dashboard",
+      route: "/ManageTokens",
       icon: <Shop size="12px" />,
-      component: <Dashboard />,
+      component: <ManageTokens />,
       noCollapse: true,
     },
     { type: "divider", title: "useres", key: "useres" },

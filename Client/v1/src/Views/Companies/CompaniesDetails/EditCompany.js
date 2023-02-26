@@ -14,6 +14,7 @@ import CreateCompaniesReq from 'Requests/Companies/CreateComapniesReq';
 
 
 const Details = ({company, setIsLoaded}) => {
+
   const { state } = useLocation();
  
   const [Name, setName] = useState(company.name);

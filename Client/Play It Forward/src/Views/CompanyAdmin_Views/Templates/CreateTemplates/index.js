@@ -159,10 +159,10 @@ const index = ({ }) => {
 
  
     return (
-        <DashboardLayout>
+        <DashboardLayout >
       <DashboardNavbar /> 
    
-            <div className='CreateTemplate-Body' style={{overflow:'hidden'}}>
+            <div className='CreateTemplate-Body' >
                 <div className='CreateTemplate-Body-Left'>
                     <div className='CreateTemplate-Body-Top-Left'>
                         <SoftTypography variant="h6" component="div">
@@ -346,12 +346,12 @@ const index = ({ }) => {
                     </div>
                     <div className='CreateTemplate-Body-Right-Bottom'>
 
-                        <div className='TemplateConfigurationName'>
-                            <div>
+                        <div className='TemplateConfigurationName' style={{display:"flex"}}>
+                            <div style={{width:"60%"}}>
                                 <span>Name: </span>
                                 <SoftInput type="text" onChange={(e) => { setName(e.target.value) }} />
                             </div>
-                            <div>
+                            <div style={{width:"35%",marginLeft:"5%"}}>
                                 <span>Amount: </span>
                                 <SoftInput type="number" onChange={(e) => { setAmount(e.target.value) }} placeholder="$"/>
                             </div>
@@ -372,7 +372,7 @@ const index = ({ }) => {
                                 <SoftInput type="color" value={BackgroundColor} onChange={(e) => { setBackgroundColor(e.target.value) }} />
                                 <span>Background</span>
                             </div>
-                            <div className='TemplateConfigurationColor'>
+                            <div className='TemplateConfigurationColor TemplateConfigurationColorBc'>
                                 <SoftInput type="color" value={CodeBgColor} onChange={(e) => { setCodeBgColor(e.target.value) }} />
                                 <span style={{fontSize:"0.9em"}}>QR-Background</span>
                             </div>
@@ -380,7 +380,7 @@ const index = ({ }) => {
                                 <SoftInput type="color" value={TextColor} onChange={(e) => { setTextColor(e.target.value) }} />
                                 <span>Text</span>
                             </div>
-                            <div className='col-4 TemplateConfigurationColor' style={{ display: "flex", flexDirection: "column", alignItems: "center",
+                          <div className='col-4 TemplateConfigurationColorCode' style={{ display: "flex", flexDirection: "column", alignItems: "center",
                                 //column size full row 
                                 gridColumn: "1 / 3",
                                 paddingLeft:"10px"
@@ -390,7 +390,7 @@ const index = ({ }) => {
                                 <Slider value={Opacity} min={0} max={100} step={1} valueLabelDisplay="auto" marks={true} onChange={(e, value) => { setOpacity(value) }} />
                                 <span>Opacity</span>
                             </div>
-                            <div className='col-4 TemplateConfigurationColor' style={{ display: "flex", flexDirection: "column", alignItems: "center",
+                            <div className='col-4 TemplateConfigurationColorCode' style={{ display: "flex", flexDirection: "column", alignItems: "center",
                                 //column size full row 
                                 gridColumn: "4 / 6",
                                 paddingRight:"10px"
@@ -399,6 +399,7 @@ const index = ({ }) => {
                                 <Slider value={CodeOpacity} min={0} max={100} step={1} valueLabelDisplay="auto" marks={true} onChange={(e, value) => { setCodeOpacity(value) }} />
                                 <span>Code Opacity</span>
                             </div>
+                         
                         </div>
 
                         <div className='TemplateConfigurationInputs'>
@@ -415,7 +416,7 @@ const index = ({ }) => {
                         </div>
 
                         <div className='TemplateConfigurationCode'>
-                            <div>
+                            <div className='TemplateConfigurationCodeToken'>
                                 <span>Token Type: </span>
                                 <TokenTypeSelector setTokenType={setTokenType} />
                                 <Slider value={TokenTypeOffset / 20} min={0} max={100} step={1} valueLabelDisplay="auto" marks={true

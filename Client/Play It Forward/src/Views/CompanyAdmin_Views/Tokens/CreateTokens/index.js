@@ -9,11 +9,13 @@ import TokensApi from '../../../../API/TokensApi';
 import IdReq from '../../../../Requests/IdReq';
 
 import Template from '../../../../ProjectComponents/Tokens/Template'
+import { useNavigate } from 'react-router-dom';
 
 import { useContext } from 'react';
 import { UserContext } from 'App';
 import CreateTokensDialog from './CreateTokensDialog';
 const index = () => {
+    let navigate = useNavigate();
     let User = useContext(UserContext);
     const [TemplatesData, setTemplatesData] = useState(null);
     const [IsLoaded, setIsLoaded] = useState(false);
@@ -141,13 +143,23 @@ const index = () => {
                                 <div className='ProjectTemplate-Info'>
                                     <span className='ProjectTemplate-Description'>{td.Template.description}</span>
                                 </div>
-                                <div className='ProjectTemplateControls'>
+                                <div className='ProjectTemplateControls' style={{display:"flex"}}>
                                     <SoftButton onClick={() => { handleCreateDialogOpen(td.Template) }}
                                         variant="gradient"  color="info" size="small" className="TemplateControlButton">
                                         Select
                                     </SoftButton>
                              
-                                    <SoftButton variant="gradient" color="primary" size="small" className="TemplateControlButton" onClick={() => {   }}>
+                                    <SoftButton variant="gradient" color="primary" size="small" className="TemplateControlButton" 
+                                    onClick={() => { 
+                                           navigate(
+                                            '/Template/Details',
+                                            {
+                                                state: {
+                                                  td: td
+                                                }
+                                              }
+                                        )
+                                      }}>
                                         Edit
                                     </SoftButton>
                                     <SoftButton variant="gradient" color="error"

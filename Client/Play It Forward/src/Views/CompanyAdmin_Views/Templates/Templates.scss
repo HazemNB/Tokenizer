@@ -1,9 +1,20 @@
+
 .CreateTemplate-Body{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-}
+    overflow: hidden;
+    height: 80.3vh;
+   }
+.CreateTemplate-Body-Right{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   overflow: auto;
+overflow: auto;
+height: 100vh;
 
+}
 .CreateTemplate-Body-Top-Left{
     display: flex;
     flex-direction: row;
@@ -11,9 +22,9 @@
     align-items: center;
     border-bottom: 1px solid #e0e0e0;
     width: 80%;
-    margin-bottom: 3em;
+    margin-bottom: 2em;
       padding-bottom: 0.3em;
-      // margin-top: 0.5em;
+      margin-top: 0.8em;
    }
    .CreateTemplate-Body-Top-Right{
       display: flex;
@@ -31,14 +42,10 @@
        flex-direction: column;
        align-items: center;
        border-right: 1px solid #e0e0e0;
+    
    }
 
-.CreateTemplate-Body-Right{
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   overflow: auto;
-}
+
 
 .TemplateConfigurationColors{
     display: grid;
@@ -59,6 +66,16 @@
     justify-content: center;
     text-align: center;
     font-size: 0.8em;
+   
+}
+.TemplateConfigurationColorCode{
+   margin-top: 1em;
+}
+.TemplateConfigurationCodeToken{
+   margin-top: 2em;
+}
+.TemplateConfigurationColorBc{
+   margin-top: 1.5em;
 }
 
 .TemplateConfigurationInputs{
@@ -376,3 +393,21 @@
          margin-bottom: 1em;
          padding-bottom: 0.5em;
     }
+   .TemplateConfigurationName{
+      padding: 0.5em;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      margin-left: 0.3em;
+      margin-Right: 0.3em;
+
+    }
+    .TemplateConfigurationDescription{
+      padding: 0.5em;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      margin-left: 0.3em;
+      margin-Right: 0.3em;
+      margin-top:.2em;
+      margin-bottom:.4em;
+    }
+  

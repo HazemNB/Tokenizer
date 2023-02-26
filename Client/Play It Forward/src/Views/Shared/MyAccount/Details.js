@@ -1,5 +1,6 @@
 import React from 'react'
-import Logo from "./1.jpg"
+import Logo from "./1.jpg";
+
 const Details = ({user}) => {
   return (
     <div className='account-datails'>

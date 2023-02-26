@@ -91,12 +91,14 @@ class TokensApi {
     // Templates
 
     CreateTemplateUrl = 'Tokens/CreateTemplate'
-    CreateCompanyTemplateUrl = 'Tokens/CreateCompanyTemplate'
+    CreateCompanyTemplateUrl = 'Tokens/CreateCompanyTemplate';
+    CreateCompanyTokensUrl = 'Tokens/CreateCompanyTokens'
     GetCompanyTemplatesUrl = 'Tokens/GetCompanyTemplates'
     EditTemplateUrl = 'Tokens/EditTemplate'
     UpdateTemplateImageUrl = 'Tokens/UpdateTemplateImage'
     DeleteTemplateUrl = 'Tokens/DeleteTemplate'
-    DeleteTemplateAndTokensUrl = 'Tokens/DeleteTemplateAndTokens'
+    DeleteTemplateAndTokensUrl = 'Tokens/DeleteTemplateAndTokens';
+  
 
     async CreateTemplate(req) {
         let formData = new FormData();
@@ -135,7 +137,26 @@ class TokensApi {
         const data = await res.json();
         return data;
     }
+  //...............
+  async CreateCompanyTokens(req) {
+    let formData = new FormData();
+    // append the data from each feild in req programmitacally in a loop
 
+    for(let key in req){
+        formData.append(key, req[key]);
+    }
+
+    const res = await fetch(this.baseUrl + this.CreateCompanyTokensUrl, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${this.GetToken()}`,
+        },
+        body: formData
+    })
+    const data = await res.json();
+    return data;
+}
+//...........
     async GetCompanyTemplates(req) {
         const res = await fetch(this.baseUrl + this.GetCompanyTemplatesUrl, {
             method: 'POST',

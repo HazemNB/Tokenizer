@@ -37,6 +37,12 @@ class CompaniesApi{
     DeleteCompanyUrl = 'Companies/DeleteCompany'
     SearchCompaniesUrl = 'Companies/SearchCompanies'
 
+    CreateCompanyTypeUrl = 'Companies/CreateCompanyType';
+    DeleteCompanyTypeUrl ='Companies/DeleteCompanyType'; 
+    SearchCompanyTypeUrl ='Companies/SearchCompanyTypes';
+    AddUserToCompanyUrl = 'Companies/AddUserToCompany';
+    RemoveUserFromCompanyUrl='Companies/RemoveUserFromCompany'
+
     async CreateCompany(req) {
         const res = await fetch(this.baseUrl + this.CreateCompanyUrl, {
             method: 'POST',
@@ -51,7 +57,26 @@ class CompaniesApi{
     }
 
     async EditCompany(req) {
+        let formData = new FormData();
+        // append the data from each feild in req programmitacally in a loop
+
+        for(let key in req){
+            formData.append(key, req[key]);
+        }
+
         const res = await fetch(this.baseUrl + this.EditCompanyUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+            },
+            body: formData
+        })
+        const data = await res.json();
+        return data;
+    }
+
+    async GetCompany(req) { 
+        const res = await fetch(this.baseUrl + this.GetCompanyUrl, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${this.GetToken()}`,
@@ -62,9 +87,8 @@ class CompaniesApi{
         const data = await res.json();
         return data;
     }
-
-    async GetCompany(req) { 
-        const res = await fetch(this.baseUrl + this.GetCompanyUrl, {
+    async SearchCompanies(req) {
+        const res = await fetch(this.baseUrl + this.SearchCompaniesUrl, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${this.GetToken()}`,
@@ -91,6 +115,19 @@ class CompaniesApi{
 
     async SearchCompanies(req) {
         const res = await fetch(this.baseUrl + this.SearchCompaniesUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
+
+    async SearchCompanyType(req) {
+        const res = await fetch(this.baseUrl + this.SearchCompanyTypeUrl, {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${this.GetToken()}`,

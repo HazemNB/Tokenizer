@@ -1,0 +1,323 @@
+.PJ-Details-Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: "1em";
+    padding: "4em 2em";
+    border-bottom: 1px solid #e0e0e0;
+    .PJ-Header-center{
+        font-size: 1.5em;
+        font-weight: 600;
+    }
+}
+
+.PJ-Details-Body{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+}
+
+.PJ-Templates-Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.PJ-Templates-Header-Container{
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 1em;
+    margin: 1em;
+}
+
+.CreateTemplate-Body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+   
+}
+
+.CreateTemplate-Body-Left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-right: 1px solid #e0e0e0;
+}
+
+.CreateTemplate-Body-Top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    width: 80%;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+}
+
+.CreateTemplate-Body-Right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    padding-bottom: 3em;
+   height: 500px;
+}
+
+.TemplateConfigurationColors{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+    align-items: center;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-left: 0.3em;
+    margin-Right: 0.3em;
+}
+.TemplateConfigurationColor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.TemplateConfigurationInputs{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+    align-items: center;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-left: 0.3em;
+    margin-Right: 0.3em;
+    // background:radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+    // radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)
+
+}
+
+.TemplateConfigurationCode{
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+    align-items: center;
+    padding: 0.5em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    margin-left: 0.3em;
+    margin-Right: 0.3em;
+}
+ .CreateTokenTypeDiv{
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr;
+    grid-column-gap: 1em;
+    align-items: center;
+    margin: 1em;
+    padding: 0.5em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+
+ }
+
+ .TemplateConfigurationImage{
+    display: grid;
+    grid-template-columns: 4fr 7fr;
+    grid-column-gap: 1em;
+    align-items: center;
+    margin-bottom: 1em;
+    margin-left: 0.3em;
+    margin-Right: 0.3em;
+    padding: 0.5em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    div{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+ }
+ .ProjectTemplates-Templates{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    align-items: center;
+    margin: 1em;
+    padding: 0.5em;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+ }
+ .ProjectTemplate{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;        
+ }
+ .ProjectTemplate-Template{
+    zoom: 0.3;
+    position: relative;
+    top: 8em;
+ }
+ .ProjectTemplateControls{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 0.5em;
+    margin: 1em;
+    padding: 0.5em;
+    border-top: 1px solid #e0e0e0;
+    button{
+        width: 0.5em;    
+        font-size: 0.5em;
+    }
+ }
+
+ .CreateTokens{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin: 1em;
+    padding: 0.5em;
+    width: 100%;
+ }
+
+ .CreateTokens-Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    width: 80%;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+ }
+
+ .CreateTokens-Body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+
+ }
+ 
+ .ProjectTokensCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1em;
+    padding: 0.5em;
+    border: 1px solid #e0e0e0;
+ }
+
+ .ProjectTokens-Search{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    width: 80%;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+
+    div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0.5em;
+        margin: 0.5em;
+        width: 80%;
+    }
+ }
+
+ .ProjectTokens-Table{
+    width: 100%;
+    margin-bottom: 1em;
+ }
+ 
+ .TokenDivTable{
+    zoom: 0.3;
+    overflow: hidden;
+ }
+ .Token{
+    position: relative;
+    top: 10em;
+ }
+ .BatchOperations{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin: 1em;
+    padding: 0.5em;
+    width: 100%;
+ }
+    .BatchOperations-Header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        border-bottom: 1px solid #e0e0e0;
+        width: 80%;
+        margin-bottom: 1em;
+        padding-bottom: 0.5em;
+    }
+
+    .BatchOperations-Inputs{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        width: 80%;
+        margin-bottom: 1em;
+        padding-bottom: 0.5em;
+        // div{
+        //     border: 1px solid #e0e0e0;
+        //     border-radius: 5px;
+        //     padding: 0.5em;
+        //     margin: 0.5em;
+        //     width: 80%;
+
+        // }
+        border-bottom: 1px solid #e0e0e0;
+        label{
+            border-bottom: 1px solid #e0e0e0;
+        }
+    }
+
+    .BatchOperations-Buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 80%;
+        margin-bottom: 1em;
+        padding-bottom: 0.5em;
+        
+    }
+   .btn-save{
+position: relative;
+left: 100px;
+   }
