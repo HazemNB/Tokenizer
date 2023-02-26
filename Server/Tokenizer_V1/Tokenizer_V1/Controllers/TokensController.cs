@@ -275,6 +275,17 @@ namespace Tokenizer_V1.Controllers
         }
 
         [HttpPost]
+        [Route("SearchCompanyTokens")]
+        public async Task<IActionResult> SearchCompanyTokens([FromBody] SearchTokensReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.SearchCompanyTokens(req);
+            return Ok(response);
+        }
+
+        [HttpPost]
         [Route("CreateTokenTransaction")]
         public async Task<IActionResult> CreateTokenTransaction([FromBody] CreateTokenTransactionRequest req)
         {
