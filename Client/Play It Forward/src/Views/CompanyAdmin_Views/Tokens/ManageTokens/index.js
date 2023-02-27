@@ -4,17 +4,20 @@ import DashboardNavbar from 'examples/Navbars/DashboardNavbar'
 import React, { useEffect, useState } from 'react';
 import SearchTokensReq from '../../../../Requests/Tokens/SearchTokensReq';
 import SearchTokens from './SearchTokens';
-import { useLocation } from 'react-router-dom';
 import SoftTypography from 'components/SoftTypography';
 import Token from './Token';
 import Table from "examples/Tables/Table";
 import LoaderSmall from 'ProjectComponents/LoaderSmall';
-import { Pagination } from '@mui/material';
-
+import { Icon, Pagination } from '@mui/material';
+import { useContext } from 'react';
+import { UserContext } from 'App';
+import SoftButton from 'components/SoftButton';
+import { useNavigate } from 'react-router-dom';
 
 
 const index = () => {
-    const { state } = useLocation();
+    let navigate = useNavigate();
+    let User = useContext(UserContext)
     const [SearchReq, setSearchReq] = useState(new SearchTokensReq());
     const [ResponseData, setResponseData] = useState(null);
     const [IsLoaded, setIsLoaded] = useState(false);
@@ -23,12 +26,12 @@ const index = () => {
     const [TableDataRows, setTableDataRows] = useState([])
  
     const searchTokens = async () => {
-  
-
-        let res = await TokensApi.SearchTokens(SearchReq);
+        SearchReq.CompanyId = User.companyId;
+        let res = await TokensApi.SearchCompanyTokens(SearchReq);
+        console.log(res)
         if (res.status.success) {
             setResponseData(res.data);
-            setTotalPages(res.data.totalPages);
+            setTotalPages(res.data.Tokens.totalPages);
 
         }
         else {
@@ -40,13 +43,13 @@ const index = () => {
     }
     let columns = [
         { name: "Token", align: "center" },
-        { name: "ID", align: "center" },
-        { name: "TemplateId", align: "left" },
+        // { name: "ID", align: "center" },
+        { name: "Amount", align: "left" },
         //token type and number
-        { name: "Type", align: "left" },
-        { name: "Number", align: "left" },
-        { name: "URL", align: "left" },
-      
+        { name: "Claimed", align: "left" },
+        { name: "Redeemed", align: "left" },
+        { name: "Name", align: "left" },
+        { name: "Details", align: "center" },
     ];
     useEffect(() => {
         searchTokens();
@@ -67,7 +70,7 @@ const index = () => {
     }, [ResponseData]);
     const RefreshTable = () => {
         let rows = [];
-        ResponseData.list?.forEach((token) => {
+        ResponseData.Tokens.list?.forEach((token) => {
             rows.push(
                 MakeTableRow(token)
             );
@@ -75,42 +78,63 @@ const index = () => {
         setTableDataRows(rows);
     }
     const MakeTableRow = (token) => {
+      
         return (
             {    Token: (
-                <div className='TokenDivTable'>
-                    <Token Token={token} />
+                <div className="TokenDivTable" style={{zoom:"0.2"}}>
+              <div className="TokenDivTable-content" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                  <h5 style={{marginRight:"40px",fontSize:"70px"}}>{token.id} </h5>  <Token Token={token} />
+              </div>
                 </div>
             ),
            
-                ID: (
+                // ID: (
+                //     <SoftTypography variant="button" color="text" fontWeight="medium">
+                //         {token.id}
+                //     </SoftTypography>
+                // ),
+                Amount: (
                     <SoftTypography variant="button" color="text" fontWeight="medium">
-                        {token.id}
+                        {token.amount}
                     </SoftTypography>
                 ),
-                TemplateId: (
+                Claimed: (
                     <SoftTypography variant="button" color="text" fontWeight="medium">
-                        {token.templateId}
+                        {token.claimed}
                     </SoftTypography>
                 ),
-                Type: (
-                    <SoftTypography variant="button" color="text" fontWeight="medium">
-                        {token.tokenType.name}
-                    </SoftTypography>
-                ),
-                Number: (
+                Redeemed: (
                     <SoftTypography variant="button" color="text" fontWeight="medium">
 
-                        {token.number}
-                    </SoftTypography>
-                ),
-
-                URL: (
-                    <SoftTypography variant="button" color="text" fontWeight="medium">
-                        {token.url}
+                        {token.redeemed}
                     </SoftTypography>
                 ),
 
-            
+                Name: (
+                    <SoftTypography variant="button" color="text" fontWeight="medium">
+                        {token.template.name}
+                    </SoftTypography>
+                ),
+
+                Details: (
+                    <SoftButton
+                        variant="contained" color="dark" size="small"
+                        onClick={() => {
+                            navigate(
+                                '/Tokens/Details',
+                                {
+                                    state: {
+                                        token: token
+                                    }
+                                  }
+                            )
+                        }}
+                        >
+                        <Icon> {
+                       "settings"
+                        } </Icon>
+                    </SoftButton>
+                ),
 
             }
         );

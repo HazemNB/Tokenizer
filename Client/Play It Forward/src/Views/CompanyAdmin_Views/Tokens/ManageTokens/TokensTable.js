@@ -64,7 +64,7 @@ const MakeTableRow = (token) => {
           ),
 
           Token: (
-              <div className='TokenDivTable'>
+              <div style={{zoom:"0.2"}}>
                   <Token Token={token} />
               </div>
           ),

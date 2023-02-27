@@ -222,6 +222,7 @@ class TokensApi {
 
     CreateTokensUrl = 'Tokens/CreateTokens'
     CreateComapnyTokensUrl = 'Tokens/CreateCompanyTokens'
+    SearchCompanyTokensUrl = 'Tokens/SearchCompanyTokens'
     GetTokenByIdUrl = 'Tokens/GetToken'
     SearchTokensUrl = 'Tokens/SearchTokens'
     UpdateAllTemplateTokensUrl = 'Tokens/UpdateAllTemplateTokens'
@@ -280,6 +281,20 @@ class TokensApi {
         const data = await res.json();
         return data;
     }
+
+    async SearchCompanyTokens(req) {
+        const res = await fetch(this.baseUrl + this.SearchCompanyTokensUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
+
 
     async UpdateAllTemplateTokens(req) {
         const res = await fetch(this.baseUrl + this.UpdateAllTemplateTokensUrl, {

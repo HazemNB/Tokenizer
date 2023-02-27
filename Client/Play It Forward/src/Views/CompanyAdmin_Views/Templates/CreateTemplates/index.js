@@ -43,14 +43,47 @@ const index = ({ }) => {
     const [UseImage, setUseImage] = useState(false);
     const [AltText, setAltText] = useState("");
     const [ImgSrc, setImgSrc] = useState();
-    
+    const [Template, setTemplate] = useState(null);
     const [BgChanged, setBgChanged] = useState(false);
     useEffect(() => {
         if(BackgroundColor != "#9f7928"){
             setBgChanged(true);
         }
     }, [BackgroundColor]);
+//..........................
+useEffect(() => {
+    if(Template != null){
+       
+        if(Template.backgroundColor.includes("rgba")){
+            setBgChanged(true);
+            setBackgroundColor(RGBAToHex(Template.backgroundColor));
+            setOpacity(getOpacityFromRGBAString(Template.backgroundColor));
+        }
+        else{
+            setBgChanged(false);
+            setBackgroundColor(Template.backgroundColor);
+        }
 
+        setCodeBgColor(RGBAToHex(Template.qrCodeBackgroundColor));
+        setCodeOpacity(getOpacityFromRGBAString(Template.qrCodeBackgroundColor));
+        setCodeColor(Template.qrCodeColor);
+        setTextColor(Template.textColor);
+        
+       
+        setCurvedTextTop(Template.curvedTextTop ? Template.curvedTextTop : "");
+        setCurvedTextBottom(Template.curvedTextBottom ? Template.curvedTextBottom : "");
+        setCurvedTextOffsetTop(Template.curvedTextTopOffset);
+        setCurvedTextOffsetBottom(Template.curvedTextBottomOffset);
+        setTokenType(Template.tokenType);
+        setTokenTypeOffset(Template.tokenTypeOffset);
+        setURL(Template.qrCodeUrl ? Template.qrCodeUrl : "");
+        setUseImage(Template.useImage);
+        setAltText(Template.altText ? Template.altText : "");
+        setImgSrc( 
+            "data:image/png;base64, " + Template.image);
+  
+    }
+}, [Template]);
     const saveTemplate = async () => { 
         Swal.fire({
             title: 'Creating Template',
@@ -349,16 +382,16 @@ const index = ({ }) => {
                         <div className='TemplateConfigurationName' style={{display:"flex"}}>
                             <div style={{width:"60%"}}>
                                 <span>Name: </span>
-                                <SoftInput type="text" onChange={(e) => { setName(e.target.value) }} />
+                                <SoftInput type="text" onChange={(e) => { setName(e.target.value) }} value={Name}/>
                             </div>
                             <div style={{width:"35%",marginLeft:"5%"}}>
                                 <span>Amount: </span>
-                                <SoftInput type="number" onChange={(e) => { setAmount(e.target.value) }} placeholder="$"/>
+                                <SoftInput type="number" onChange={(e) => { setAmount(e.target.value) }} placeholder="$"  value={Amount}/>
                             </div>
                         </div>
                         <div className='TemplateConfigurationDescription'>
                             <span>Description: </span>
-                            <SoftInput type="text" onChange={(e) => { setDescription(e.target.value) }} />
+                            <SoftInput type="text" onChange={(e) => { setDescription(e.target.value) }}  value={Description}/>
                         </div>
 
                         <div className='TemplateConfigurationColors'>
@@ -404,8 +437,8 @@ const index = ({ }) => {
 
                         <div className='TemplateConfigurationInputs'>
                             <span>Curved Text: </span>
-                            <SoftInput type="text" placeholder="Top" onChange={(e) => { setCurvedTextTop(e.target.value) }} />
-                            <SoftInput type="text" placeholder="Bottom" onChange={(e) => { setCurvedTextBottom(e.target.value) }} />
+                            <SoftInput type="text" placeholder="Top" onChange={(e) => { setCurvedTextTop(e.target.value) }} value={CurvedTextTop}/>
+                            <SoftInput type="text" placeholder="Bottom" onChange={(e) => { setCurvedTextBottom(e.target.value) }} value={CurvedTextBottom}/>
                             {/* <SoftInput type="number" placeholder="Size" onChange={(e) => { setCurvedTextSize(e.target.value) }} /> */}
                             <div>
                                 <Slider value={CurvedTextOffsetTop / 10} min={0} max={100} step={1} valueLabelDisplay="auto" marks={true
@@ -424,7 +457,7 @@ const index = ({ }) => {
                             </div>
                             <div>
                                 <span>URL: </span>
-                                <SoftInput type="text" placeholder="https://www.abc.com" onChange={(e) => { setURL(e.target.value) }} />
+                                <SoftInput type="text" placeholder="https://www.abc.com" onChange={(e) => { setURL(e.target.value) }} value={URL} />
                             </div>
                         </div>
 

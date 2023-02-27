@@ -7,8 +7,9 @@ import MyAccount from "Views/Shared/MyAccount"
 import CreateTemplates from "Views/CompanyAdmin_Views/Templates/CreateTemplates"
 import CreateTokens from "Views/CompanyAdmin_Views/Tokens/CreateTokens";
 import CompanyProfile from "Views/CompanyAdmin_Views/CompanyProfile";
-import TokensDetails from "Views/CompanyAdmin_Views/Tokens/TokensDetails";
-import ManageTokens from "Views/CompanyAdmin_Views/Tokens/ManageTokens"
+import EditTemplate from "Views/CompanyAdmin_Views/Templates/EditTemplate";
+import ManageTokens from "Views/CompanyAdmin_Views/Tokens/ManageTokens";
+import TokensDetails from "Views/CompanyAdmin_Views/Tokens/TokensDetails"
 const CompanyAdminRoutes = [
   {
     type: "collapse",
@@ -61,15 +62,25 @@ const CompanyAdminRoutes = [
     },
     {
       type: "collapse",
-      name: "Token Details",
-      key: "tokensDetails",
+      name: "Edit Template",
+      key: "EditTemplate",
       route: "/Template/Details",
+      icon: <Shop size="12px" />,
+      component: <EditTemplate />,
+      noCollapse: true,
+      hidden: true,
+    },
+    {
+      type: "collapse",
+      name: "Tokens Details",
+      key: "TokensDetails",
+      route: "Tokens/Details",
       icon: <Shop size="12px" />,
       component: <TokensDetails />,
       noCollapse: true,
       hidden: true,
     },
-   
+ 
     { type: "divider", title: "Tokens", key: "Tokens" },
     {
       type: "collapse",
