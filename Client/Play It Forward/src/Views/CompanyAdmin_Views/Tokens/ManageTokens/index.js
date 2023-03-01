@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import { UserContext } from 'App';
 import SoftButton from 'components/SoftButton';
 import { useNavigate } from 'react-router-dom';
+import TokensStats from './TokensStats';
 
 
 const index = () => {
@@ -78,7 +79,8 @@ const index = () => {
         setTableDataRows(rows);
     }
     const MakeTableRow = (token) => {
-      
+     
+ 
         return (
             {    Token: (
                 <div className="TokenDivTable" style={{zoom:"0.2"}}>
@@ -100,13 +102,13 @@ const index = () => {
                 ),
                 Claimed: (
                     <SoftTypography variant="button" color="text" fontWeight="medium">
-                        {token.claimed}
+                        {token.claimed?<h4 style={{color:"green"}}>Claimed</h4>:<h4 style={{color:"red"}}>UnClaimed</h4>}
                     </SoftTypography>
                 ),
                 Redeemed: (
                     <SoftTypography variant="button" color="text" fontWeight="medium">
 
-                        {token.redeemed}
+                        {token.redeemed?<h4 style={{color:"green"}}>Redeemed</h4>:<h4 style={{color:"red"}}>UnRedeemed</h4>}
                     </SoftTypography>
                 ),
 
@@ -139,13 +141,15 @@ const index = () => {
             }
         );
     }
-
+console.log(" ResponseData" , ResponseData)
   return (
     <DashboardLayout>
 <DashboardNavbar />
 <SearchTokens SearchReq={SearchReq} setSearchReq={setSearchReq}/>
+
 <div className='ProjectTokens-Table' style={{marginTop:".5em"}}>
-{IsLoaded ? <><Table columns={columns} rows={TableDataRows} />
+{IsLoaded ? <><TokensStats stats={ResponseData.Stats}/>
+<Table columns={columns} rows={TableDataRows} />
                     <div className='text-right mx-3 my-4' style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
                         <Pagination count={TotalPages} onChange={(e, num) => setPage(num)} color="primary" className='float-right' />
                     </div> </> : <LoaderSmall />}

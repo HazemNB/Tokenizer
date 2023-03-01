@@ -33,6 +33,7 @@ const RefreshTable = () => {
   setTableDataRows(rows);
 }
 const MakeTableRow = (token) => {
+    console.log("token " +token)
   return (
       {
           ID: (
