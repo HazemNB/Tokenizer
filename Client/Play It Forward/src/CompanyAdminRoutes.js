@@ -10,6 +10,7 @@ import CompanyProfile from "Views/CompanyAdmin_Views/CompanyProfile";
 import EditTemplate from "Views/CompanyAdmin_Views/Templates/EditTemplate";
 import ManageTokens from "Views/CompanyAdmin_Views/Tokens/ManageTokens";
 import TokensDetails from "Views/CompanyAdmin_Views/Tokens/TokensDetails"
+import CreateTokenTransaction from "Views/CompanyAdmin_Views/TokenTransactions/CreateTokenTransaction"
 const CompanyAdminRoutes = [
   {
     type: "collapse",
@@ -115,9 +116,9 @@ const CompanyAdminRoutes = [
       type: "collapse",
       name: "Create Transactions",
       key: "createTransaction",
-      route: "/dashboard",
+      route: "/CreateTokenTransaction",
       icon: <Shop size="12px" />,
-      component: <Dashboard />,
+      component: <CreateTokenTransaction/>,
       noCollapse: true,
     },
     {
