@@ -1,0 +1,15 @@
+.tokens-btn{
+    background: #ddd;
+    padding: 30px;
+    width: 100%;
+    display:"flex";
+    justify-content: center;
+    position: relative;
+    margin-top: 20px;
+}
+.tokens-btn button{
+ position: absolute;
+ left: 50%;
+ transform: translate(-50%,-50%);
+ padding: 10px 40px;
+}

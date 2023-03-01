@@ -9,24 +9,27 @@ import CreateTokens from "Views/CompanyAdmin_Views/Tokens/CreateTokens";
 import CompanyProfile from "Views/CompanyAdmin_Views/CompanyProfile";
 import EditTemplate from "Views/CompanyAdmin_Views/Templates/EditTemplate";
 import ManageTokens from "Views/CompanyAdmin_Views/Tokens/ManageTokens";
-import TokensDetails from "Views/CompanyAdmin_Views/Tokens/TokensDetails"
+import TokensDetails from "Views/CompanyAdmin_Views/Tokens/TokensDetails";
+import {   FcAddDatabase, FcApprove, FcConferenceCall, FcOrganization, FcOrgUnit, FcPackage, FcParallelTasks, FcRedo, FcStackOfPhotos  } from "react-icons/fc";
 const CompanyAdminRoutes = [
   {
     type: "collapse",
     name: "Dashboard",
     key: "dashboard",
     route: "/dashboard",
-    icon: <Shop size="12px" />,
+    icon:<Shop size="12px" /> ,
     component: <Dashboard />,
     noCollapse: true,
   },
   { type: "divider", title: "profile", key: "profile" },
+  { type: "title", title: "Profiles", key: "Profiles" },
+
   {
     type: "collapse",
     name: "My Account",
     key: "MyAccount",
     route: "/MyAccount",
-    icon: <Shop size="12px" />,
+    icon: <FcOrgUnit />,
     component: <MyAccount />,
     noCollapse: true,
   },
@@ -35,18 +38,19 @@ const CompanyAdminRoutes = [
     name: "Company Profile",
     key: "companyProfile",
     route: "/CompanyProfile",
-    icon: <Shop size="12px" />,
+    icon: <FcOrganization />,
     component: <CompanyProfile />,
     noCollapse: true,
   },
   { type: "divider", title: "useres", key: "useres" },
+  { type: "title", title: "Useres", key: "Profiles" },
 
     {
       type: "collapse",
       name: "Create Users",
       key: "createUsers",
       route: "/createUsers",
-      icon: <Shop size="12px" />,
+      icon: <FcApprove />,
       component: <CreateUseres />,
       noCollapse: true,
     },
@@ -56,7 +60,7 @@ const CompanyAdminRoutes = [
       name: "Manage Users",
       key: "ManageUsers",
       route: "/ManageUsers",
-      icon: <Shop size="12px" />,
+      icon: <FcConferenceCall />,
       component: <ManageUseres />,
       noCollapse: true,
     },
@@ -82,12 +86,13 @@ const CompanyAdminRoutes = [
     },
  
     { type: "divider", title: "Tokens", key: "Tokens" },
+    { type: "title", title: "Templates&&Tokens", key: "Profiles" },
     {
       type: "collapse",
       name: "Create Templates",
       key: "createTemplates",
       route: "/createTemplates",
-      icon: <Shop size="12px" />,
+      icon: <FcAddDatabase />,
       component: <CreateTemplates />,
       noCollapse: true,
     },
@@ -96,7 +101,7 @@ const CompanyAdminRoutes = [
       name: "Create Tokens",
       key: "CreateTokens",
       route: "/CreateTokens",
-      icon: <Shop size="12px" />,
+      icon: <FcPackage />,
       component: <CreateTokens />,
       noCollapse: true,
     },
@@ -105,18 +110,18 @@ const CompanyAdminRoutes = [
       name: "Manage Tokens",
       key: "manageTokens",
       route: "/ManageTokens",
-      icon: <Shop size="12px" />,
+      icon: <FcParallelTasks/>,
       component: <ManageTokens />,
       noCollapse: true,
     },
     { type: "divider", title: "useres", key: "useres" },
-
+   { type: "title", title: " Transactions ", key: "Transactions" },
     {
       type: "collapse",
       name: "Create Transactions",
       key: "createTransaction",
       route: "/dashboard",
-      icon: <Shop size="12px" />,
+      icon: <FcRedo />,
       component: <Dashboard />,
       noCollapse: true,
     },
@@ -125,7 +130,7 @@ const CompanyAdminRoutes = [
       name: "Manage Transactions",
       key: "manageTransactions",
       route: "/dashboard",
-      icon: <Shop size="12px" />,
+      icon: <FcStackOfPhotos/>,
       component: <Dashboard />,
       noCollapse: true,
     },
