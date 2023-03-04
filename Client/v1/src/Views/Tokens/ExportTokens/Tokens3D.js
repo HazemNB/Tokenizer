@@ -16,9 +16,10 @@ const Token = ({ Token }) => {
             </div>
 
             <div className='PngTemplate' style={{
-               
-                backgroundSize: "800px 800px", backgroundRepeat: "no-repeat", backgroundPosition: "center",
-                backgroundPositionY: "0px", backgroundPositionX: "0px",
+                //...............
+                    backgroundImage: `url(${BgImage})`,
+                backgroundSize: "420px 420px", backgroundRepeat: "no-repeat", backgroundPosition: "center",
+                backgroundPositionY: "188px", backgroundPositionX: "188px",
                 width: "800px", height: "800px", textAlign: "center", position: "relative", bottom: "800px",
                 borderRadius: "50%",
             }}>
