@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import SoftTypography from 'components/SoftTypography';
 import IdReq from '../../Requests/IdReq';
 import TokensApi from '../../API/TokensApi';
-const TokenTypeSelector = ({setTokenType}) => {
+const TokenTypeSelector = ({setTokenType}) => { 
     const [TokenTypeSearch, setTokenTypeSearch] = useState()
 
     const GetTokenTypes = async () => {

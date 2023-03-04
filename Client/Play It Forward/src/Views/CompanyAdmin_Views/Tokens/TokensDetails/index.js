@@ -11,7 +11,7 @@ const index = () => {
     <DashboardLayout>
       <DashboardNavbar />
       <div className="tokensDetails" style={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
-        <div style={{ zoom: "0.5" }}>
+        <div style={{ zoom: "0.5" }} >
           <Token Token={state.token} />
         </div>
         <ul style={{ listStyle: "none" }}>

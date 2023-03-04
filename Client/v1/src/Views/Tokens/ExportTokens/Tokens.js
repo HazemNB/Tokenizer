@@ -5,6 +5,7 @@ import Token from 'Views/Projects/ProjectDetails/Token'
 import * as htmlToImage from 'html-to-image'
 import jsPDF from 'jspdf'
 import JSZip from 'jszip'
+import Tokens3D from './Tokens3D'
 const Tokens = ({ Tokens }) => {
 
     const [TokensPerRow, setTokensPerRow] = useState(3)
@@ -13,7 +14,7 @@ const Tokens = ({ Tokens }) => {
     const [TokenSize, setTokenSize] = useState(100)
     const [TokenBorderWidth, setTokenBorderWidth] = useState(0)
     const [GridTemplateColumns, setGridTemplateColumns] = useState("")
-
+    const[Toggle,setToggle] = useState(true)
     useEffect(() => {
         let columns = ""
         for (let i = 0; i < TokensPerRow; i++) {
@@ -114,7 +115,7 @@ const Tokens = ({ Tokens }) => {
 
                 <SoftButton color="secondary" onClick={() => PrintPNG()}>PNG</SoftButton>
                 <SoftButton color="secondary" onClick={() => ExportTokensAsSingleFiles()}>Export as single files</SoftButton>
-                <SoftButton color="secondary" onClick={() => PrintPDF()}>PDF</SoftButton>
+                <SoftButton color="secondary"    onClick={() => setToggle(!Toggle)}>Toggle 3d</SoftButton>
                 </div>
 
             </div>
@@ -131,7 +132,7 @@ const Tokens = ({ Tokens }) => {
                         height: "90%", alignContent: "center", justifyContent: "center", display: "flex"
                         }}>
                             <div className='tokenDiv' style={{position: "relative", bottom:"140px"}}>
-                           <Token Token ={token} />
+                            {Toggle?<Token Token ={token} />:<Tokens3D Token={token}/>}        
                             </div>
                         </div>
                     )

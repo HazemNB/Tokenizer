@@ -16,7 +16,7 @@ const index = () => {
  
   
   const [CompanyData, setCompanyData] = useState(null);
-  console.log("companyData",  Company)
+  console.log("companyData",  state.Company)
   const [IsLoaded, setIsLoaded] = useState(false);
   const [toggle, setToggle] = useState(true);
 
