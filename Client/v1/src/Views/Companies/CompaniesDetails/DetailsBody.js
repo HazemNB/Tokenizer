@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react'
-import EditTemplates from './EditTemplates';
 import SearchCompaniesReq from '../../../Requests/Companies/SearchCompaniesReq';
 import CompaniesApi from '../../../API/CompaniesApi';
 import IdReq from '../../../Requests/IdReq';

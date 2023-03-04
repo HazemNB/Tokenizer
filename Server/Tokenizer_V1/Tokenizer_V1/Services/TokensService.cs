@@ -549,6 +549,8 @@ namespace Tokenizer_V1.Services
             try
             {
                 var token = await _context.Tokens
+                    .Include(p => p.CurrentOwner)
+                    .Include(p => p.Owners)
                     .FirstOrDefaultAsync(p => p.Id == req.Id);
 
                 if (token == null)

@@ -155,7 +155,7 @@ const index = () => {
                                             '/Template/Details',
                                             {
                                                 state: {
-                                                  td: td
+                                                  template: td.Template
                                                 }
                                               }
                                         )
