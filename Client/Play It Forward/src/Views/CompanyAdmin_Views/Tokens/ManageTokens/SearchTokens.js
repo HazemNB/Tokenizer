@@ -4,9 +4,10 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
 import SoftButton from "components/SoftButton";
+import TokenTypeSelector from 'ProjectComponents/Selectors/TokenTypeSelector';
 const SearchTokens = ({SearchReq,setSearchReq}) => {
     const [TemplateId, setTemplateId] = useState();
-    const[TokenTypeId , setTokenTypeId]=useState();
+    const[TokenType , setTokenType]=useState();
     const[IdFrom , setIdFrom]=useState();
     const[IdTo , setIdTo]=useState();
     const[Url , setUrl]=useState()
@@ -19,7 +20,7 @@ const SearchTokens = ({SearchReq,setSearchReq}) => {
 const searchUsers = async()=>{
     let req = Object.assign({}, SearchReq);
     req.TemplateId=TemplateId;
-    req.TokenTypeId=TokenTypeId;
+    req.TokenTypeId=TokenType.id;
     req.IdFrom=IdFrom;
     req.IdTo=IdTo;
     req.Url=Url;
@@ -41,7 +42,7 @@ const searchUsers = async()=>{
             </SoftBox>
             <SoftBox px={2} py={3} sx={{ display: 'grid', flexDirection: 'column', gridTemplateColumns: { sm: "1fr 1fr 1fr", xs: "1fr" }, gridColumnGap: "2em", gridRowGap: "1em" }} className="SearchUsersInputs">
             <SoftInput placeholder="Template Id" type="number" onChange={(e) => setTemplateId(e.target.value)} />
-            <SoftInput placeholder="TokenType Id" type="text" onChange={(e) => setTokenTypeId(e.target.value)} />
+   <TokenTypeSelector setTokenType={setTokenType}/>
             <SoftInput placeholder="Id From" type="text" onChange={(e) => setIdFrom(e.target.value)} />
             <SoftInput placeholder="Id To" type="text" onChange={(e) => setIdTo(e.target.value)} />
             <SoftInput placeholder="Url" type="text" onChange={(e) => setUrl(e.target.value)} />
