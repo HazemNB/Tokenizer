@@ -28,6 +28,8 @@ import ManageProjects from "Views/Projects/ManageProjects";
 import ProjectDetails from "Views/Projects/ProjectDetails";
 import CompaniesDetails from "Views/Companies/CompaniesDetails/index";
 import MyProjects from "Views/Projects/MyProjects";
+import ManageTokens from "Views/Tokens/ManageTokens";
+import ManageTemplates from "Views/Templates/ManageTemplates"
 import TokenTypes from "Views/Tokens/TokenTypes";
 import ExportTokens from "Views/Tokens/ExportTokens";
 import TokenRedirect from "Views/Tokens/TokenRedirect";
@@ -156,7 +158,26 @@ const routes = [
   },
   { type: "divider", title: "Projects", key: "Projects" },
   { type: "title", title: "Tokens", key: "Tokens" },
-
+  {
+    type: "collapse",
+    name: "Manage Tokens",
+    key: "manageTokens",
+    route: "/ManageTokens",
+    icon: <FcGenealogy/>,
+    component: <PrivateRoute><ManageTokens/></PrivateRoute>,
+    noCollapse: true,
+    admin: true,
+  },
+  {
+    type: "collapse",
+    name: "Manage Templates",
+    key: "manageTemplates",
+    route: "/ManageTemplates",
+    icon: <FcGenealogy/>,
+    component: <PrivateRoute><ManageTemplates/></PrivateRoute>,
+    noCollapse: true,
+    admin: true,
+  },
   {
     type: "collapse",
     name: "Token Types",
@@ -167,6 +188,7 @@ const routes = [
     noCollapse: true,
     admin: true,
   },
+
   {
     route: "/Tokens/Export",
     name: "Export Tokens",

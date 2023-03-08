@@ -35,6 +35,7 @@ class TokensApi {
     EditTokenTypeUrl = 'Tokens/EditTokenType'
     GetTokenTypesUrl = 'Tokens/GetTokenTypes'
     DeleteTokenTypeUrl = 'Tokens/DeleteTokenType'    
+    SearchCompanyTokensUrl = "Tokens/SearchCompanyTokens"
     async CreateTokenType(req) {
         const res = await fetch(this.baseUrl + this.CreateTokenTypeUrl, {
             method: 'POST',
@@ -292,7 +293,18 @@ class TokensApi {
         const data = await res.json();
         return data;
     }
-    
+    async SearchCompanyTokens(req) {
+        const res = await fetch(this.baseUrl + this.SearchCompanyTokensUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
 }
 
 export default new TokensApi;
