@@ -1,9 +1,14 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
+<<<<<<< HEAD
       "C:\\Users\\hazem\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\hazem\\.nuget\\packages",
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+=======
+      "C:\\Users\\Mahmoud\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Mahmoud\\.nuget\\packages"
+>>>>>>> Tokenizer/mahmoud
     ]
   }
 }
