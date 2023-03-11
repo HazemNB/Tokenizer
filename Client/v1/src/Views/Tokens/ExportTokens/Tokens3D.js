@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactCurvedText from 'react-curved-text'
 // import BgImage from './template1.png';
-import BgImage from './template3.png';
+import BgImage from './template4.png';
 // import QRCode from 'react-qr-code';
 import { QRCode } from 'react-qrcode-logo';
 const Token = ({ Token }) => {
@@ -19,7 +19,7 @@ const Token = ({ Token }) => {
                 //...............
                     backgroundImage: `url(${BgImage})`,
                 backgroundSize: "420px 420px", backgroundRepeat: "no-repeat", backgroundPosition: "center",
-                backgroundPositionY: "188px", backgroundPositionX: "188px",
+                backgroundPositionY: "183px", backgroundPositionX: "188px",
                 width: "800px", height: "800px", textAlign: "center", position: "relative", bottom: "800px",
                 borderRadius: "50%",
             }}>

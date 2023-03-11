@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj": {}
+    "F:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj": {}
   },
   "projects": {
-    "E:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj": {
+    "F:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj",
+        "projectUniqueName": "F:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj",
         "projectName": "Tokenizer_V1",
-        "projectPath": "E:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj",
-        "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-        "outputPath": "E:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\obj\\",
+        "projectPath": "F:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\Tokenizer_V1.csproj",
+        "packagesPath": "C:\\Users\\Mahmoud\\.nuget\\packages\\",
+        "outputPath": "F:\\devHouse\\Tokenizer\\Tokenizer\\Server\\Tokenizer_V1\\Tokenizer_V1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mahmoud\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -108,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

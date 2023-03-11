@@ -32,7 +32,15 @@ const Tokens = ({ Tokens }) => {
         link.href = pngImage;
         link.click();
     }
-    
+   const PrintSVG=async()=>{
+    let ExportDiv = document.getElementById("ExportDiv");
+        let svgImage = await htmlToImage.toSvg(ExportDiv);
+        // download pngImage as an image
+        let link = document.createElement('a');
+        link.download = 'my-image-name.svg';
+        link.href = svgImage;
+        link.click();
+   }
     const PrintPDF = async () => {
         let ExportDiv = document.getElementById("ExportDiv");
         let pngImage = await htmlToImage.toPng(ExportDiv);
@@ -81,6 +89,41 @@ const Tokens = ({ Tokens }) => {
             });
             
     }
+//Export tokens as svg
+const ExportTokensAsSingleFilesSvg = async () => {
+    let _tokens = document.querySelectorAll(".tokenDiv");
+    var zip = new JSZip();
+    var folder = zip.folder("tokens");
+    // _tokens.forEach(async token => {
+    //     let pngImage = await htmlToImage.toPng(token);
+    //     // let link = document.createElement('a');
+    //     // link.download = 'my-image-name.png';
+    //     // link.href = pngImage;
+    //     // link.click();
+    //     // folder.file(`token${i++}.png`, pngImage.split(",")[1], { base64: true });
+    //     folder.file(`token${i++}.png`, pngImage, { base64: true });
+        
+    // })
+    let imagesArray = []
+    for (let i = 0; i < _tokens.length; i++) {
+        imagesArray.push(await htmlToImage.toSvg(_tokens[i]))
+    }
+    for(let j = 0; j < imagesArray.length; j++){
+        
+        folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false});
+    }
+    zip.generateAsync({ type: "blob" })
+        .then(function (content) {
+
+            // saveAs(content, "tokens.zip");
+            let link = document.createElement('a');
+            link.download = 'tokens.zip';
+            link.href = URL.createObjectURL(content);
+            link.click();
+
+        });
+        
+}
 
     return (
         <div>
@@ -112,8 +155,11 @@ const Tokens = ({ Tokens }) => {
                     <SoftButton color="secondary" onClick={() => setTokenBorderWidth(TokenBorderWidth + 1)}>+</SoftButton>
                 </div>
                 <div className="ExportControls__printbuttons">
+                <SoftButton color="secondary" onClick={() => PrintSVG()}>SVG</SoftButton>
 
                 <SoftButton color="secondary" onClick={() => PrintPNG()}>PNG</SoftButton>
+{/*<SoftButton color="secondary" onClick={() => ExportTokensAsSingleFilesSvg()}>Export as single files SVG</SoftButton> */ }        
+
                 <SoftButton color="secondary" onClick={() => ExportTokensAsSingleFiles()}>Export as single files</SoftButton>
                 <SoftButton color="secondary"    onClick={() => setToggle(!Toggle)}>Toggle 3d</SoftButton>
                 </div>
