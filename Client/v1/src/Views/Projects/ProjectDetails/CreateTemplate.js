@@ -71,6 +71,11 @@ const CreateTemplate = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
 
         let req = new CreateTemplateReq();
         req.Name = "";
+        req.Description = "";
+        req.Amount = 0;
+        req.Id = 1;
+        req.CompanyId = 1;
+        
         req.QrCodeColor = CodeColor;
         // req.QrCodeBackgroundColor = CodeBgColor;
         req.QrCodeBackgroundColor = hexStringToRGBAString(CodeBgColor, CodeOpacity);

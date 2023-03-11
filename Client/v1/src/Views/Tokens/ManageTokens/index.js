@@ -25,7 +25,7 @@ const index = () => {
   const [Page, setPage] = useState(1);
   const [TableDataRows, setTableDataRows] = useState([]);
   const searchTokens = async()=>{
-    SearchReq.CompanyId = User.companyId;
+    console.log("searchTokens", SearchReq)
 let res =await TokensApi.SearchCompanyTokens(SearchReq);
 console.log("res" , res)
 if (res.status.success) {
