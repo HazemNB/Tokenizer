@@ -62,16 +62,7 @@ const Tokens = ({ Tokens }) => {
         let _tokens = document.querySelectorAll(".tokenDiv");
         var zip = new JSZip();
         var folder = zip.folder("tokens");
-        // _tokens.forEach(async token => {
-        //     let pngImage = await htmlToImage.toPng(token);
-        //     // let link = document.createElement('a');
-        //     // link.download = 'my-image-name.png';
-        //     // link.href = pngImage;
-        //     // link.click();
-        //     // folder.file(`token${i++}.png`, pngImage.split(",")[1], { base64: true });
-        //     folder.file(`token${i++}.png`, pngImage, { base64: true });
-            
-        // })
+       
         for (let i = 0; i < _tokens.length; i++) {
             let pngImage = await htmlToImage.toPng(_tokens[i]);
             folder.file(`token${i+1}.png`, pngImage.split(",")[1], { base64: true });
@@ -91,38 +82,47 @@ const Tokens = ({ Tokens }) => {
     }
 //Export tokens as svg
 const ExportTokensAsSingleFilesSvg = async () => {
+    // let _tokens = document.querySelectorAll(".tokenDiv");
+    // var zip = new JSZip();
+    // var folder = zip.folder("tokens");
+    
+    // let imagesArray = []
+    // for (let i = 0; i < _tokens.length; i++) {
+    //     let img = await htmlToImage.toSvg(_tokens[i]);
+    //     let imgBlob = new Blob([img], {type: 'image/svg+xml'});
+    //     imagesArray.push(img)
+    // }
+    // for(let j = 0; j < imagesArray.length; j++){
+    //     folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false, base64:false, compression:"STORE"});
+    // }
+    // let content = await zip.generateAsync({ type: "blob", compression:"STORE" });
+
+    // let link = document.createElement('a');
+    // link.download = 'tokens.zip';
+    // link.href = URL.createObjectURL(content);
+    // link.click();
+ 
+ 
     let _tokens = document.querySelectorAll(".tokenDiv");
-    var zip = new JSZip();
-    var folder = zip.folder("tokens");
-    // _tokens.forEach(async token => {
-    //     let pngImage = await htmlToImage.toPng(token);
-    //     // let link = document.createElement('a');
-    //     // link.download = 'my-image-name.png';
-    //     // link.href = pngImage;
-    //     // link.click();
-    //     // folder.file(`token${i++}.png`, pngImage.split(",")[1], { base64: true });
-    //     folder.file(`token${i++}.png`, pngImage, { base64: true });
-        
-    // })
-    let imagesArray = []
-    for (let i = 0; i < _tokens.length; i++) {
-        imagesArray.push(await htmlToImage.toSvg(_tokens[i]))
-    }
-    for(let j = 0; j < imagesArray.length; j++){
-        
-        folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false});
-    }
-    zip.generateAsync({ type: "blob" })
-        .then(function (content) {
+        var zip = new JSZip();
+        var folder = zip.folder("tokens");
+       
+        for (let i = 0; i < _tokens.length; i++) {
+            let svgImage = await htmlToImage.toSvg(_tokens[i]);
+            folder.file(`token${i+1}.svg`,svgImage.split(",")[1], { base64: true });
+        }
 
-            // saveAs(content, "tokens.zip");
-            let link = document.createElement('a');
-            link.download = 'tokens.zip';
-            link.href = URL.createObjectURL(content);
-            link.click();
+        zip.generateAsync({ type: "blob" })
+            .then(function (content) {
 
-        });
-        
+                // saveAs(content, "tokens.zip");
+                let link = document.createElement('a');
+                link.download = 'tokens.zip';
+                link.href = URL.createObjectURL(content);
+                link.click();
+
+            }); 
+
 }
 
     return (
@@ -158,7 +158,7 @@ const ExportTokensAsSingleFilesSvg = async () => {
                 <SoftButton color="secondary" onClick={() => PrintSVG()}>SVG</SoftButton>
 
                 <SoftButton color="secondary" onClick={() => PrintPNG()}>PNG</SoftButton>
-{/*<SoftButton color="secondary" onClick={() => ExportTokensAsSingleFilesSvg()}>Export as single files SVG</SoftButton> */ }        
+              <SoftButton color="secondary" onClick={() => ExportTokensAsSingleFilesSvg()}>Export as single files SVG</SoftButton>       
 
                 <SoftButton color="secondary" onClick={() => ExportTokensAsSingleFiles()}>Export as single files</SoftButton>
                 <SoftButton color="secondary"    onClick={() => setToggle(!Toggle)}>Toggle 3d</SoftButton>
