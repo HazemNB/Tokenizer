@@ -21,10 +21,12 @@ namespace Tokenizer_V1.Services
     public class TokensService : ITokensService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUsersService _users;
 
-        public TokensService(ApplicationDbContext context)
+        public TokensService(ApplicationDbContext context, IUsersService users)
         {
             _context = context;
+            _users = users;
         }
 
         public async Task<DefaultResponse<Template>> CreateTemplate(CreateTemplateReq req)
@@ -548,7 +550,9 @@ namespace Tokenizer_V1.Services
 
             try
             {
-                var token = await _context.Tokens
+                var token = await _context.Tokens.AsNoTracking()
+                    .Include(p => p.Template)
+                    .Include(p => p.TokenType)
                     .Include(p => p.CurrentOwner)
                     .Include(p => p.Owners)
                     .FirstOrDefaultAsync(p => p.Id == req.Id);
@@ -783,6 +787,20 @@ namespace Tokenizer_V1.Services
                     return response;
                 }
 
+                if (token.CurrentOwnerId != null)
+                {
+                    response.Status = new Status(false, "Token is in use");
+                    return response;
+                }
+
+                if (_context.TokenTransactions.Where(p => p.TokenId == token.Id).Any())
+                {
+                    response.Status = new Status(false, "Token has transactions");
+                    return response;
+                }
+
+
+
                 _context.Tokens.Remove(token);
 
                 var saveRes = await _context.SaveChangesAsync();
@@ -815,6 +833,7 @@ namespace Tokenizer_V1.Services
             try
             {
                 var tokens = await _context.Tokens
+                    .AsNoTracking()
                     .Include(p => p.Template)
                     .Include(p => p.TokenType)
                     .Where(p => p.Id >= req.IdFrom && p.Id <= req.IdTo)
@@ -1137,7 +1156,7 @@ namespace Tokenizer_V1.Services
                 }
                 var companyTemplatesCount = await _context.Templates
                     .CountAsync(p => p.CompanyId == req.CompanyId);
-                if ( companyTemplatesCount > company.TemplateLimit)
+                if (companyTemplatesCount > company.TemplateLimit)
                 {
                     response.Status = new Status(false, "Template limit reached");
                     return response;
@@ -1290,7 +1309,7 @@ namespace Tokenizer_V1.Services
                     response.Status = new Status(false, "Token Limit Reached");
                 }
 
-                    var tokens = new List<Token>();
+                var tokens = new List<Token>();
                 var lastNumber = _context.Tokens.Where(p => p.TokenTypeId == template.TokenTypeId)
                     .OrderByDescending(p => p.Number).FirstOrDefault()?.Number ?? 0;
                 for (int i = 0; i < req.Quantity; i++)
@@ -1518,6 +1537,15 @@ namespace Tokenizer_V1.Services
                     return response;
                 }
 
+                var currentUserRes = await _users.GetCurrentUser();
+                if (!currentUserRes.Status.Success)
+                {
+                    response.Status = new Status(false, "User not found or token expired, if you are logged in please refresh the page and try again.");
+                    return response;
+                }
+
+                var currentUser = currentUserRes.Data;
+
                 if (token.Company == null)
                 {
                     response.Status = new Status(false, "Company not found");
@@ -1578,14 +1606,18 @@ namespace Tokenizer_V1.Services
                         _context.TokenOwners.Add(firstOwner);
                         break;
                     case TokenTransactionTypes.Redeem:
+                        if (token.CurrentOwnerId == null)
+                        {
+                            response.Status = new Status(false, "Token is not claimed");
+                            return response;
+                        }
                         token.Redeemed = true;
                         token.LastUpdated = DateTime.Now;
                         token.CurrentOwnerId = null;
                         token.Amount = 0;
 
-                        transaction.FirstPartyId = req.FirstPartyId; // the user
-                        transaction.SecondPartyId = req.SecondPartyId; // the company
-
+                        transaction.FirstPartyId = token.CurrentOwnerId; // the user
+                        transaction.SecondPartyId = currentUser.Id; // the company
 
                         break;
                     case TokenTransactionTypes.Transfer:
@@ -1610,7 +1642,7 @@ namespace Tokenizer_V1.Services
                         token.Amount += req.Amount;
                         token.LastUpdated = DateTime.Now;
 
-                        transaction.FirstPartyId = req.FirstPartyId;
+                        transaction.FirstPartyId = currentUser.Id;
 
                         break;
 
@@ -1625,9 +1657,8 @@ namespace Tokenizer_V1.Services
                         token.Redeemed = false;
                         token.Claimed = false;
                         token.CurrentOwnerId = null;
-                        token.LastUpdated = DateTime.Now;
-
-                        transaction.FirstPartyId = req.FirstPartyId;
+                        
+                        transaction.FirstPartyId = currentUser.Id;
 
                         break;
                     case TokenTransactionTypes.PlayForward:
@@ -1640,7 +1671,47 @@ namespace Tokenizer_V1.Services
                         token.IsPlayedForward = true;
 
                         transaction.FirstPartyId = req.FirstPartyId; // the user
-                        
+
+                        break;
+                    case TokenTransactionTypes.Activate:
+                        if ((token.CompanyId != currentUser.CompanyId || currentUser.UserType != UserTypes.CompanyAdmin)
+                            && currentUser.UserType != UserTypes.SuperAdmin)
+                        {
+                            response.Status = new Status(false, "You are not authorized to activate this token");
+                            return response;
+                        }
+
+                        token.IsActive ??= false;
+
+                        if ((bool)token.IsActive)
+                        {
+                            response.Status = new Status(false, "Token is already active");
+                            return response;
+                        }
+
+                        token.IsActive = true;
+                        token.LastUpdated = DateTime.Now;
+
+                        break;
+
+                    case TokenTransactionTypes.Deactivate:
+                        if ((token.CompanyId != currentUser.CompanyId || currentUser.UserType != UserTypes.CompanyAdmin) && currentUser.UserType != UserTypes.SuperAdmin)
+                        {
+                            response.Status = new Status(false, "You are not authorized to deactivate this token");
+                            return response;
+                        }
+
+                        token.IsActive ??= false;
+
+                        if (!(bool)token.IsActive)
+                        {
+                            response.Status = new Status(false, "Token is already inactive");
+                            return response;
+                        }
+
+                        token.IsActive = false;
+                        token.LastUpdated = DateTime.Now;
+
                         break;
                     default:
                         response.Status = new Status(false, "Invalid transaction type");

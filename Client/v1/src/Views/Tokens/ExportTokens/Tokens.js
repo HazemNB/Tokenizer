@@ -11,7 +11,7 @@ const Tokens = ({ Tokens }) => {
     const [TokensPerRow, setTokensPerRow] = useState(3)
     const [ColumnGap, setColumnGap] = useState(10)
     const [RowGap, setRowGap] = useState(10)
-    const [TokenSize, setTokenSize] = useState(100)
+    const [TokenSize, setTokenSize] = useState(30)
     const [TokenBorderWidth, setTokenBorderWidth] = useState(0)
     const [GridTemplateColumns, setGridTemplateColumns] = useState("")
     const[Toggle,setToggle] = useState(true)

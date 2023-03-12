@@ -1,7 +1,7 @@
 import { Table } from '@mui/material';
 import SoftTypography from 'components/SoftTypography';
 import React, { useEffect, useState } from 'react'
-import Token from './Token';
+import Token from '../../../../ProjectComponents/Tokens/Token';
 const TokensTable = () => {
   const [TableDataRows, setTableDataRows] = useState([]);
   const [ResponseData, setResponseData] = useState(null);

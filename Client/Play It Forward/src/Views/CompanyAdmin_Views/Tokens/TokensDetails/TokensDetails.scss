@@ -32,3 +32,11 @@
     position: relative;
     bottom: 6em;
 }
+.tokenDetailsButtons{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1em;
+    button{
+        margin-right: 1em;
+    }
+}
