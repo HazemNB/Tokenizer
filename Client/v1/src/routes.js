@@ -15,12 +15,15 @@ import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 
+import { FaAirbnb,FaHive,FaGuilded,FaGripfire ,FaBlogger} from "react-icons/fa";
+
 import CreateUser from "Views/Users/CreateUser";
 import ManageUsers from "Views/Users/ManageUsers";
 import CreateCompanies from "Views/Companies/CreateCompanies/CreateCompanies";
 import ManageCompanies from "Views/Companies/ManageCompanies";
 import CompanyTypes from "Views/Companies/CompanyTypes"
-import { FcConferenceCall, FcApprove, FcAddDatabase, FcGenealogy } from "react-icons/fc";
+import { FcConferenceCall, FcApprove,FcManager, FcAddDatabase, FcGenealogy } from "react-icons/fc";
+import {GiAbstract030} from "react-icons/gi";
 import Login from "Views/Auth/Login";
 import PrivateRoute from "ProjectComponents/Auth/PrivateRoute";
 import AdminRoute from "ProjectComponents/Auth/AdminRoute";
@@ -140,7 +143,7 @@ const routes = [
     name: "My Projects",
     key: "myProjects",
     route: "/MyProjects",
-    icon: <FcGenealogy/>,
+    icon: <FaGuilded/>,
     component: <PrivateRoute><MyProjects/></PrivateRoute>,
     noCollapse: true,
 
@@ -163,7 +166,7 @@ const routes = [
     name: "Manage Tokens",
     key: "manageTokens",
     route: "/ManageTokens",
-    icon: <FcGenealogy/>,
+    icon: <FaGripfire/>,
     component: <PrivateRoute><ManageTokens/></PrivateRoute>,
     noCollapse: true,
     admin: true,
@@ -173,7 +176,7 @@ const routes = [
     name: "Manage Templates",
     key: "manageTemplates",
     route: "/ManageTemplates",
-    icon: <FcGenealogy/>,
+    icon: <FaHive/>,
     component: <PrivateRoute><ManageTemplates/></PrivateRoute>,
     noCollapse: true,
     admin: true,
@@ -183,7 +186,7 @@ const routes = [
     name: "Token Types",
     key: "tokenTypes",
     route: "/TokenTypes",
-    icon: <FcGenealogy/>,
+    icon: <GiAbstract030/>,
     component: <PrivateRoute><TokenTypes/></PrivateRoute>,
     noCollapse: true,
     admin: true,
@@ -192,7 +195,7 @@ const routes = [
   {
     route: "/Tokens/Export",
     name: "Export Tokens",
-    icon: <FcGenealogy />,
+    icon: <FaAirbnb />,
     component: <PrivateRoute><ExportTokens/></PrivateRoute>,
     key: "ExportTokens",
     noCollapse: true,
@@ -202,7 +205,7 @@ const routes = [
   {
     route: "/Tokens/Scans",
     name: "Scans",
-    icon: <FcGenealogy />,
+    icon: <FaBlogger />,
     component: <PrivateRoute><Scans/></PrivateRoute>,
     key: "Scans",
     noCollapse: true,
