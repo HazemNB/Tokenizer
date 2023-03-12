@@ -555,6 +555,7 @@ namespace Tokenizer_V1.Services
                     .Include(p => p.TokenType)
                     .Include(p => p.CurrentOwner)
                     .Include(p => p.Owners)
+                    .Include(p => p.Company)
                     .FirstOrDefaultAsync(p => p.Id == req.Id);
 
                 if (token == null)
