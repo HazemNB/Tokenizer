@@ -134,7 +134,8 @@ const EditTemplate = ({ Enabled, setEnabled, setIsLoaded, Project, Template }) =
 
         let req = new CreateTemplateReq();
         req.Name = "";
-
+        req.CompanyId = 1;
+        req.Amount = 0;
         req.Id = Template.id;
         req.QrCodeColor = CodeColor;
         // req.QrCodeBackgroundColor = CodeBgColor;

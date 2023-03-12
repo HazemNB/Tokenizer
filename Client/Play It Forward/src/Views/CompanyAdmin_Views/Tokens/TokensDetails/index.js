@@ -10,6 +10,7 @@ import TokensApi from '../../../../API/TokensApi';
 import Swal from 'sweetalert2';
 import IdReq from '../../../../Requests/IdReq';
 import LoadTokenDialog from './LoadTokenDialog';
+import ReloadTokenDialog from './ReloadTokenDialog';
 const index = () => {
   const { state } = useLocation();
   const [token, setToken] = useState(state.token);
@@ -243,6 +244,7 @@ const index = () => {
         <SoftButton variant="contained" color="dark" size="lg" style={{ width: "100%" }} onClick={DeleteToken}>Delete</SoftButton>
       </div>
       <LoadTokenDialog setEnabled = {setLoadTokenDialog} Enabled = {loadTokenDialog} setIsLoaded = {setIsLoaded} Token = {token} />
+      <ReloadTokenDialog setEnabled = {setReloadTokenDialog} Enabled = {reloadTokenDialog} setIsLoaded = {setIsLoaded} Token = {token} />
     </DashboardLayout>
 
 
