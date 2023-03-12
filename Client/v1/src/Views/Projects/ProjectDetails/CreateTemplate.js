@@ -15,7 +15,7 @@ import TokenTypeSelector from 'ProjectComponents/TokenTypeSelector';
 import QRCodeImage from './QR-Code.png';
 import ReactCurvedText from 'react-curved-text';
 // import BgImage from './template1.png';
-import BgImage from './template3.png';
+import BgImage from './template-4.jpg';
 import Slider from '@mui/material/Slider';
 import CreateTemplateReq from '../../../Requests/Tokens/CreateTemplateReq';
 import TokensApi from '../../../API/TokensApi';
@@ -71,6 +71,11 @@ const CreateTemplate = ({ Enabled, setEnabled, setIsLoaded, Project }) => {
 
         let req = new CreateTemplateReq();
         req.Name = "";
+        req.Description = "";
+        req.Amount = 0;
+        req.Id = 1;
+        req.CompanyId = 1;
+        
         req.QrCodeColor = CodeColor;
         // req.QrCodeBackgroundColor = CodeBgColor;
         req.QrCodeBackgroundColor = hexStringToRGBAString(CodeBgColor, CodeOpacity);
