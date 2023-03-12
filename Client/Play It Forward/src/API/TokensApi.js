@@ -228,6 +228,7 @@ class TokensApi {
     UpdateAllTemplateTokensUrl = 'Tokens/UpdateAllTemplateTokens'
     EditTokenBatchUrl = 'Tokens/EditTokenBatch'
     DeleteTokenBatchUrl = 'Tokens/DeleteTokenBatch'
+    DeleteTokenUrl = 'Tokens/DeleteToken'
     GetBatchTokensUrl = 'Tokens/GetBatchTokens'
     async CreateTokens(req) {
         const res = await fetch(this.baseUrl + this.CreateTokensUrl, {
@@ -259,7 +260,7 @@ class TokensApi {
         const res = await fetch(this.baseUrl + this.GetTokenByIdUrl, {
             method: 'POST',
             headers: {
-                // Authorization: `Bearer ${this.GetToken()}`,
+                Authorization: `Bearer ${this.GetToken()}`,
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(req)
@@ -335,6 +336,19 @@ class TokensApi {
         return data;
     }
 
+    async DeleteToken(req) {
+        const res = await fetch(this.baseUrl + this.DeleteTokenUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        const data = await res.json();
+        return data;
+    }
+
     async GetBatchTokens(req) {
         const res = await fetch(this.baseUrl + this.GetBatchTokensUrl, {
             method: 'POST',
@@ -378,6 +392,24 @@ class TokensApi {
         const data = await res.json();
         return data;
     }
+
+    // Token Transactions
+
+    CreateTokenTransactionUrl = 'Tokens/CreateTokenTransaction'
+
+    async CreateTokenTransaction(req) {
+        let res = await fetch(this.baseUrl + this.CreateTokenTransactionUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.GetToken()}`,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(req)
+        })
+        let data = await res.json();
+        return data;
+    }
+
     
 }
 

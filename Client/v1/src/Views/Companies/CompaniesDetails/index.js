@@ -10,13 +10,12 @@ import Edit from './EditCompany';
 import Details from './Details';
 import DetailsBody from './DetailsBody';
 import LoaderSmall from 'ProjectComponents/LoaderSmall';
-import SearchCompaniesReq from '../../../Requests/Companies/SearchCompaniesReq';
 const index = () => {
   const { state } = useLocation();
  
   
   const [CompanyData, setCompanyData] = useState(null);
-  console.log("companyData",  state.Company)
+  console.log("companyData",  state.company)
   const [IsLoaded, setIsLoaded] = useState(false);
   const [toggle, setToggle] = useState(true);
 
