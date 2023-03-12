@@ -13,7 +13,8 @@ import TokensApi from '../../../API/TokensApi'
 import { useNavigate } from 'react-router-dom'
 import SoftTypography from 'components/SoftTypography'
 import SoftButton from 'components/SoftButton'
-import Token from './Token'
+import Token from 'Views/Projects/ProjectDetails/Token'
+
 
 const index = () => {
     const User = useContext(UserContext);

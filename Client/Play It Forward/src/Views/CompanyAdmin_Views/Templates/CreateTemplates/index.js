@@ -13,7 +13,7 @@ import { QRCode } from 'react-qrcode-logo';
 import SoftInput from 'components/SoftInput';
 import TokenTypeSelector from 'ProjectComponents/Selectors/TokenTypeSelector';
 import ReactCurvedText from 'react-curved-text';
-import BgImage from '../template3.png';
+import BgImage from '../template-4.jpg';
 import Slider from '@mui/material/Slider';
 import CreateTemplateReq from '../../../../Requests/Templates/CreateTemplateReq';
 import TokensApi from '../../../../API/TokensApi';

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactCurvedText from 'react-curved-text'
 // import BgImage from './template1.png';
-import BgImage from './template3.png';
+import BgImage from './template-4.jpg';
 // import QRCode from 'react-qr-code';
 import { QRCode } from 'react-qrcode-logo';
 const Token = ({ Token }) => {
