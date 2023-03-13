@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./TokensDetails.scss";
 import { Slider, Toolbar } from '@mui/material';
-<<<<<<< HEAD
 import BgImage from './template-4.jpg';
-=======
-import BgImage from './template3.png';
->>>>>>> 26ff065df83033206e95f6cb27d8d3910f9893e2
 import ReactCurvedText from 'react-curved-text';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import SoftTypography from 'components/SoftTypography';

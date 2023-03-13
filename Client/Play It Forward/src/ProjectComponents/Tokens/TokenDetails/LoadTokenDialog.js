@@ -4,10 +4,11 @@ import SoftButton from "components/SoftButton";
 import Swal from 'sweetalert2';
 import { Dialog } from '@mui/material';
 import { Icon } from '@mui/material';
-import TokensApi from '../../../../API/TokensApi';
-import CreateTokenTransactionReq from '../../../../Requests/Tokens/CreateTokenTransactionReq';
+import { UserContext } from 'App';
+import TokensApi from '../../../API/TokensApi';
+import CreateTokenTransactionReq from '../../../Requests/Tokens/CreateTokenTransactionReq';
 import SoftInput from 'components/SoftInput';
-const ReloadTokenDialog = ({ setEnabled, Enabled, Token, setIsLoaded }) => {
+const LoadTokenDialog = ({ setEnabled, Enabled, Token, setIsLoaded }) => {
 
     const [Amount, setAmount] = useState();
 
@@ -15,7 +16,7 @@ const ReloadTokenDialog = ({ setEnabled, Enabled, Token, setIsLoaded }) => {
         setEnabled(false);
         Swal.fire({
             icon: 'info',
-            text: 'Reloading token...',
+            text: 'Loading token...',
             allowOutsideClick: false,
             allowEscapeKey: false,
             allowEnterKey: false,
@@ -26,7 +27,7 @@ const ReloadTokenDialog = ({ setEnabled, Enabled, Token, setIsLoaded }) => {
         });
         let transaction = new CreateTokenTransactionReq();
         transaction.tokenId = Token.id;
-        transaction.transactionType = "Reload";
+        transaction.transactionType = "Load";
         transaction.amount = Amount;
         
         let res = await TokensApi.CreateTokenTransaction(transaction);
@@ -68,7 +69,7 @@ const ReloadTokenDialog = ({ setEnabled, Enabled, Token, setIsLoaded }) => {
 
         }}>
                 <div className="dialog-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <SoftTypography variant="h6">Reload Token ID: {Token.id}</SoftTypography>
+                    <SoftTypography variant="h6">Load Token ID: {Token.id}</SoftTypography>
                     <Icon className="dialog-close" onClick={() => setEnabled(false)}>close</Icon>
                 </div>
                 <div className="dialog-body" style={{ display: "flex", flexDirection: "column", gap: "10px",
@@ -85,4 +86,4 @@ const ReloadTokenDialog = ({ setEnabled, Enabled, Token, setIsLoaded }) => {
     )
 }
 
-export default ReloadTokenDialog
+export default LoadTokenDialog
