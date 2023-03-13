@@ -15,7 +15,7 @@ import TokenTypeSelector from 'ProjectComponents/TokenTypeSelector';
 import QRCodeImage from './QR-Code.png';
 import ReactCurvedText from 'react-curved-text';
 // import BgImage from './template1.png';
-import BgImage from './template-4.jpg';
+import BgImage from './template-4.png';
 import Slider from '@mui/material/Slider';
 import CreateTemplateReq from '../../../Requests/Tokens/CreateTemplateReq';
 import TokensApi from '../../../API/TokensApi';
