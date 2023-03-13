@@ -9,6 +9,8 @@ namespace Tokenizer_V1.Models
         public string Description { get; set; }
         public decimal? Amount { get; set; }
 
+        public bool? Approved { set; get; }
+
         public string QrCodeColor { get; set; }
         public string QrCodeBackgroundColor { get; set; }
         public string BackgroundColor { get; set; }
