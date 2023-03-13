@@ -10,7 +10,7 @@ const Token = ({ Token }) => {
 
             <div className='mettalicBg' style={{
                 position: 'relative', top: "0px", zIndex: 0,
-                background: Token.template.backgroundColor,
+                // background: Token.template.backgroundColor,
                 borderRadius: "50%", width: "790px", height: "790px", left: "5px"
             }}>
             </div>
