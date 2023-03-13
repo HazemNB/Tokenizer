@@ -24,7 +24,7 @@ const Token = ({ Token }) => {
             }}>
                 <div className='innerCircle' style={{
                     width: "400px", height: "400px", textAlign: "center",
-                    position: "relative", left: "200px", top: "200px",
+                    position: "relative", left: "199px", top: "204px",
                     borderRadius: "50%", padding: '65px', zIndex: 30,
                 }}>
                         <div className='QRCode' style={{ 
