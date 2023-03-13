@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./TokensDetails.scss";
 import { Slider, Toolbar } from '@mui/material';
-import BgImage from './template4.png';
+import BgImage from './template-4.png';
 // import BgImage from './template3.png';
 import ReactCurvedText from 'react-curved-text';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
