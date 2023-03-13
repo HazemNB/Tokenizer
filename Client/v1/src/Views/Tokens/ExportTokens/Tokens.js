@@ -82,46 +82,46 @@ const Tokens = ({ Tokens }) => {
     }
 //Export tokens as svg
 const ExportTokensAsSingleFilesSvg = async () => {
-    // let _tokens = document.querySelectorAll(".tokenDiv");
-    // var zip = new JSZip();
-    // var folder = zip.folder("tokens");
-    
-    // let imagesArray = []
-    // for (let i = 0; i < _tokens.length; i++) {
-    //     let img = await htmlToImage.toSvg(_tokens[i]);
-    //     let imgBlob = new Blob([img], {type: 'image/svg+xml'});
-    //     imagesArray.push(img)
-    // }
-    // for(let j = 0; j < imagesArray.length; j++){
-    //     folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false, base64:false, compression:"STORE"});
-    // }
-    // let content = await zip.generateAsync({ type: "blob", compression:"STORE" });
-
-    // let link = document.createElement('a');
-    // link.download = 'tokens.zip';
-    // link.href = URL.createObjectURL(content);
-    // link.click();
- 
- 
     let _tokens = document.querySelectorAll(".tokenDiv");
-        var zip = new JSZip();
-        var folder = zip.folder("tokens");
+    var zip = new JSZip();
+    var folder = zip.folder("tokens");
+    
+    let imagesArray = []
+    for (let i = 0; i < _tokens.length; i++) {
+        let img = await htmlToImage.toSvg(_tokens[i]);
+        let imgBlob = new Blob([img], {type: 'image/svg+xml'});
+        imagesArray.push(img)
+    }
+    for(let j = 0; j < imagesArray.length; j++){
+        folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false, base64:false, compression:"STORE"});
+    }
+    let content = await zip.generateAsync({ type: "blob", compression:"STORE" });
+
+    let link = document.createElement('a');
+    link.download = 'tokens.zip';
+    link.href = URL.createObjectURL(content);
+    link.click();
+ 
+ 
+    // let _tokens = document.querySelectorAll(".tokenDiv");
+    //     var zip = new JSZip();
+    //     var folder = zip.folder("tokens");
        
-        for (let i = 0; i < _tokens.length; i++) {
-            let svgImage = await htmlToImage.toSvg(_tokens[i]);
-            folder.file(`token${i+1}.svg`,svgImage.split(",")[1], { base64: true });
-        }
+    //     for (let i = 0; i < _tokens.length; i++) {
+    //         let svgImage = await htmlToImage.toSvg(_tokens[i]);
+    //         folder.file(`token${i+1}.svg`,svgImage.split(",")[1], { base64: true });
+    //     }
 
-        zip.generateAsync({ type: "blob" })
-            .then(function (content) {
+    //     zip.generateAsync({ type: "blob" })
+    //         .then(function (content) {
 
-                // saveAs(content, "tokens.zip");
-                let link = document.createElement('a');
-                link.download = 'tokens.zip';
-                link.href = URL.createObjectURL(content);
-                link.click();
+    //             // saveAs(content, "tokens.zip");
+    //             let link = document.createElement('a');
+    //             link.download = 'tokens.zip';
+    //             link.href = URL.createObjectURL(content);
+    //             link.click();
 
-            }); 
+    //         }); 
 
 }
 
