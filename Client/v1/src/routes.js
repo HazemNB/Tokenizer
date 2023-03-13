@@ -15,8 +15,8 @@ import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 
-import { FaAirbnb,FaHive,FaGuilded,FaGripfire ,FaBlogger} from "react-icons/fa";
-
+import { FaAirbnb,FaHive,FaAccusoft,FaGuilded,FaGripfire ,FaBlogger} from "react-icons/fa";
+import {GrAttachment ,GrBraille} from "react-icons/gr"
 import CreateUser from "Views/Users/CreateUser";
 import ManageUsers from "Views/Users/ManageUsers";
 import CreateCompanies from "Views/Companies/CreateCompanies/CreateCompanies";
@@ -38,6 +38,8 @@ import ExportTokens from "Views/Tokens/ExportTokens";
 import TokenRedirect from "Views/Tokens/TokenRedirect";
 import ReDiv from "Views/Tokens/TokenRedirect/ReDiv";
 import Scans from "Views/Tokens/Scans";
+import { FiFile,FiActivity,FiFastForward,FiFolderMinus } from "react-icons/fi";
+
 const routes = [
   
   { type: "title", title: "Users", key: "Users", admin:true },
@@ -71,7 +73,7 @@ const routes = [
     name: "Create Companies",
     key: "createCompanies",
     route: "/CreateCompanies",
-    icon: <FcAddDatabase />,
+    icon: <FaAccusoft />,
     component: <AdminRoute><CreateCompanies/></AdminRoute>,
     noCollapse: true,
     admin: true,
@@ -83,7 +85,7 @@ const routes = [
     name: "Manage Companies",
     key: "manageCompanies",
     route: "/ManageCompanies",
-    icon: <FcAddDatabase />,
+    icon: <FiFastForward />,
     component: <AdminRoute><ManageCompanies/></AdminRoute>,
     noCollapse: true,
     admin: true,
@@ -94,7 +96,7 @@ const routes = [
     name: "Company Types",
     key: "Company Types",
     route: "/Companies/CompanyTypes",
-    icon: <FcGenealogy/>,
+    icon: <FiActivity/>,
     component: <PrivateRoute><CompanyTypes/></PrivateRoute>,
     noCollapse: true,
     admin: true,
@@ -131,7 +133,7 @@ const routes = [
     name: "Manage Projects",
     key: "manageProjects",
     route: "/ManageProjects",
-    icon: <FcAddDatabase />,
+    icon: <FiFolderMinus />,
     component: <AdminRoute><ManageProjects/></AdminRoute>,
     noCollapse: true,
     admin: true,
@@ -143,7 +145,7 @@ const routes = [
     name: "My Projects",
     key: "myProjects",
     route: "/MyProjects",
-    icon: <FaGuilded/>,
+    icon: <FiFile/>,
     component: <PrivateRoute><MyProjects/></PrivateRoute>,
     noCollapse: true,
 
