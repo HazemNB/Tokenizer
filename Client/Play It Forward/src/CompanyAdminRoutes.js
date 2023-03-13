@@ -11,7 +11,7 @@ import EditTemplate from "Views/CompanyAdmin_Views/Templates/EditTemplate";
 import ManageTokens from "Views/CompanyAdmin_Views/Tokens/ManageTokens";
 import TokensDetails from "Views/CompanyAdmin_Views/Tokens/TokensDetails";
 import {   FcAddDatabase, FcApprove, FcConferenceCall, FcOrganization, FcOrgUnit, FcPackage, FcParallelTasks, FcRedo, FcStackOfPhotos  } from "react-icons/fc";
-import CreateTokenTransaction from "Views/CompanyAdmin_Views/TokenTransactions/CreateTokenTransaction"
+import ScanToken from "Views/CompanyAdmin_Views/TokenTransactions/ScanToken"
 const CompanyAdminRoutes = [
   {
     type: "collapse",
@@ -119,11 +119,11 @@ const CompanyAdminRoutes = [
    { type: "title", title: " Transactions ", key: "Transactions" },
     {
       type: "collapse",
-      name: "Create Transactions",
-      key: "createTransaction",
-      route: "/CreateTokenTransaction",
+      name: "Scan Tokens",
+      key: "ScanTokens",
+      route: "/ScanTokens",
       icon: <FcRedo />,
-      component: <CreateTokenTransaction/>,
+      component: <ScanToken/>,
       noCollapse: true,
     },
     {

@@ -54,6 +54,17 @@ namespace Tokenizer_V1.Controllers
         }
 
         [HttpPost]
+        [Route("SearchTemplates")]
+        public async Task<IActionResult> SearchTemplates([FromBody] SearchTemplateReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.SearchTemplates(req);
+            return Ok(response);
+        }
+
+        [HttpPost]
         [Route("DeleteTemplate")]
         public async Task<IActionResult> DeleteTemplate([FromBody] IdReq req)
         {
@@ -307,6 +318,17 @@ namespace Tokenizer_V1.Controllers
             return Ok(response);
         }
 
+        // toggle templateApproval
+        [HttpPost]
+        [Route("ToggleTemplateApproval")]
+        public async Task<IActionResult> ToggleTemplateApproval([FromBody] IdReq req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _tokenService.ToggleTemplateApproval(req);
+            return Ok(response);
+        }
 
     }
 }

@@ -210,6 +210,76 @@ namespace Tokenizer_V1.Services
             return response;
         }
 
+        // SearchTemplates CreateTemplateReq
+
+        public async Task<DefaultResponse<PagedList<Template>>> SearchTemplates(SearchTemplateReq req)
+        {
+            var response = new DefaultResponse<PagedList<Template>>
+            {
+                Status = new Status(false, "Templates not found")
+            };
+
+            try
+            {
+                var templates = _context.Templates.AsNoTracking().AsQueryable();
+
+                //id
+                if (req.Id != null)
+                {
+                    templates = templates.Where(p => p.Id == req.Id);
+                }
+
+                if (!string.IsNullOrEmpty(req.Name))
+                {
+                    templates = templates.Where(p => p.Name.Contains(req.Name));
+                }
+
+                if (req.ProjectId != null)
+                {
+                    templates = templates.Where(p => p.ProjectId == req.ProjectId);
+                }
+
+                if (req.TokenTypeId != null)
+                {
+                    templates = templates.Where(p => p.TokenTypeId == req.TokenTypeId);
+                }
+
+                //company id
+                if (req.CompanyId != null)
+                {
+                    templates = templates.Where(p => p.CompanyId == req.CompanyId);
+                }
+
+                //amount
+                if (req.Amount != null)
+                {
+                    templates = templates.Where(p => p.Amount >= req.Amount);
+                }
+
+                //approved
+                if (req.Approved != null)
+                {
+                    templates = templates.Where(p => p.Approved == req.Approved);
+                }
+
+
+                var pagedList = new PagedList<Template>(templates, req.pagingParams.PageNumber, req.pagingParams.PageSize);
+
+                response.Status = new Status(true, "Templates found");
+                response.Data = pagedList;
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+
+
+
         public async Task<DefaultResponse<string>> DeleteTemplate(IdReq req)
         {
             var response = new DefaultResponse<string>
@@ -555,6 +625,7 @@ namespace Tokenizer_V1.Services
                     .Include(p => p.TokenType)
                     .Include(p => p.CurrentOwner)
                     .Include(p => p.Owners)
+                    .Include(p => p.Company)
                     .FirstOrDefaultAsync(p => p.Id == req.Id);
 
                 if (token == null)
@@ -1827,6 +1898,67 @@ namespace Tokenizer_V1.Services
 
             return response;
         }
+
+        //Toggle Tempate Approval IdReq = TemplateId
+        public async Task<DefaultResponse<string>> ToggleTemplateApproval(IdReq req)
+        {
+            var response = new DefaultResponse<string>
+            {
+                Status = new Status(false, "Template not found")
+            };
+
+            try
+            {
+                var template = await _context.Templates.FindAsync(req.Id);
+
+                if (template == null)
+                {
+                    response.Status = new Status(false, "Template not found");
+                    return response;
+                }
+                // check if current user is admin or superadmin
+                var currentUserRes = await _users.GetCurrentUser();
+
+                if (!currentUserRes.Status.Success)
+                {
+                    response.Status = new Status(false, "You are not authorized to approve this template");
+                    return response;
+                }
+
+                var currentUser = currentUserRes.Data;
+
+                if (currentUser.UserType != UserTypes.SuperAdmin && currentUser.UserType != UserTypes.CompanyAdmin)
+                {
+                    response.Status = new Status(false, "You are not authorized to approve this template");
+                    return response;
+                }
+
+                template.Approved ??= false;
+                template.Approved = !template.Approved;
+
+                var saveRes = await _context.SaveChangesAsync();
+
+                if (saveRes > 0)
+                {
+                    response.Status = new Status(true, "Template updated");
+                    response.Data = template.Id.ToString();
+                }
+                else
+                {
+                    response.Status = new Status(false, "Template not updated");
+                }
+
+            }
+            catch (Exception e)
+            {
+                response.Status = new Status(false, e.Message);
+            }
+
+            return response;
+        }
+        
+
+
 
     }
 }
