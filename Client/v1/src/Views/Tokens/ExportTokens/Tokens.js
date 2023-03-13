@@ -83,18 +83,26 @@ const Tokens = ({ Tokens }) => {
 //Export tokens as svg
 const ExportTokensAsSingleFilesSvg = async () => {
     let _tokens = document.querySelectorAll(".tokenDiv");
-    var zip = new JSZip();
+    const zip = new JSZip({
+        type: 'blob',
+        compression: 'DEFLATE',
+        compressionOptions: {
+          level: 9
+        },
+        encoding: 'UTF-8'
+      });
     var folder = zip.folder("tokens");
     
-    let imagesArray = []
+  
     for (let i = 0; i < _tokens.length; i++) {
         let img = await htmlToImage.toSvg(_tokens[i]);
-        let imgBlob = new Blob([img], {type: 'image/svg+xml'});
-        imagesArray.push(img)
+        let svgBlob = new Blob([img], {type: 'image/svg+xml'});
+        folder.zip(`token${j+1}.svg` , svgBlob,{binary: true})
+        // imagesArray.push(img)
     }
-    for(let j = 0; j < imagesArray.length; j++){
-        folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false, base64:false, compression:"STORE"});
-    }
+    // for(let j = 0; j < imagesArray.length; j++){
+    //     folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false, base64:false, compression:"STORE"});
+    // }
     let content = await zip.generateAsync({ type: "blob", compression:"STORE" });
 
     let link = document.createElement('a');
