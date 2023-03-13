@@ -48,7 +48,7 @@ const Token = ({ Token }) => {
                                 logoHeight={70}
                                 logoOpacity={0.9}
                                 size={258}
-                                bgColor={Token.template.qrCodeBackgroundColor}
+                                // bgColor={Token.template.qrCodeBackgroundColor}
                                 fgColor={Token.template.qrCodeColor}
                                 eyeRadius={5}
                                 eyeFill={Token.template.qrCodeColor}

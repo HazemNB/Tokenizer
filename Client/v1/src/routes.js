@@ -38,6 +38,7 @@ import ExportTokens from "Views/Tokens/ExportTokens";
 import TokenRedirect from "Views/Tokens/TokenRedirect";
 import ReDiv from "Views/Tokens/TokenRedirect/ReDiv";
 import Scans from "Views/Tokens/Scans";
+import { BsFillHeptagonFill } from "react-icons/bs";
 import { FiFile,FiActivity,FiFastForward,FiFolderMinus } from "react-icons/fi";
 
 const routes = [
@@ -197,7 +198,7 @@ const routes = [
   {
     route: "/Tokens/Export",
     name: "Export Tokens",
-    icon: <FaAirbnb />,
+    icon: <BsFillHeptagonFill />,
     component: <PrivateRoute><ExportTokens/></PrivateRoute>,
     key: "ExportTokens",
     noCollapse: true,
