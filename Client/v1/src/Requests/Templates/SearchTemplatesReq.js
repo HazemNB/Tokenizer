@@ -4,6 +4,7 @@ class SearchTemplatesReq{
         this.Name = undefined;//
         this.Description = undefined;//
         this.Amount = undefined;//
+        this.Approved = undefined;
         this.QrCodeColor = undefined;
         this.QrCodeBackgroundColor = undefined;
         this.BackgroundColor = undefined;

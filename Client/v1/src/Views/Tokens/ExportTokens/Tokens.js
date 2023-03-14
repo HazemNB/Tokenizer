@@ -81,34 +81,72 @@ const Tokens = ({ Tokens }) => {
             
     }
 //Export tokens as svg
-const ExportTokensAsSingleFilesSvg = async () => {
-    let _tokens = document.querySelectorAll(".tokenDiv");
-    const zip = new JSZip({
-        type: 'blob',
-        compression: 'DEFLATE',
-        compressionOptions: {
-          level: 9
-        },
-        encoding: 'UTF-8'
-      });
-    var folder = zip.folder("tokens");
-    
+function downloadSvgZip() {
+    // Assuming you have an array of SVG file paths
+    const svgFiles = ['/path/to/file1.svg', '/path/to/file2.svg', '/path/to/file3.svg'];
   
-    for (let i = 0; i < _tokens.length; i++) {
-        let img = await htmlToImage.toSvg(_tokens[i]);
-        let svgBlob = new Blob([img], {type: 'image/svg+xml'});
-        folder.zip(`token${j+1}.svg` , svgBlob,{binary: true})
-        // imagesArray.push(img)
-    }
+    // Create a new zip file
+    const zip = new JSZip();
+  
+    // Loop through the SVG files array and add each file to the zip file
+    svgFiles.forEach((file, index) => {
+      // Fetch the SVG file contents using a library like Axios or fetch
+      fetch(file)
+        .then((response) => response.text())
+        .then((svgContent) => {
+          // Add the SVG file to the zip file with a unique name
+          zip.file(`file-${index + 1}.svg`, svgContent);
+        });
+    });
+  
+    // Generate the zip file
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      // Create a new anchor tag with a download attribute and click it to download the zip file
+      const anchor = document.createElement('a');
+      anchor.href = URL.createObjectURL(content);
+      anchor.download = 'svg-images.zip';
+      anchor.click();
+    });
+  }
+  
+const ExportTokensAsSingleFilesSvg = async () => {
+ const svgFiles = ['/path/to/file1.svg', '/path/to/file2.svg', '/path/to/file3.svg'];
+
+ const zip = new JSZip();
+
+ svgFiles.forEach((file, index) => {
+   fetch(file)
+    .then((response) => response.text())
+    .then((svgContent) => {
+       zip.file(`file-${index + 1}.svg`, svgContent);
+    });
+});
+
+ zip.generateAsync({ type: 'blob' }).then((content) => {
+ 
+});
+    
+    
+    
+    // let _tokens = document.querySelectorAll(".tokenDiv");
+    // var zip = new JSZip();
+    // var folder = zip.folder("tokens");
+    
+    // let imagesArray = []
+    // for (let i = 0; i < _tokens.length; i++) {
+    //     let img = await htmlToImage.toSvg(_tokens[i]);
+    //     let imgBlob = new Blob([img], {type: 'image/svg+xml'});
+    //     imagesArray.push(img)
+    // }
     // for(let j = 0; j < imagesArray.length; j++){
     //     folder.file(`token${j+1}.svg`, imagesArray[j], {binary: false, base64:false, compression:"STORE"});
     // }
-    let content = await zip.generateAsync({ type: "blob", compression:"STORE" });
+    // let content = await zip.generateAsync({ type: "blob", compression:"STORE" });
 
-    let link = document.createElement('a');
-    link.download = 'tokens.zip';
-    link.href = URL.createObjectURL(content);
-    link.click();
+    // let link = document.createElement('a');
+    // link.download = 'tokens.zip';
+    // link.href = URL.createObjectURL(content);
+    // link.click();
  
  
     // let _tokens = document.querySelectorAll(".tokenDiv");
@@ -166,7 +204,7 @@ const ExportTokensAsSingleFilesSvg = async () => {
                 <SoftButton color="secondary" onClick={() => PrintSVG()}>SVG</SoftButton>
 
                 <SoftButton color="secondary" onClick={() => PrintPNG()}>PNG</SoftButton>
-              <SoftButton color="secondary" onClick={() => ExportTokensAsSingleFilesSvg()}>Export as single files SVG</SoftButton>       
+              <SoftButton color="secondary" onClick={() => downloadSvgZip()}>Export as single files SVG</SoftButton>       
 
                 <SoftButton color="secondary" onClick={() => ExportTokensAsSingleFiles()}>Export as single files</SoftButton>
                 <SoftButton color="secondary"    onClick={() => setToggle(!Toggle)}>Toggle 3d</SoftButton>
