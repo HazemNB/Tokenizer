@@ -4,12 +4,13 @@ using Tokenizer_V1.Models;
 
 namespace Tokenizer_V1.Requests.Templates
 {
-    public class CreateTemplateReq
+    public class SearchTemplateReq
     {
         public int? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal? Amount { get; set; }
+        public bool? Approved { get; set; }
         public string QrCodeColor { get; set; }
         public string QrCodeBackgroundColor { get; set; }
         public string BackgroundColor { get; set; }
@@ -17,20 +18,21 @@ namespace Tokenizer_V1.Requests.Templates
 
         public string CurvedTextTop { get; set; }
         public string CurvedTextBottom { get; set; }
-        public int CurvedTextTopOffset { get; set; }
-        public int CurvedTextBottomOffset { get; set; }
+        public int? CurvedTextTopOffset { get; set; }
+        public int? CurvedTextBottomOffset { get; set; }
 
-        public int TokenTypeId { set; get; }
-        public int TokenTypeOffset { set; get; }
+        public int? TokenTypeId { set; get; }
+        public int? TokenTypeOffset { set; get; }
 
         public string QrCodeUrl { get; set; }
 
-        public bool UseImage { get; set; }
+        public bool? UseImage { get; set; }
         public string AltText { get; set; }
         public IFormFile Image { set; get; }
         public int? ProjectId { get; set; }
 
         public int? CompanyId { get; set; }
 
+        public PagingParams pagingParams { get; set; }
     }
 }

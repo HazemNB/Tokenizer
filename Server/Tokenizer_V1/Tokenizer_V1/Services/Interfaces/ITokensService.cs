@@ -39,7 +39,8 @@ namespace Tokenizer_V1.Services.Interfaces
         Task<DefaultResponse<ExpandoObject>> SearchCompanyTokens(SearchTokensReq req);
         Task<DefaultResponse<string>> CreateTokenTransaction(CreateTokenTransactionRequest req);
         Task<DefaultResponse<PagedList<TokenTransaction>>> SearchTokenTransactions(SearchTokenTransactionsReq req);
-
+        Task<DefaultResponse<string>> ToggleTemplateApproval(IdReq req);
+        Task<DefaultResponse<PagedList<Template>>> SearchTemplates(SearchTemplateReq req);
 
     }
 }
